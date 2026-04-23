@@ -17,3 +17,16 @@ openButton.addEventListener('click', (e) => {
     sidePanel.classList.remove('hidden');
     openButton.classList.add('hidden');
 })
+
+const addProjectBtn = document.getElementById('add-project-btn');
+const addProjectForm = document.querySelector('.add-new-project-container');
+const addEmployeeBtn = document.getElementById('add-employee-btn');
+const addEmployeeForm = document.querySelector('.add-new-employee-container');
+
+addProjectBtn.addEventListener('click', () => {
+    addProjectForm.classList.remove('hidden');
+})
+
+addEmployeeBtn.addEventListener('click', () => {
+    addEmployeeForm.classList.remove('hidden');
+})
