@@ -30,3 +30,28 @@ addProjectBtn.addEventListener('click', () => {
 addEmployeeBtn.addEventListener('click', () => {
     addEmployeeForm.classList.remove('hidden');
 })
+
+const state = {
+    selectedYear: '2026',
+    selectedMonth: '3', // April
+};
+
+const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
+
+function updateDashboard() {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+}
+
+const monthSelect = document.getElementById('month-select');
+const yearSelect = document.getElementById('year-select');
+
+monthSelect.addEventListener('change', (e) => {
+    state.selectedMonth = e.target.value;
+    updateDashboard();
+});
+
+yearSelect.addEventListener('change', (e) => {
+    state.selectedYear = e.target.value;
+    updateDashboard();
+});
