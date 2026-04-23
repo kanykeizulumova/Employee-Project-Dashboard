@@ -19,7 +19,7 @@
                     <option value="0">January</option>
                     <option value="1">February</option>
                     <option value="2">March</option>
-                    <option value="3">April</option>
+                    <option value="3" selected>April</option>
                     <option value="4">May</option>
                     <option value="5">June</option>
                     <option value="6">July</option>
@@ -64,6 +64,108 @@
             </div>
         </div>
     </div>
+
+    <div class="add-new-project-container hidden">
+        <h2>Add New Project</h2>
+        <form novalidate class="contact-form-in">
+            <p>
+                <label for="project-name">
+                    <span>Project Name: *</span>
+                    <input type="text" id="project-name" name="project_name" pattern="[A-Za-zА-Яа-яЁё\s]+" required
+                        minlength="3" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <p>
+                <label for="company-name">
+                    <span>Company Name: *</span>
+                    <input type="text" id="company-name" name="company_name" pattern="[A-Za-zА-Яа-яЁё\s]+" required
+                        minlength="2" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <p>
+                <label for="budget">
+                    <span>Budget: *</span>
+                    <input type="number" id="budget" name="budget" required placeholder="Enter budget amount" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <p>
+                <label for="capacity">
+                    <span>Employee Capacity: *</span>
+                    <input type="number" id="capacity" name="capacity" required placeholder="Number of employees" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <div class="btn-form-submit">
+                <button type="submit" class="button-submit">Add</button>
+                <button type="button" class="button-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+    <div class="add-new-employee-container hidden">
+        <h2>Add New Employee</h2>
+        <form novalidate class="contact-form-in">
+            <p>
+                <label for="employee-name">
+                    <span>Name: *</span>
+                    <input type="text" id="employee-name" name="first_name" pattern="[A-Za-zА-Яа-яЁё\s]+" required
+                        minlength="3" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <p>
+                <label for="employee-surname">
+                    <span>Surname: *</span>
+                    <input type="text" id="employee-surname" name="last_name" pattern="[A-Za-zА-Яа-яЁё\s]+" required
+                        minlength="2" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <p>
+                <label for="dob">
+                    <span>Date of Birth: *</span>
+                    <input type="date" id="dob" name="date_of_birth" required />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <p>
+                <label for="position">Position: *</label>
+                <select id="position" name="position" required>
+                    <option value="">Select position</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Middle">Middle</option>
+                    <option value="Senior">Senior</option>
+                    <option value="Lead">Lead</option>
+                    <option value="Architect">Architect</option>
+                    <option value="BO">BO</option>
+                </select>
+                <span class="error" id="position-error" aria-live="polite"></span>
+            </p>
+
+            <p>
+                <label for="salary">
+                    <span>Salary: *</span>
+                    <input type="number" id="salary" name="salary" required placeholder="Enter salary amount" />
+                    <span class="error" aria-live="polite"></span>
+                </label>
+            </p>
+
+            <div class="btn-form-submit">
+                <button type="submit" class="button-submit">Add</button>
+                <button type="button" class="button-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+
 </body>
 
 </html>
