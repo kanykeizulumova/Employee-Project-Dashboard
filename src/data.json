@@ -1,0 +1,2237 @@
+{
+    "monthlyData": {
+        "2026-0": {
+            "employees": [
+                {
+                    "id": 20260000,
+                    "name": "Frank",
+                    "surname": "Garcia",
+                    "dateofbirth": "1999-06-27",
+                    "position": "Junior",
+                    "salary": 69076,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 888,
+                            "description": "Task for employee 20260000"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260001,
+                    "name": "Bob",
+                    "surname": "Wilson",
+                    "dateofbirth": "1980-06-18",
+                    "position": "BO",
+                    "salary": 99206,
+                    "vacation": 15,
+                    "assignments": [
+                        {
+                            "id": 455,
+                            "description": "Task for employee 20260001"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260002,
+                    "name": "Rose",
+                    "surname": "Martinez",
+                    "dateofbirth": "1997-03-05",
+                    "position": "Lead",
+                    "salary": 52943,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 833,
+                            "description": "Task for employee 20260002"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260003,
+                    "name": "Paul",
+                    "surname": "Garcia",
+                    "dateofbirth": "1986-10-04",
+                    "position": "Middle",
+                    "salary": 48455,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 145,
+                            "description": "Task for employee 20260003"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260004,
+                    "name": "Alice",
+                    "surname": "Rodriguez",
+                    "dateofbirth": "1984-06-06",
+                    "position": "BO",
+                    "salary": 30109,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 395,
+                            "description": "Task for employee 20260004"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260005,
+                    "name": "Eve",
+                    "surname": "Wilson",
+                    "dateofbirth": "1986-05-22",
+                    "position": "BO",
+                    "salary": 78034,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 457,
+                            "description": "Task for employee 20260005"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260006,
+                    "name": "Charlie",
+                    "surname": "Taylor",
+                    "dateofbirth": "1986-12-15",
+                    "position": "Middle",
+                    "salary": 69961,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 711,
+                            "description": "Task for employee 20260006"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260007,
+                    "name": "Charlie",
+                    "surname": "Moore",
+                    "dateofbirth": "1990-01-28",
+                    "position": "Middle",
+                    "salary": 84694,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 167,
+                            "description": "Task for employee 20260007"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2026000,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Zeta",
+                    "budjet": 427329,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20260000
+                    ]
+                },
+                {
+                    "id": 2026001,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Theta",
+                    "budjet": 490485,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20260002
+                    ]
+                },
+                {
+                    "id": 2026002,
+                    "companyName": "Cloud Nine",
+                    "projectname": "Project Beta",
+                    "budjet": 81597,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20260000,
+                        20260001,
+                        20260002
+                    ]
+                },
+                {
+                    "id": 2026003,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Theta",
+                    "budjet": 313143,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20260001,
+                        20260002,
+                        20260003,
+                        20260005
+                    ]
+                }
+            ]
+        },
+        "2026-1": {
+            "employees": [
+                {
+                    "id": 20260100,
+                    "name": "Nina",
+                    "surname": "Martin",
+                    "dateofbirth": "1982-06-02",
+                    "position": "BO",
+                    "salary": 91143,
+                    "vacation": 21,
+                    "assignments": [
+                        {
+                            "id": 14,
+                            "description": "Task for employee 20260100"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260101,
+                    "name": "Steve",
+                    "surname": "Miller",
+                    "dateofbirth": "1993-10-15",
+                    "position": "Junior",
+                    "salary": 57493,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 961,
+                            "description": "Task for employee 20260101"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260102,
+                    "name": "Alice",
+                    "surname": "Jackson",
+                    "dateofbirth": "1993-10-19",
+                    "position": "Architect",
+                    "salary": 97615,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 338,
+                            "description": "Task for employee 20260102"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260103,
+                    "name": "Oscar",
+                    "surname": "Lopez",
+                    "dateofbirth": "1988-04-01",
+                    "position": "Senior",
+                    "salary": 92188,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 971,
+                            "description": "Task for employee 20260103"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260104,
+                    "name": "Steve",
+                    "surname": "Thomas",
+                    "dateofbirth": "1989-11-16",
+                    "position": "Junior",
+                    "salary": 98419,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 982,
+                            "description": "Task for employee 20260104"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2026010,
+                    "companyName": "Smart Data",
+                    "projectname": "Project Alpha",
+                    "budjet": 426872,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20260102,
+                        20260103
+                    ]
+                },
+                {
+                    "id": 2026011,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Iota",
+                    "budjet": 105331,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20260101,
+                        20260102
+                    ]
+                },
+                {
+                    "id": 2026012,
+                    "companyName": "Omni Consumer Products",
+                    "projectname": "Project Epsilon",
+                    "budjet": 335251,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20260101,
+                        20260102,
+                        20260103
+                    ]
+                },
+                {
+                    "id": 2026013,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Zeta",
+                    "budjet": 288175,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20260100,
+                        20260101,
+                        20260103
+                    ]
+                }
+            ]
+        },
+        "2026-2": {
+            "employees": [
+                {
+                    "id": 20260200,
+                    "name": "Karl",
+                    "surname": "Martin",
+                    "dateofbirth": "1992-01-10",
+                    "position": "Middle",
+                    "salary": 50163,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 412,
+                            "description": "Task for employee 20260200"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260201,
+                    "name": "Eve",
+                    "surname": "Jones",
+                    "dateofbirth": "1980-08-19",
+                    "position": "Architect",
+                    "salary": 77721,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 305,
+                            "description": "Task for employee 20260201"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260202,
+                    "name": "David",
+                    "surname": "Thomas",
+                    "dateofbirth": "1989-09-08",
+                    "position": "Architect",
+                    "salary": 80372,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 303,
+                            "description": "Task for employee 20260202"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260203,
+                    "name": "Eve",
+                    "surname": "Brown",
+                    "dateofbirth": "1987-06-11",
+                    "position": "Junior",
+                    "salary": 54998,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 492,
+                            "description": "Task for employee 20260203"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260204,
+                    "name": "Liam",
+                    "surname": "Taylor",
+                    "dateofbirth": "1990-09-14",
+                    "position": "Architect",
+                    "salary": 31404,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 68,
+                            "description": "Task for employee 20260204"
+                        }
+                    ]
+                },
+                {
+                    "id": 20260205,
+                    "name": "Quinn",
+                    "surname": "Garcia",
+                    "dateofbirth": "1981-05-06",
+                    "position": "Lead",
+                    "salary": 98868,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 796,
+                            "description": "Task for employee 20260205"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2026020,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Zeta",
+                    "budjet": 155451,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20260201,
+                        20260202
+                    ]
+                },
+                {
+                    "id": 2026021,
+                    "companyName": "Global Systems",
+                    "projectname": "Project Eta",
+                    "budjet": 255902,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20260200
+                    ]
+                },
+                {
+                    "id": 2026022,
+                    "companyName": "Innovate LLC",
+                    "projectname": "Project Epsilon",
+                    "budjet": 280026,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20260200,
+                        20260201,
+                        20260203,
+                        20260204
+                    ]
+                },
+                {
+                    "id": 2026023,
+                    "companyName": "Innovate LLC",
+                    "projectname": "Project Delta",
+                    "budjet": 459900,
+                    "EmployeeCapacity": 7,
+                    "assignedEmployees": [
+                        20260202,
+                        20260203,
+                        20260204
+                    ]
+                }
+            ]
+        },
+        "2025-0": {
+            "employees": [
+                {
+                    "id": 20250000,
+                    "name": "Oscar",
+                    "surname": "Wilson",
+                    "dateofbirth": "1982-04-20",
+                    "position": "Architect",
+                    "salary": 42444,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 990,
+                            "description": "Task for employee 20250000"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250001,
+                    "name": "Rose",
+                    "surname": "Martinez",
+                    "dateofbirth": "1983-04-08",
+                    "position": "BO",
+                    "salary": 37110,
+                    "vacation": 26,
+                    "assignments": [
+                        {
+                            "id": 661,
+                            "description": "Task for employee 20250001"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250002,
+                    "name": "Charlie",
+                    "surname": "Martin",
+                    "dateofbirth": "1983-09-14",
+                    "position": "Senior",
+                    "salary": 56184,
+                    "vacation": 29,
+                    "assignments": [
+                        {
+                            "id": 989,
+                            "description": "Task for employee 20250002"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250003,
+                    "name": "Jack",
+                    "surname": "Martin",
+                    "dateofbirth": "1984-09-10",
+                    "position": "BO",
+                    "salary": 31720,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 687,
+                            "description": "Task for employee 20250003"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250004,
+                    "name": "Quinn",
+                    "surname": "Smith",
+                    "dateofbirth": "1984-04-17",
+                    "position": "Senior",
+                    "salary": 51787,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 799,
+                            "description": "Task for employee 20250004"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250005,
+                    "name": "Eve",
+                    "surname": "Wilson",
+                    "dateofbirth": "1999-07-18",
+                    "position": "Architect",
+                    "salary": 89499,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 910,
+                            "description": "Task for employee 20250005"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025000,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Beta",
+                    "budjet": 415779,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250001,
+                        20250002
+                    ]
+                },
+                {
+                    "id": 2025001,
+                    "companyName": "Future Soft",
+                    "projectname": "Project Iota",
+                    "budjet": 283382,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250003
+                    ]
+                },
+                {
+                    "id": 2025002,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Theta",
+                    "budjet": 259235,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250000,
+                        20250001
+                    ]
+                }
+            ]
+        },
+        "2025-1": {
+            "employees": [
+                {
+                    "id": 20250100,
+                    "name": "Quinn",
+                    "surname": "Smith",
+                    "dateofbirth": "1987-08-04",
+                    "position": "BO",
+                    "salary": 56269,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 362,
+                            "description": "Task for employee 20250100"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250101,
+                    "name": "Steve",
+                    "surname": "Gonzalez",
+                    "dateofbirth": "1993-07-26",
+                    "position": "BO",
+                    "salary": 31347,
+                    "vacation": 15,
+                    "assignments": [
+                        {
+                            "id": 676,
+                            "description": "Task for employee 20250101"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250102,
+                    "name": "Nina",
+                    "surname": "Martinez",
+                    "dateofbirth": "1995-04-22",
+                    "position": "BO",
+                    "salary": 49041,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 673,
+                            "description": "Task for employee 20250102"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250103,
+                    "name": "Liam",
+                    "surname": "Williams",
+                    "dateofbirth": "1991-04-15",
+                    "position": "BO",
+                    "salary": 74995,
+                    "vacation": 21,
+                    "assignments": [
+                        {
+                            "id": 892,
+                            "description": "Task for employee 20250103"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250104,
+                    "name": "Frank",
+                    "surname": "Brown",
+                    "dateofbirth": "1998-05-16",
+                    "position": "Senior",
+                    "salary": 45450,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 926,
+                            "description": "Task for employee 20250104"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025010,
+                    "companyName": "Omni Consumer Products",
+                    "projectname": "Project Gamma",
+                    "budjet": 429281,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20250102,
+                        20250103
+                    ]
+                },
+                {
+                    "id": 2025011,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Gamma",
+                    "budjet": 155394,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20250100,
+                        20250101,
+                        20250102
+                    ]
+                }
+            ]
+        },
+        "2025-2": {
+            "employees": [
+                {
+                    "id": 20250200,
+                    "name": "Eve",
+                    "surname": "Johnson",
+                    "dateofbirth": "1992-04-25",
+                    "position": "Lead",
+                    "salary": 97864,
+                    "vacation": 21,
+                    "assignments": [
+                        {
+                            "id": 549,
+                            "description": "Task for employee 20250200"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250201,
+                    "name": "Paul",
+                    "surname": "Thomas",
+                    "dateofbirth": "1998-06-02",
+                    "position": "Junior",
+                    "salary": 38330,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 946,
+                            "description": "Task for employee 20250201"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250202,
+                    "name": "Henry",
+                    "surname": "Johnson",
+                    "dateofbirth": "1981-01-08",
+                    "position": "Middle",
+                    "salary": 62443,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 581,
+                            "description": "Task for employee 20250202"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250203,
+                    "name": "Henry",
+                    "surname": "Lopez",
+                    "dateofbirth": "1998-12-14",
+                    "position": "Middle",
+                    "salary": 81454,
+                    "vacation": 29,
+                    "assignments": [
+                        {
+                            "id": 830,
+                            "description": "Task for employee 20250203"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250204,
+                    "name": "Alice",
+                    "surname": "Rodriguez",
+                    "dateofbirth": "1991-03-28",
+                    "position": "BO",
+                    "salary": 57371,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 989,
+                            "description": "Task for employee 20250204"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250205,
+                    "name": "Rose",
+                    "surname": "Williams",
+                    "dateofbirth": "1983-09-14",
+                    "position": "Middle",
+                    "salary": 87406,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 143,
+                            "description": "Task for employee 20250205"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250206,
+                    "name": "Eve",
+                    "surname": "Jackson",
+                    "dateofbirth": "1994-03-12",
+                    "position": "Middle",
+                    "salary": 99295,
+                    "vacation": 21,
+                    "assignments": [
+                        {
+                            "id": 391,
+                            "description": "Task for employee 20250206"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250207,
+                    "name": "Rose",
+                    "surname": "Williams",
+                    "dateofbirth": "1996-08-21",
+                    "position": "Lead",
+                    "salary": 38967,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 754,
+                            "description": "Task for employee 20250207"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025020,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Zeta",
+                    "budjet": 323918,
+                    "EmployeeCapacity": 7,
+                    "assignedEmployees": [
+                        20250200,
+                        20250201,
+                        20250202,
+                        20250204,
+                        20250205
+                    ]
+                },
+                {
+                    "id": 2025021,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Zeta",
+                    "budjet": 274458,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20250200,
+                        20250202,
+                        20250203,
+                        20250204,
+                        20250205
+                    ]
+                },
+                {
+                    "id": 2025022,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Eta",
+                    "budjet": 437151,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20250202,
+                        20250204
+                    ]
+                }
+            ]
+        },
+        "2025-3": {
+            "employees": [
+                {
+                    "id": 20250300,
+                    "name": "Liam",
+                    "surname": "Gonzalez",
+                    "dateofbirth": "1996-10-27",
+                    "position": "Lead",
+                    "salary": 32958,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 570,
+                            "description": "Task for employee 20250300"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250301,
+                    "name": "Grace",
+                    "surname": "Davis",
+                    "dateofbirth": "1999-05-27",
+                    "position": "Architect",
+                    "salary": 72929,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 70,
+                            "description": "Task for employee 20250301"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250302,
+                    "name": "Karl",
+                    "surname": "Martinez",
+                    "dateofbirth": "1997-08-19",
+                    "position": "Junior",
+                    "salary": 41349,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 305,
+                            "description": "Task for employee 20250302"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250303,
+                    "name": "Frank",
+                    "surname": "Williams",
+                    "dateofbirth": "1980-07-23",
+                    "position": "Senior",
+                    "salary": 51911,
+                    "vacation": 21,
+                    "assignments": [
+                        {
+                            "id": 713,
+                            "description": "Task for employee 20250303"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250304,
+                    "name": "Frank",
+                    "surname": "Smith",
+                    "dateofbirth": "1982-05-08",
+                    "position": "Middle",
+                    "salary": 75321,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 973,
+                            "description": "Task for employee 20250304"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250305,
+                    "name": "Quinn",
+                    "surname": "Martin",
+                    "dateofbirth": "1981-03-02",
+                    "position": "Middle",
+                    "salary": 96730,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 347,
+                            "description": "Task for employee 20250305"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250306,
+                    "name": "David",
+                    "surname": "Brown",
+                    "dateofbirth": "1985-11-07",
+                    "position": "Architect",
+                    "salary": 51887,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 631,
+                            "description": "Task for employee 20250306"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025030,
+                    "companyName": "Cloud Nine",
+                    "projectname": "Project Zeta",
+                    "budjet": 122737,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250302,
+                        20250303
+                    ]
+                },
+                {
+                    "id": 2025031,
+                    "companyName": "Future Soft",
+                    "projectname": "Project Epsilon",
+                    "budjet": 349651,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250300
+                    ]
+                },
+                {
+                    "id": 2025032,
+                    "companyName": "Smart Data",
+                    "projectname": "Project Gamma",
+                    "budjet": 234466,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20250300,
+                        20250301,
+                        20250302
+                    ]
+                },
+                {
+                    "id": 2025033,
+                    "companyName": "Global Systems",
+                    "projectname": "Project Gamma",
+                    "budjet": 435215,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20250303,
+                        20250304,
+                        20250305
+                    ]
+                }
+            ]
+        },
+        "2025-4": {
+            "employees": [
+                {
+                    "id": 20250400,
+                    "name": "Alice",
+                    "surname": "Jones",
+                    "dateofbirth": "1981-04-23",
+                    "position": "Middle",
+                    "salary": 35220,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 550,
+                            "description": "Task for employee 20250400"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250401,
+                    "name": "David",
+                    "surname": "Martinez",
+                    "dateofbirth": "1993-04-19",
+                    "position": "BO",
+                    "salary": 63542,
+                    "vacation": 15,
+                    "assignments": [
+                        {
+                            "id": 73,
+                            "description": "Task for employee 20250401"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250402,
+                    "name": "Oscar",
+                    "surname": "Taylor",
+                    "dateofbirth": "1985-07-17",
+                    "position": "Lead",
+                    "salary": 84846,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 287,
+                            "description": "Task for employee 20250402"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250403,
+                    "name": "Jack",
+                    "surname": "Davis",
+                    "dateofbirth": "1980-12-12",
+                    "position": "Architect",
+                    "salary": 46787,
+                    "vacation": 17,
+                    "assignments": [
+                        {
+                            "id": 983,
+                            "description": "Task for employee 20250403"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250404,
+                    "name": "Henry",
+                    "surname": "Garcia",
+                    "dateofbirth": "1999-01-03",
+                    "position": "Senior",
+                    "salary": 66915,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 234,
+                            "description": "Task for employee 20250404"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250405,
+                    "name": "Rose",
+                    "surname": "Jones",
+                    "dateofbirth": "1986-08-09",
+                    "position": "Senior",
+                    "salary": 31991,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 192,
+                            "description": "Task for employee 20250405"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250406,
+                    "name": "Liam",
+                    "surname": "Moore",
+                    "dateofbirth": "1989-01-20",
+                    "position": "Senior",
+                    "salary": 97412,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 799,
+                            "description": "Task for employee 20250406"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250407,
+                    "name": "Rose",
+                    "surname": "Gonzalez",
+                    "dateofbirth": "1987-11-17",
+                    "position": "BO",
+                    "salary": 53620,
+                    "vacation": 15,
+                    "assignments": [
+                        {
+                            "id": 647,
+                            "description": "Task for employee 20250407"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250408,
+                    "name": "Paul",
+                    "surname": "Wilson",
+                    "dateofbirth": "1990-07-16",
+                    "position": "Senior",
+                    "salary": 35919,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 861,
+                            "description": "Task for employee 20250408"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025040,
+                    "companyName": "Cloud Nine",
+                    "projectname": "Project Eta",
+                    "budjet": 112659,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250403
+                    ]
+                },
+                {
+                    "id": 2025041,
+                    "companyName": "Innovate LLC",
+                    "projectname": "Project Epsilon",
+                    "budjet": 328878,
+                    "EmployeeCapacity": 7,
+                    "assignedEmployees": [
+                        20250401,
+                        20250402,
+                        20250403
+                    ]
+                },
+                {
+                    "id": 2025042,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Kappa",
+                    "budjet": 406512,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250401
+                    ]
+                },
+                {
+                    "id": 2025043,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Zeta",
+                    "budjet": 425204,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20250401,
+                        20250403,
+                        20250404
+                    ]
+                }
+            ]
+        },
+        "2025-5": {
+            "employees": [
+                {
+                    "id": 20250500,
+                    "name": "Alice",
+                    "surname": "Garcia",
+                    "dateofbirth": "1993-05-20",
+                    "position": "Middle",
+                    "salary": 38146,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 453,
+                            "description": "Task for employee 20250500"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250501,
+                    "name": "Eve",
+                    "surname": "Davis",
+                    "dateofbirth": "1986-02-18",
+                    "position": "Lead",
+                    "salary": 67751,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 774,
+                            "description": "Task for employee 20250501"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250502,
+                    "name": "Charlie",
+                    "surname": "Martinez",
+                    "dateofbirth": "1995-12-06",
+                    "position": "Architect",
+                    "salary": 88519,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 650,
+                            "description": "Task for employee 20250502"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250503,
+                    "name": "Henry",
+                    "surname": "Miller",
+                    "dateofbirth": "1993-12-10",
+                    "position": "Lead",
+                    "salary": 43978,
+                    "vacation": 15,
+                    "assignments": [
+                        {
+                            "id": 240,
+                            "description": "Task for employee 20250503"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250504,
+                    "name": "Grace",
+                    "surname": "Garcia",
+                    "dateofbirth": "1982-04-25",
+                    "position": "Junior",
+                    "salary": 82589,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 84,
+                            "description": "Task for employee 20250504"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250505,
+                    "name": "David",
+                    "surname": "Thomas",
+                    "dateofbirth": "1993-01-21",
+                    "position": "Architect",
+                    "salary": 43404,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 995,
+                            "description": "Task for employee 20250505"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250506,
+                    "name": "Karl",
+                    "surname": "Miller",
+                    "dateofbirth": "1993-11-13",
+                    "position": "Lead",
+                    "salary": 90285,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 702,
+                            "description": "Task for employee 20250506"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025050,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Iota",
+                    "budjet": 283495,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250500,
+                        20250501,
+                        20250502,
+                        20250503
+                    ]
+                },
+                {
+                    "id": 2025051,
+                    "companyName": "Weyland-Yutani",
+                    "projectname": "Project Eta",
+                    "budjet": 269875,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20250500,
+                        20250501,
+                        20250502,
+                        20250505
+                    ]
+                },
+                {
+                    "id": 2025052,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Eta",
+                    "budjet": 373575,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20250501
+                    ]
+                },
+                {
+                    "id": 2025053,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Eta",
+                    "budjet": 288923,
+                    "EmployeeCapacity": 7,
+                    "assignedEmployees": [
+                        20250501,
+                        20250502,
+                        20250503,
+                        20250505,
+                        20250506
+                    ]
+                }
+            ]
+        },
+        "2025-6": {
+            "employees": [
+                {
+                    "id": 20250600,
+                    "name": "Charlie",
+                    "surname": "Williams",
+                    "dateofbirth": "1986-08-22",
+                    "position": "Senior",
+                    "salary": 51141,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 268,
+                            "description": "Task for employee 20250600"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250601,
+                    "name": "Tara",
+                    "surname": "Martinez",
+                    "dateofbirth": "1984-10-08",
+                    "position": "Lead",
+                    "salary": 75847,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 562,
+                            "description": "Task for employee 20250601"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250602,
+                    "name": "Frank",
+                    "surname": "Gonzalez",
+                    "dateofbirth": "1994-05-04",
+                    "position": "BO",
+                    "salary": 43880,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 803,
+                            "description": "Task for employee 20250602"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250603,
+                    "name": "Charlie",
+                    "surname": "Brown",
+                    "dateofbirth": "1980-10-08",
+                    "position": "BO",
+                    "salary": 80426,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 954,
+                            "description": "Task for employee 20250603"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250604,
+                    "name": "Paul",
+                    "surname": "Taylor",
+                    "dateofbirth": "1989-06-06",
+                    "position": "Architect",
+                    "salary": 85340,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 924,
+                            "description": "Task for employee 20250604"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250605,
+                    "name": "Tara",
+                    "surname": "Martin",
+                    "dateofbirth": "1989-09-04",
+                    "position": "Lead",
+                    "salary": 68762,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 451,
+                            "description": "Task for employee 20250605"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025060,
+                    "companyName": "Innovate LLC",
+                    "projectname": "Project Kappa",
+                    "budjet": 462154,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250603
+                    ]
+                },
+                {
+                    "id": 2025061,
+                    "companyName": "Weyland-Yutani",
+                    "projectname": "Project Eta",
+                    "budjet": 133539,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20250601
+                    ]
+                },
+                {
+                    "id": 2025062,
+                    "companyName": "Omni Consumer Products",
+                    "projectname": "Project Eta",
+                    "budjet": 171274,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20250600,
+                        20250602
+                    ]
+                },
+                {
+                    "id": 2025063,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Theta",
+                    "budjet": 434701,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250600,
+                        20250602
+                    ]
+                }
+            ]
+        },
+        "2025-7": {
+            "employees": [
+                {
+                    "id": 20250700,
+                    "name": "Jack",
+                    "surname": "Miller",
+                    "dateofbirth": "1993-03-24",
+                    "position": "Lead",
+                    "salary": 63769,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 403,
+                            "description": "Task for employee 20250700"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250701,
+                    "name": "Quinn",
+                    "surname": "Brown",
+                    "dateofbirth": "1986-05-17",
+                    "position": "Architect",
+                    "salary": 74681,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 433,
+                            "description": "Task for employee 20250701"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250702,
+                    "name": "Quinn",
+                    "surname": "Martin",
+                    "dateofbirth": "1994-01-02",
+                    "position": "Junior",
+                    "salary": 68323,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 247,
+                            "description": "Task for employee 20250702"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250703,
+                    "name": "Nina",
+                    "surname": "Williams",
+                    "dateofbirth": "1993-03-15",
+                    "position": "Architect",
+                    "salary": 56313,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 784,
+                            "description": "Task for employee 20250703"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250704,
+                    "name": "Karl",
+                    "surname": "Taylor",
+                    "dateofbirth": "1980-06-03",
+                    "position": "Architect",
+                    "salary": 37205,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 59,
+                            "description": "Task for employee 20250704"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250705,
+                    "name": "Henry",
+                    "surname": "Hernandez",
+                    "dateofbirth": "1993-01-18",
+                    "position": "Architect",
+                    "salary": 60135,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 702,
+                            "description": "Task for employee 20250705"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250706,
+                    "name": "Rose",
+                    "surname": "Rodriguez",
+                    "dateofbirth": "1985-12-16",
+                    "position": "Lead",
+                    "salary": 79926,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 917,
+                            "description": "Task for employee 20250706"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025070,
+                    "companyName": "Global Systems",
+                    "projectname": "Project Theta",
+                    "budjet": 338466,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20250700,
+                        20250701,
+                        20250702,
+                        20250704
+                    ]
+                },
+                {
+                    "id": 2025071,
+                    "companyName": "Innovate LLC",
+                    "projectname": "Project Eta",
+                    "budjet": 344461,
+                    "EmployeeCapacity": 7,
+                    "assignedEmployees": [
+                        20250703
+                    ]
+                }
+            ]
+        },
+        "2025-8": {
+            "employees": [
+                {
+                    "id": 20250800,
+                    "name": "Jack",
+                    "surname": "Brown",
+                    "dateofbirth": "1997-04-26",
+                    "position": "Lead",
+                    "salary": 72183,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 498,
+                            "description": "Task for employee 20250800"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250801,
+                    "name": "Paul",
+                    "surname": "Rodriguez",
+                    "dateofbirth": "1994-12-01",
+                    "position": "Lead",
+                    "salary": 72816,
+                    "vacation": 26,
+                    "assignments": [
+                        {
+                            "id": 250,
+                            "description": "Task for employee 20250801"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250802,
+                    "name": "Nina",
+                    "surname": "Smith",
+                    "dateofbirth": "1999-12-25",
+                    "position": "BO",
+                    "salary": 56152,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 70,
+                            "description": "Task for employee 20250802"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250803,
+                    "name": "Jack",
+                    "surname": "Smith",
+                    "dateofbirth": "1984-12-13",
+                    "position": "BO",
+                    "salary": 68750,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 410,
+                            "description": "Task for employee 20250803"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250804,
+                    "name": "Eve",
+                    "surname": "Johnson",
+                    "dateofbirth": "1998-03-18",
+                    "position": "Architect",
+                    "salary": 93278,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 469,
+                            "description": "Task for employee 20250804"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025080,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Zeta",
+                    "budjet": 154729,
+                    "EmployeeCapacity": 5,
+                    "assignedEmployees": [
+                        20250803,
+                        20250804
+                    ]
+                },
+                {
+                    "id": 2025081,
+                    "companyName": "Cloud Nine",
+                    "projectname": "Project Iota",
+                    "budjet": 261263,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20250800,
+                        20250801,
+                        20250802,
+                        20250804
+                    ]
+                },
+                {
+                    "id": 2025082,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Kappa",
+                    "budjet": 153012,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250800,
+                        20250801,
+                        20250802
+                    ]
+                }
+            ]
+        },
+        "2025-9": {
+            "employees": [
+                {
+                    "id": 20250900,
+                    "name": "Grace",
+                    "surname": "Brown",
+                    "dateofbirth": "1997-06-25",
+                    "position": "Lead",
+                    "salary": 96668,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 933,
+                            "description": "Task for employee 20250900"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250901,
+                    "name": "Eve",
+                    "surname": "Smith",
+                    "dateofbirth": "1995-10-05",
+                    "position": "Middle",
+                    "salary": 96601,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 602,
+                            "description": "Task for employee 20250901"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250902,
+                    "name": "Steve",
+                    "surname": "Gonzalez",
+                    "dateofbirth": "1986-02-12",
+                    "position": "Middle",
+                    "salary": 82217,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 626,
+                            "description": "Task for employee 20250902"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250903,
+                    "name": "Bob",
+                    "surname": "Martinez",
+                    "dateofbirth": "1999-03-01",
+                    "position": "Middle",
+                    "salary": 71021,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 576,
+                            "description": "Task for employee 20250903"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250904,
+                    "name": "Jack",
+                    "surname": "Jones",
+                    "dateofbirth": "1994-09-25",
+                    "position": "Junior",
+                    "salary": 54356,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 950,
+                            "description": "Task for employee 20250904"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250905,
+                    "name": "Karl",
+                    "surname": "Brown",
+                    "dateofbirth": "1991-12-28",
+                    "position": "Lead",
+                    "salary": 58182,
+                    "vacation": 21,
+                    "assignments": [
+                        {
+                            "id": 872,
+                            "description": "Task for employee 20250905"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250906,
+                    "name": "Bob",
+                    "surname": "Wilson",
+                    "dateofbirth": "1984-06-04",
+                    "position": "Lead",
+                    "salary": 60275,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 294,
+                            "description": "Task for employee 20250906"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250907,
+                    "name": "Frank",
+                    "surname": "Jackson",
+                    "dateofbirth": "1997-06-12",
+                    "position": "Junior",
+                    "salary": 50544,
+                    "vacation": 20,
+                    "assignments": [
+                        {
+                            "id": 707,
+                            "description": "Task for employee 20250907"
+                        }
+                    ]
+                },
+                {
+                    "id": 20250908,
+                    "name": "Quinn",
+                    "surname": "Taylor",
+                    "dateofbirth": "1991-07-19",
+                    "position": "Senior",
+                    "salary": 66267,
+                    "vacation": 18,
+                    "assignments": [
+                        {
+                            "id": 824,
+                            "description": "Task for employee 20250908"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025090,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Iota",
+                    "budjet": 384957,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250902
+                    ]
+                },
+                {
+                    "id": 2025091,
+                    "companyName": "Cloud Nine",
+                    "projectname": "Project Eta",
+                    "budjet": 127086,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20250900,
+                        20250901,
+                        20250902,
+                        20250903
+                    ]
+                },
+                {
+                    "id": 2025092,
+                    "companyName": "Future Soft",
+                    "projectname": "Project Iota",
+                    "budjet": 493231,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20250900
+                    ]
+                }
+            ]
+        },
+        "2025-10": {
+            "employees": [
+                {
+                    "id": 20251000,
+                    "name": "Grace",
+                    "surname": "Wilson",
+                    "dateofbirth": "1987-09-12",
+                    "position": "BO",
+                    "salary": 80513,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 665,
+                            "description": "Task for employee 20251000"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251001,
+                    "name": "Henry",
+                    "surname": "Martinez",
+                    "dateofbirth": "1998-12-17",
+                    "position": "BO",
+                    "salary": 83205,
+                    "vacation": 28,
+                    "assignments": [
+                        {
+                            "id": 899,
+                            "description": "Task for employee 20251001"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251002,
+                    "name": "Frank",
+                    "surname": "Davis",
+                    "dateofbirth": "1999-02-17",
+                    "position": "Lead",
+                    "salary": 76213,
+                    "vacation": 27,
+                    "assignments": [
+                        {
+                            "id": 687,
+                            "description": "Task for employee 20251002"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251003,
+                    "name": "Oscar",
+                    "surname": "Moore",
+                    "dateofbirth": "1989-01-12",
+                    "position": "BO",
+                    "salary": 55898,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 328,
+                            "description": "Task for employee 20251003"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251004,
+                    "name": "Paul",
+                    "surname": "Hernandez",
+                    "dateofbirth": "1981-05-13",
+                    "position": "Middle",
+                    "salary": 70605,
+                    "vacation": 17,
+                    "assignments": [
+                        {
+                            "id": 170,
+                            "description": "Task for employee 20251004"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251005,
+                    "name": "Liam",
+                    "surname": "Anderson",
+                    "dateofbirth": "1988-01-07",
+                    "position": "Middle",
+                    "salary": 45400,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 427,
+                            "description": "Task for employee 20251005"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251006,
+                    "name": "Bob",
+                    "surname": "Wilson",
+                    "dateofbirth": "1983-02-10",
+                    "position": "Lead",
+                    "salary": 65625,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 451,
+                            "description": "Task for employee 20251006"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251007,
+                    "name": "Henry",
+                    "surname": "Johnson",
+                    "dateofbirth": "1990-07-08",
+                    "position": "Lead",
+                    "salary": 65654,
+                    "vacation": 23,
+                    "assignments": [
+                        {
+                            "id": 749,
+                            "description": "Task for employee 20251007"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025100,
+                    "companyName": "Omni Consumer Products",
+                    "projectname": "Project Theta",
+                    "budjet": 289362,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20251000
+                    ]
+                },
+                {
+                    "id": 2025101,
+                    "companyName": "Weyland-Yutani",
+                    "projectname": "Project Alpha",
+                    "budjet": 408763,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20251000,
+                        20251001,
+                        20251002
+                    ]
+                },
+                {
+                    "id": 2025102,
+                    "companyName": "Stark Industries",
+                    "projectname": "Project Eta",
+                    "budjet": 388418,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20251000,
+                        20251002,
+                        20251003,
+                        20251004,
+                        20251005
+                    ]
+                }
+            ]
+        },
+        "2025-11": {
+            "employees": [
+                {
+                    "id": 20251100,
+                    "name": "Alice",
+                    "surname": "Brown",
+                    "dateofbirth": "1992-08-04",
+                    "position": "Middle",
+                    "salary": 32885,
+                    "vacation": 22,
+                    "assignments": [
+                        {
+                            "id": 9,
+                            "description": "Task for employee 20251100"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251101,
+                    "name": "Quinn",
+                    "surname": "Rodriguez",
+                    "dateofbirth": "1981-06-22",
+                    "position": "Senior",
+                    "salary": 99611,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 825,
+                            "description": "Task for employee 20251101"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251102,
+                    "name": "Henry",
+                    "surname": "Jones",
+                    "dateofbirth": "1983-09-08",
+                    "position": "Middle",
+                    "salary": 98834,
+                    "vacation": 24,
+                    "assignments": [
+                        {
+                            "id": 8,
+                            "description": "Task for employee 20251102"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251103,
+                    "name": "Tara",
+                    "surname": "Rodriguez",
+                    "dateofbirth": "1983-02-03",
+                    "position": "Senior",
+                    "salary": 65096,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 805,
+                            "description": "Task for employee 20251103"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251104,
+                    "name": "Frank",
+                    "surname": "Johnson",
+                    "dateofbirth": "1999-06-08",
+                    "position": "BO",
+                    "salary": 47212,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 939,
+                            "description": "Task for employee 20251104"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251105,
+                    "name": "Eve",
+                    "surname": "Lopez",
+                    "dateofbirth": "1985-06-08",
+                    "position": "Middle",
+                    "salary": 48906,
+                    "vacation": 25,
+                    "assignments": [
+                        {
+                            "id": 165,
+                            "description": "Task for employee 20251105"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251106,
+                    "name": "Bob",
+                    "surname": "Smith",
+                    "dateofbirth": "1992-08-08",
+                    "position": "Lead",
+                    "salary": 89156,
+                    "vacation": 16,
+                    "assignments": [
+                        {
+                            "id": 423,
+                            "description": "Task for employee 20251106"
+                        }
+                    ]
+                },
+                {
+                    "id": 20251107,
+                    "name": "Charlie",
+                    "surname": "Lopez",
+                    "dateofbirth": "1993-05-25",
+                    "position": "Junior",
+                    "salary": 79270,
+                    "vacation": 19,
+                    "assignments": [
+                        {
+                            "id": 54,
+                            "description": "Task for employee 20251107"
+                        }
+                    ]
+                }
+            ],
+            "projects": [
+                {
+                    "id": 2025110,
+                    "companyName": "Tech Solutions",
+                    "projectname": "Project Kappa",
+                    "budjet": 59180,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20251102
+                    ]
+                },
+                {
+                    "id": 2025111,
+                    "companyName": "Cyberdyne",
+                    "projectname": "Project Delta",
+                    "budjet": 124962,
+                    "EmployeeCapacity": 6,
+                    "assignedEmployees": [
+                        20251100,
+                        20251101,
+                        20251102
+                    ]
+                },
+                {
+                    "id": 2025112,
+                    "companyName": "Smart Data",
+                    "projectname": "Project Theta",
+                    "budjet": 83657,
+                    "EmployeeCapacity": 3,
+                    "assignedEmployees": [
+                        20251100,
+                        20251102
+                    ]
+                },
+                {
+                    "id": 2025113,
+                    "companyName": "Omni Consumer Products",
+                    "projectname": "Project Epsilon",
+                    "budjet": 406608,
+                    "EmployeeCapacity": 4,
+                    "assignedEmployees": [
+                        20251102
+                    ]
+                }
+            ]
+        }
+    }
+}
