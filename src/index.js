@@ -67,6 +67,8 @@ yearSelect.addEventListener('change', (e) => {
 
 function renderProjectsTableEmpty() {
     const container = document.getElementById('projects-table-container');
+    const totalIncome = document.getElementById('total-income');
+    totalIncome.innerHTML = `Total Estimated Income: $0.00`;
 
     const tableHtml = `
         <table id="projects-table">
@@ -93,6 +95,8 @@ function renderProjectsTableEmpty() {
 
 function renderProjectsTable(data) {
     const container = document.getElementById('projects-table-container');
+    const totalIncome = document.getElementById('total-income');
+    totalIncome.innerHTML = `Total Estimated Income: ${data.reduce((sum, proj) => sum + (proj.budjet || 0), 0).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
 
     const tableHtml = `
         <table id="projects-table">
@@ -116,15 +120,15 @@ function renderProjectsTable(data) {
                     <tr>
                         <td>${proj.companyName}</td>
                         <td>${proj.projectname}</td>
-                        <td>${proj.budjet}</td>
+                        <td>$ ${Number(proj.budjet).toFixed(2)}</td>
                         <td>${proj.EmployeeCapacity}</td>
                         <td>
                         <button class="show-btn" data-id="${proj.assignedEmployees}">Show Assigned Employees</button>
                         </td>
                         
-                        <td>
+                        <th>
                          <button class="delete-btn" data-id="${proj.id}">Delete</button>
-                        </td>
+                        </th>
                     </tr>
                 `).join('')}
             </tbody>
@@ -183,18 +187,48 @@ function renderEmployeesTable(data) {
                         <td>${emp.surname}</td>
                         <td>${emp.age}</td>
                         <td>${emp.position}</td>
-                        <td>${emp.salary.toLocaleString()}</td>
+                        <td>$ ${emp.salary.toLocaleString()}</td>
                         
                         <td>${emp.projectId}</td>
-                        
-                      <td>
-                         <button class="edit-btn" data-id="${emp.id}">Edit</button>
-                    </td>
-                    </tr>
-                `).join('')}
+                        <td> <button class="show-btn" data-id="${emp.assignments}">Show Assignments</button >
+                        </td >
+
+        <th>
+            <button class="vacation-btn" data-id="${emp.vacation}">Availability</button>
+            <button class="edit-btn" data-id="${emp.id}">Delete</button>
+            <button class="assignment-btn" data-id="${emp.assignments}">Assign</button>
+        </th>
+                    </tr >
+        `).join('')}
             </tbody>
         </table>
     `;
 
     container.innerHTML = tableHtml;
 }
+
+
+
+const navProjects = document.getElementById('nav-projects');
+const navEmployees = document.getElementById('nav-employees');
+const projectsContent = document.getElementById('projects-content');
+const employeesContent = document.getElementById('employees-content');
+
+function setActiveTab(clickedTab) {
+    [navProjects, navEmployees].forEach(tab => tab.classList.remove('active'));
+    clickedTab.classList.add('active');
+}
+
+navProjects.addEventListener('click', (e) => {
+    e.preventDefault();
+    projectsContent.classList.remove('hidden');
+    employeesContent.classList.add('hidden');
+    setActiveTab(navProjects);
+});
+
+navEmployees.addEventListener('click', (e) => {
+    e.preventDefault();
+    employeesContent.classList.remove('hidden');
+    projectsContent.classList.add('hidden');
+    setActiveTab(navEmployees);
+});
