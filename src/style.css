@@ -70,6 +70,7 @@ body {
     color: var(--text-muted);
     margin-bottom: 0.5rem;
     text-transform: uppercase;
+    padding-left: 10px;
 }
 
 .month-select,
@@ -133,6 +134,7 @@ h1 {
     border: 1px solid var(--border-color);
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
 }
 
 table {
@@ -175,9 +177,21 @@ tr:hover {
     background-color: var(--primary-hover);
 }
 
+#toggle-button {
+    background-color: #eef2ff;
+    color: black;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
 .show-btn,
 .delete-btn,
-.edit-btn {
+.edit-btn,
+.vacation-btn,
+.assignment-btn {
     background: transparent;
     border: 1px solid var(--border-color);
     padding: 0.4rem 0.8rem;
@@ -189,7 +203,9 @@ tr:hover {
 
 .edit-btn:hover,
 .show-btn:hover,
-.delete-btn:hover {
+.delete-btn:hover,
+.vacation-btn:hover,
+.assignment-btn:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
     background-color: #f5f3ff;
