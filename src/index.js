@@ -8,6 +8,7 @@ const toggleButton = document.getElementById('toggle-button');
 const sidePanel = document.getElementById('side-panel');
 
 const projectsContainer = document.getElementById('projects-table-container');
+const employeeContainer = document.getElementById('table-container');
 
 toggleButton.addEventListener('click', (e) => {
     sidePanel.classList.add('hidden');
@@ -148,8 +149,6 @@ function renderProjectsTable(data) {
     projectsContainer.innerHTML = tableHtml;
 }
 function renderEmployeesTableEmpty() {
-    const container = document.getElementById('table-container');
-
     const tableHtml = `
         <table id="employees-table">
             <thead>
@@ -168,12 +167,10 @@ function renderEmployeesTableEmpty() {
         </table>
     `;
 
-    container.innerHTML = tableHtml;
+    employeeContainer.innerHTML = tableHtml;
 }
 
 function renderEmployeesTable(data) {
-    const container = document.getElementById('table-container');
-
     const tableHtml = `
         <table id="employees-table">
             <thead>
@@ -198,8 +195,8 @@ function renderEmployeesTable(data) {
                         <td>${emp.position}</td>
                         <td>$ ${emp.salary.toLocaleString()}</td>
                         
-                        <td>${emp.projectId}</td>
-                        <td> <button class="show-btn btn" data-id="${emp.assignments}">Show Assignments</button >
+                        <td>${emp.assignments.map(a => a.projectId).join(', ')}</td>
+                        <td> <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects</button>
                         </td >
 
         <td>
@@ -213,7 +210,7 @@ function renderEmployeesTable(data) {
         </table>
     `;
 
-    container.innerHTML = tableHtml;
+    employeeContainer.innerHTML = tableHtml;
 }
 
 
@@ -294,7 +291,7 @@ function renderEmployeesAssignments(staffList, projectId) {
                 <tbody>
                     ${staffList.map(emp => {
 
-            const job = emp.assignments.find(a => Number(a.id) === Number(projectId)) || emp.assignments[0];
+            const job = emp.assignments.find(a => Number(a.projectId) === Number(projectId)) || emp.assignments[0];
 
             return `
                             <tr>
@@ -303,7 +300,7 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
                                 <button class="edit-btn btn" data-id="${emp.assignments}">Edit assignments</button >
-                                    <button class="unassign-btn btn" data-emp-id="${emp.id}">Unassign</button>
+                                <button class="unassign-btn btn" data-emp-id="${emp.id}">Unassign</button>
                                 </td>
                             </tr>
                         `;
@@ -316,6 +313,88 @@ function renderEmployeesAssignments(staffList, projectId) {
 
     popup.style.display = 'block';
 }
+
+
+employeeContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('show-assignments-btn')) {
+        const employeeId = event.target.getAttribute('data-employee-id');
+        showEmployeeProjects(employeeId);
+    }
+});
+function showEmployeeProjects(employeeId) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const eId = Number(employeeId);
+
+    const employee = currentData.employees.find(e => e.id === eId);
+    if (!employee) return;
+
+    const projectIds = employee.assignments.map(a => a.projectId);
+
+    const assignedProjects = currentData.projects.filter(p =>
+        projectIds.includes(p.id)
+    );
+    renderProjectsInPopup(assignedProjects, employee);
+}
+
+function renderProjectsInPopup(projects, employee) {
+    const popup = document.getElementById('popup-details');
+    const content = document.getElementById('popup-content');
+    const header = document.getElementById('popup-header');
+
+    header.innerHTML = `<h3>Projects for ${employee.name} ${employee.surname}</h3> 
+                        <button class="close-popup-btn btn" onclick="this.closest('#popup-details').style.display='none'">×</button>`;
+
+    if (projects.length === 0) {
+        content.innerHTML = "<p style='padding: 20px;'>This employee has no assignments.</p>";
+    } else {
+        content.innerHTML = `
+            <table id="popup-table">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Capacity</th>
+                        <th>Fit</th>
+                        <th>Vacation</th>
+                        <th>Effective</th>
+                        <th>Revenue</th>
+                        <th>Cost</th>
+                        <th>Profit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${projects.map(proj => {
+            const job = employee.assignments.find(a => a.projectId === proj.id);
+            return `
+                            <tr>
+                                <td>${proj.projectname}</td>
+                                <td>${proj.companyName}</td>
+                                <td>${job ? job.AssignedCapacity : '0'}</td>
+                                <td>${job ? job.ProjectFit : '0'}</td>
+                                <td>
+                                    <button class="edit-btn btn" data-id="${job}">Edit assignments</button >
+                                    <button class="unassign-btn btn" data-project-id="${proj.id}" data-emp-id="${employee.id}">Unassign</button>
+                                </td>
+                            </tr>
+                        `;
+        }).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+    popup.style.display = 'block';
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
