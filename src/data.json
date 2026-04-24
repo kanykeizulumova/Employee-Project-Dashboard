@@ -12,7 +12,12 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 888,
+                            "projectId": 2026000,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.8
+                        },
+                        {
+                            "projectId": 2026002,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.8
                         }
@@ -28,7 +33,12 @@
                     "vacation": 15,
                     "assignments": [
                         {
-                            "id": 455,
+                            "projectId": 2026002,
+                            "AssignedCapacity": 0.5,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2026003,
                             "AssignedCapacity": 0.5,
                             "ProjectFit": 0.2
                         }
@@ -44,7 +54,17 @@
                     "vacation": 27,
                     "assignments": [
                         {
-                            "id": 833,
+                            "projectId": 2026001,
+                            "AssignedCapacity": 1,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2026002,
+                            "AssignedCapacity": 1,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2026003,
                             "AssignedCapacity": 1,
                             "ProjectFit": 0.3
                         }
@@ -60,7 +80,7 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 145,
+                            "projectId": 2026003,
                             "AssignedCapacity": 0.9,
                             "ProjectFit": 0
                         }
@@ -74,13 +94,7 @@
                     "position": "BO",
                     "salary": 30109,
                     "vacation": 22,
-                    "assignments": [
-                        {
-                            "id": 395,
-                            "AssignedCapacity": 0.4,
-                            "ProjectFit": 0.7
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20260005,
@@ -92,7 +106,7 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 457,
+                            "projectId": 2026003,
                             "AssignedCapacity": 0.8,
                             "ProjectFit": 0.1
                         }
@@ -106,13 +120,7 @@
                     "position": "Middle",
                     "salary": 69961,
                     "vacation": 16,
-                    "assignments": [
-                        {
-                            "id": 711,
-                            "AssignedCapacity": 0.4,
-                            "ProjectFit": 0.6
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20260007,
@@ -122,13 +130,7 @@
                     "position": "Middle",
                     "salary": 84694,
                     "vacation": 20,
-                    "assignments": [
-                        {
-                            "id": 167,
-                            "AssignedCapacity": 0.4,
-                            "ProjectFit": 0.8
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -191,7 +193,7 @@
                     "vacation": 21,
                     "assignments": [
                         {
-                            "id": 14,
+                            "projectId": 2026013,
                             "AssignedCapacity": 0,
                             "ProjectFit": 0.3
                         }
@@ -207,7 +209,17 @@
                     "vacation": 16,
                     "assignments": [
                         {
-                            "id": 961,
+                            "projectId": 2026011,
+                            "AssignedCapacity": 0.7,
+                            "ProjectFit": 0.4
+                        },
+                        {
+                            "projectId": 2026012,
+                            "AssignedCapacity": 0.7,
+                            "ProjectFit": 0.4
+                        },
+                        {
+                            "projectId": 2026013,
                             "AssignedCapacity": 0.7,
                             "ProjectFit": 0.4
                         }
@@ -223,7 +235,17 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 338,
+                            "projectId": 2026010,
+                            "AssignedCapacity": 0,
+                            "ProjectFit": 0
+                        },
+                        {
+                            "projectId": 2026011,
+                            "AssignedCapacity": 0,
+                            "ProjectFit": 0
+                        },
+                        {
+                            "projectId": 2026012,
                             "AssignedCapacity": 0,
                             "ProjectFit": 0
                         }
@@ -239,7 +261,17 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 971,
+                            "projectId": 2026010,
+                            "AssignedCapacity": 1.1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2026012,
+                            "AssignedCapacity": 1.1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2026013,
                             "AssignedCapacity": 1.1,
                             "ProjectFit": 0.2
                         }
@@ -253,13 +285,7 @@
                     "position": "Junior",
                     "salary": 98419,
                     "vacation": 16,
-                    "assignments": [
-                        {
-                            "id": 982,
-                            "AssignedCapacity": 0.5,
-                            "ProjectFit": 0.3
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -323,7 +349,12 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 412,
+                            "projectId": 2026021,
+                            "AssignedCapacity": 0.5,
+                            "ProjectFit": 0.4
+                        },
+                        {
+                            "projectId": 2026022,
                             "AssignedCapacity": 0.5,
                             "ProjectFit": 0.4
                         }
@@ -339,7 +370,12 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 305,
+                            "projectId": 2026020,
+                            "AssignedCapacity": 0,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2026022,
                             "AssignedCapacity": 0,
                             "ProjectFit": 0.2
                         }
@@ -355,7 +391,12 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 303,
+                            "projectId": 2026020,
+                            "AssignedCapacity": 0.3,
+                            "ProjectFit": 0.8
+                        },
+                        {
+                            "projectId": 2026023,
                             "AssignedCapacity": 0.3,
                             "ProjectFit": 0.8
                         }
@@ -371,7 +412,12 @@
                     "vacation": 20,
                     "assignments": [
                         {
-                            "id": 492,
+                            "projectId": 2026022,
+                            "AssignedCapacity": 1.4,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2026023,
                             "AssignedCapacity": 1.4,
                             "ProjectFit": 0.3
                         }
@@ -387,7 +433,12 @@
                     "vacation": 27,
                     "assignments": [
                         {
-                            "id": 68,
+                            "projectId": 2026022,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0
+                        },
+                        {
+                            "projectId": 2026023,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0
                         }
@@ -401,13 +452,7 @@
                     "position": "Lead",
                     "salary": 98868,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 796,
-                            "AssignedCapacity": 1.1,
-                            "ProjectFit": 0.1
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -471,14 +516,14 @@
                     "vacation": 16,
                     "assignments": [
                         {
-                            "id": 990,
+                            "projectId": 2025002,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.1
                         }
                     ]
                 },
                 {
-                    "id": 20250001,
+                    "id": 20260002,
                     "name": "Rose",
                     "surname": "Martinez",
                     "dateofbirth": "1983-04-08",
@@ -487,7 +532,12 @@
                     "vacation": 26,
                     "assignments": [
                         {
-                            "id": 661,
+                            "projectId": 2025000,
+                            "AssignedCapacity": 0.8,
+                            "ProjectFit": 0.7
+                        },
+                        {
+                            "projectId": 2025002,
                             "AssignedCapacity": 0.8,
                             "ProjectFit": 0.7
                         }
@@ -503,7 +553,7 @@
                     "vacation": 29,
                     "assignments": [
                         {
-                            "id": 989,
+                            "projectId": 2025000,
                             "AssignedCapacity": 0.3,
                             "ProjectFit": 0.4
                         }
@@ -519,7 +569,7 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 687,
+                            "projectId": 2025001,
                             "AssignedCapacity": 0.6,
                             "ProjectFit": 0.1
                         }
@@ -533,29 +583,17 @@
                     "position": "Senior",
                     "salary": 51787,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 799,
-                            "AssignedCapacity": 0.2,
-                            "ProjectFit": 0.6
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
-                    "id": 20250005,
+                    "id": 20260005,
                     "name": "Eve",
                     "surname": "Wilson",
                     "dateofbirth": "1999-07-18",
                     "position": "Architect",
                     "salary": 89499,
                     "vacation": 16,
-                    "assignments": [
-                        {
-                            "id": 910,
-                            "AssignedCapacity": 0.7,
-                            "ProjectFit": 0.7
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -566,7 +604,7 @@
                     "budjet": 415779,
                     "EmployeeCapacity": 4,
                     "assignedEmployees": [
-                        20250001,
+                        20260002,
                         20250002
                     ]
                 },
@@ -588,7 +626,7 @@
                     "EmployeeCapacity": 4,
                     "assignedEmployees": [
                         20250000,
-                        20250001
+                        20260002
                     ]
                 }
             ]
@@ -596,7 +634,7 @@
         "2025-1": {
             "employees": [
                 {
-                    "id": 20250100,
+                    "id": 20250004,
                     "name": "Quinn",
                     "surname": "Smith",
                     "dateofbirth": "1987-08-04",
@@ -605,7 +643,7 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 362,
+                            "projectId": 2025011,
                             "AssignedCapacity": 1.2,
                             "ProjectFit": 0.2
                         }
@@ -621,7 +659,7 @@
                     "vacation": 15,
                     "assignments": [
                         {
-                            "id": 676,
+                            "projectId": 2025011,
                             "AssignedCapacity": 1.1,
                             "ProjectFit": 0.6
                         }
@@ -637,7 +675,12 @@
                     "vacation": 19,
                     "assignments": [
                         {
-                            "id": 673,
+                            "projectId": 2025010,
+                            "AssignedCapacity": 1.5,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2025011,
                             "AssignedCapacity": 1.5,
                             "ProjectFit": 0.3
                         }
@@ -653,7 +696,7 @@
                     "vacation": 21,
                     "assignments": [
                         {
-                            "id": 892,
+                            "projectId": 2025010,
                             "AssignedCapacity": 0.9,
                             "ProjectFit": 0.7
                         }
@@ -667,13 +710,7 @@
                     "position": "Senior",
                     "salary": 45450,
                     "vacation": 27,
-                    "assignments": [
-                        {
-                            "id": 926,
-                            "AssignedCapacity": 1,
-                            "ProjectFit": 0.8
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -695,7 +732,7 @@
                     "budjet": 155394,
                     "EmployeeCapacity": 5,
                     "assignedEmployees": [
-                        20250100,
+                        20250004,
                         20250101,
                         20250102
                     ]
@@ -714,7 +751,12 @@
                     "vacation": 21,
                     "assignments": [
                         {
-                            "id": 549,
+                            "projectId": 2025020,
+                            "AssignedCapacity": 0.5,
+                            "ProjectFit": 0.6
+                        },
+                        {
+                            "projectId": 2025021,
                             "AssignedCapacity": 0.5,
                             "ProjectFit": 0.6
                         }
@@ -730,7 +772,7 @@
                     "vacation": 19,
                     "assignments": [
                         {
-                            "id": 946,
+                            "projectId": 2025020,
                             "AssignedCapacity": 0.7,
                             "ProjectFit": 1
                         }
@@ -746,7 +788,17 @@
                     "vacation": 16,
                     "assignments": [
                         {
-                            "id": 581,
+                            "projectId": 2025020,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025021,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025022,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.2
                         }
@@ -762,14 +814,14 @@
                     "vacation": 29,
                     "assignments": [
                         {
-                            "id": 830,
+                            "projectId": 2025021,
                             "AssignedCapacity": 1,
                             "ProjectFit": 0.2
                         }
                     ]
                 },
                 {
-                    "id": 20250204,
+                    "id": 20260004,
                     "name": "Alice",
                     "surname": "Rodriguez",
                     "dateofbirth": "1991-03-28",
@@ -778,7 +830,17 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 989,
+                            "projectId": 2025020,
+                            "AssignedCapacity": 0.4,
+                            "ProjectFit": 0.9
+                        },
+                        {
+                            "projectId": 2025021,
+                            "AssignedCapacity": 0.4,
+                            "ProjectFit": 0.9
+                        },
+                        {
+                            "projectId": 2025022,
                             "AssignedCapacity": 0.4,
                             "ProjectFit": 0.9
                         }
@@ -794,7 +856,12 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 143,
+                            "projectId": 2025020,
+                            "AssignedCapacity": 0.4,
+                            "ProjectFit": 0.7
+                        },
+                        {
+                            "projectId": 2025021,
                             "AssignedCapacity": 0.4,
                             "ProjectFit": 0.7
                         }
@@ -808,29 +875,7 @@
                     "position": "Middle",
                     "salary": 99295,
                     "vacation": 21,
-                    "assignments": [
-                        {
-                            "id": 391,
-                            "AssignedCapacity": 1.1,
-                            "ProjectFit": 0.9
-                        }
-                    ]
-                },
-                {
-                    "id": 20250207,
-                    "name": "Rose",
-                    "surname": "Williams",
-                    "dateofbirth": "1996-08-21",
-                    "position": "Lead",
-                    "salary": 38967,
-                    "vacation": 25,
-                    "assignments": [
-                        {
-                            "id": 754,
-                            "AssignedCapacity": 0.4,
-                            "ProjectFit": 0
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -844,7 +889,7 @@
                         20250200,
                         20250201,
                         20250202,
-                        20250204,
+                        20260004,
                         20250205
                     ]
                 },
@@ -858,7 +903,7 @@
                         20250200,
                         20250202,
                         20250203,
-                        20250204,
+                        20260004,
                         20250205
                     ]
                 },
@@ -870,7 +915,7 @@
                     "EmployeeCapacity": 5,
                     "assignedEmployees": [
                         20250202,
-                        20250204
+                        20260004
                     ]
                 }
             ]
@@ -887,7 +932,12 @@
                     "vacation": 25,
                     "assignments": [
                         {
-                            "id": 570,
+                            "projectId": 2025031,
+                            "AssignedCapacity": 1.4,
+                            "ProjectFit": 0.1
+                        },
+                        {
+                            "projectId": 2025032,
                             "AssignedCapacity": 1.4,
                             "ProjectFit": 0.1
                         }
@@ -903,7 +953,7 @@
                     "vacation": 20,
                     "assignments": [
                         {
-                            "id": 70,
+                            "projectId": 2025032,
                             "AssignedCapacity": 0.9,
                             "ProjectFit": 0.6
                         }
@@ -919,7 +969,12 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 305,
+                            "projectId": 2025030,
+                            "AssignedCapacity": 0,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2025032,
                             "AssignedCapacity": 0,
                             "ProjectFit": 0.3
                         }
@@ -935,7 +990,12 @@
                     "vacation": 21,
                     "assignments": [
                         {
-                            "id": 713,
+                            "projectId": 2025030,
+                            "AssignedCapacity": 0.2,
+                            "ProjectFit": 0.8
+                        },
+                        {
+                            "projectId": 2025033,
                             "AssignedCapacity": 0.2,
                             "ProjectFit": 0.8
                         }
@@ -951,7 +1011,7 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 973,
+                            "projectId": 2025033,
                             "AssignedCapacity": 0.9,
                             "ProjectFit": 0.8
                         }
@@ -967,7 +1027,7 @@
                     "vacation": 20,
                     "assignments": [
                         {
-                            "id": 347,
+                            "projectId": 2025033,
                             "AssignedCapacity": 0.8,
                             "ProjectFit": 0.4
                         }
@@ -981,13 +1041,7 @@
                     "position": "Architect",
                     "salary": 51887,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 631,
-                            "AssignedCapacity": 0.6,
-                            "ProjectFit": 0.4
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -1048,13 +1102,7 @@
                     "position": "Middle",
                     "salary": 35220,
                     "vacation": 24,
-                    "assignments": [
-                        {
-                            "id": 550,
-                            "AssignedCapacity": 1.1,
-                            "ProjectFit": 0.1
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250401,
@@ -1066,7 +1114,17 @@
                     "vacation": 15,
                     "assignments": [
                         {
-                            "id": 73,
+                            "projectId": 2025041,
+                            "AssignedCapacity": 0.6,
+                            "ProjectFit": 0.8
+                        },
+                        {
+                            "projectId": 2025042,
+                            "AssignedCapacity": 0.6,
+                            "ProjectFit": 0.8
+                        },
+                        {
+                            "projectId": 2025043,
                             "AssignedCapacity": 0.6,
                             "ProjectFit": 0.8
                         }
@@ -1082,7 +1140,7 @@
                     "vacation": 20,
                     "assignments": [
                         {
-                            "id": 287,
+                            "projectId": 2025041,
                             "AssignedCapacity": 0.9,
                             "ProjectFit": 0.9
                         }
@@ -1098,7 +1156,17 @@
                     "vacation": 17,
                     "assignments": [
                         {
-                            "id": 983,
+                            "projectId": 2025040,
+                            "AssignedCapacity": 1.2,
+                            "ProjectFit": 0.1
+                        },
+                        {
+                            "projectId": 2025041,
+                            "AssignedCapacity": 1.2,
+                            "ProjectFit": 0.1
+                        },
+                        {
+                            "projectId": 2025043,
                             "AssignedCapacity": 1.2,
                             "ProjectFit": 0.1
                         }
@@ -1114,7 +1182,7 @@
                     "vacation": 16,
                     "assignments": [
                         {
-                            "id": 234,
+                            "projectId": 2025043,
                             "AssignedCapacity": 1.5,
                             "ProjectFit": 0.7
                         }
@@ -1128,13 +1196,7 @@
                     "position": "Senior",
                     "salary": 31991,
                     "vacation": 27,
-                    "assignments": [
-                        {
-                            "id": 192,
-                            "AssignedCapacity": 1.4,
-                            "ProjectFit": 0.6
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250406,
@@ -1144,13 +1206,7 @@
                     "position": "Senior",
                     "salary": 97412,
                     "vacation": 24,
-                    "assignments": [
-                        {
-                            "id": 799,
-                            "AssignedCapacity": 0.5,
-                            "ProjectFit": 0.9
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250407,
@@ -1160,13 +1216,7 @@
                     "position": "BO",
                     "salary": 53620,
                     "vacation": 15,
-                    "assignments": [
-                        {
-                            "id": 647,
-                            "AssignedCapacity": 0.9,
-                            "ProjectFit": 0.4
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250408,
@@ -1176,13 +1226,7 @@
                     "position": "Senior",
                     "salary": 35919,
                     "vacation": 25,
-                    "assignments": [
-                        {
-                            "id": 861,
-                            "AssignedCapacity": 0.2,
-                            "ProjectFit": 0.5
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -1244,7 +1288,12 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 453,
+                            "projectId": 2025050,
+                            "AssignedCapacity": 0.4,
+                            "ProjectFit": 0
+                        },
+                        {
+                            "projectId": 2025051,
                             "AssignedCapacity": 0.4,
                             "ProjectFit": 0
                         }
@@ -1260,7 +1309,22 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 774,
+                            "projectId": 2025050,
+                            "AssignedCapacity": 1.2,
+                            "ProjectFit": 0.9
+                        },
+                        {
+                            "projectId": 2025051,
+                            "AssignedCapacity": 1.2,
+                            "ProjectFit": 0.9
+                        },
+                        {
+                            "projectId": 2025052,
+                            "AssignedCapacity": 1.2,
+                            "ProjectFit": 0.9
+                        },
+                        {
+                            "projectId": 2025053,
                             "AssignedCapacity": 1.2,
                             "ProjectFit": 0.9
                         }
@@ -1276,7 +1340,17 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 650,
+                            "projectId": 2025050,
+                            "AssignedCapacity": 0.5,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025051,
+                            "AssignedCapacity": 0.5,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025053,
                             "AssignedCapacity": 0.5,
                             "ProjectFit": 0.2
                         }
@@ -1292,7 +1366,12 @@
                     "vacation": 15,
                     "assignments": [
                         {
-                            "id": 240,
+                            "projectId": 2025050,
+                            "AssignedCapacity": 1.4,
+                            "ProjectFit": 0.1
+                        },
+                        {
+                            "projectId": 2025053,
                             "AssignedCapacity": 1.4,
                             "ProjectFit": 0.1
                         }
@@ -1306,16 +1385,10 @@
                     "position": "Junior",
                     "salary": 82589,
                     "vacation": 23,
-                    "assignments": [
-                        {
-                            "id": 84,
-                            "AssignedCapacity": 1.4,
-                            "ProjectFit": 0.5
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
-                    "id": 20250505,
+                    "id": 20260202,
                     "name": "David",
                     "surname": "Thomas",
                     "dateofbirth": "1993-01-21",
@@ -1324,7 +1397,12 @@
                     "vacation": 25,
                     "assignments": [
                         {
-                            "id": 995,
+                            "projectId": 2025051,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.4
+                        },
+                        {
+                            "projectId": 2025053,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.4
                         }
@@ -1340,7 +1418,7 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 702,
+                            "projectId": 2025053,
                             "AssignedCapacity": 0.7,
                             "ProjectFit": 0.3
                         }
@@ -1371,7 +1449,7 @@
                         20250500,
                         20250501,
                         20250502,
-                        20250505
+                        20260202
                     ]
                 },
                 {
@@ -1394,7 +1472,7 @@
                         20250501,
                         20250502,
                         20250503,
-                        20250505,
+                        20260202,
                         20250506
                     ]
                 }
@@ -1412,7 +1490,12 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 268,
+                            "projectId": 2025062,
+                            "AssignedCapacity": 0.7,
+                            "ProjectFit": 0.1
+                        },
+                        {
+                            "projectId": 2025063,
                             "AssignedCapacity": 0.7,
                             "ProjectFit": 0.1
                         }
@@ -1428,7 +1511,7 @@
                     "vacation": 16,
                     "assignments": [
                         {
-                            "id": 562,
+                            "projectId": 2025061,
                             "AssignedCapacity": 0.8,
                             "ProjectFit": 0.4
                         }
@@ -1444,7 +1527,12 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 803,
+                            "projectId": 2025062,
+                            "AssignedCapacity": 0.6,
+                            "ProjectFit": 0.6
+                        },
+                        {
+                            "projectId": 2025063,
                             "AssignedCapacity": 0.6,
                             "ProjectFit": 0.6
                         }
@@ -1460,7 +1548,7 @@
                     "vacation": 27,
                     "assignments": [
                         {
-                            "id": 954,
+                            "projectId": 2025060,
                             "AssignedCapacity": 0.4,
                             "ProjectFit": 0.1
                         }
@@ -1474,13 +1562,7 @@
                     "position": "Architect",
                     "salary": 85340,
                     "vacation": 27,
-                    "assignments": [
-                        {
-                            "id": 924,
-                            "AssignedCapacity": 0.3,
-                            "ProjectFit": 0.8
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250605,
@@ -1490,13 +1572,7 @@
                     "position": "Lead",
                     "salary": 68762,
                     "vacation": 27,
-                    "assignments": [
-                        {
-                            "id": 451,
-                            "AssignedCapacity": 0.2,
-                            "ProjectFit": 0.7
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -1556,7 +1632,7 @@
                     "vacation": 27,
                     "assignments": [
                         {
-                            "id": 403,
+                            "projectId": 2025070,
                             "AssignedCapacity": 1.4,
                             "ProjectFit": 0
                         }
@@ -1572,14 +1648,14 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 433,
+                            "projectId": 2025070,
                             "AssignedCapacity": 1,
                             "ProjectFit": 0.7
                         }
                     ]
                 },
                 {
-                    "id": 20250702,
+                    "id": 20250305,
                     "name": "Quinn",
                     "surname": "Martin",
                     "dateofbirth": "1994-01-02",
@@ -1588,7 +1664,7 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 247,
+                            "projectId": 2025070,
                             "AssignedCapacity": 0.3,
                             "ProjectFit": 0.7
                         }
@@ -1604,7 +1680,7 @@
                     "vacation": 20,
                     "assignments": [
                         {
-                            "id": 784,
+                            "projectId": 2025071,
                             "AssignedCapacity": 1,
                             "ProjectFit": 0.2
                         }
@@ -1620,7 +1696,7 @@
                     "vacation": 25,
                     "assignments": [
                         {
-                            "id": 59,
+                            "projectId": 2025070,
                             "AssignedCapacity": 0.6,
                             "ProjectFit": 0.4
                         }
@@ -1634,13 +1710,7 @@
                     "position": "Architect",
                     "salary": 60135,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 702,
-                            "AssignedCapacity": 1,
-                            "ProjectFit": 0.2
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250706,
@@ -1650,13 +1720,7 @@
                     "position": "Lead",
                     "salary": 79926,
                     "vacation": 18,
-                    "assignments": [
-                        {
-                            "id": 917,
-                            "AssignedCapacity": 1.3,
-                            "ProjectFit": 0.5
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -1669,7 +1733,7 @@
                     "assignedEmployees": [
                         20250700,
                         20250701,
-                        20250702,
+                        20250305,
                         20250704
                     ]
                 },
@@ -1697,7 +1761,12 @@
                     "vacation": 27,
                     "assignments": [
                         {
-                            "id": 498,
+                            "projectId": 2025081,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.9
+                        },
+                        {
+                            "projectId": 2025082,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.9
                         }
@@ -1713,7 +1782,12 @@
                     "vacation": 26,
                     "assignments": [
                         {
-                            "id": 250,
+                            "projectId": 2025081,
+                            "AssignedCapacity": 1.1,
+                            "ProjectFit": 0.6
+                        },
+                        {
+                            "projectId": 2025082,
                             "AssignedCapacity": 1.1,
                             "ProjectFit": 0.6
                         }
@@ -1729,7 +1803,12 @@
                     "vacation": 18,
                     "assignments": [
                         {
-                            "id": 70,
+                            "projectId": 2025081,
+                            "AssignedCapacity": 1.4,
+                            "ProjectFit": 0.5
+                        },
+                        {
+                            "projectId": 2025082,
                             "AssignedCapacity": 1.4,
                             "ProjectFit": 0.5
                         }
@@ -1745,14 +1824,14 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 410,
+                            "projectId": 2025080,
                             "AssignedCapacity": 1.5,
                             "ProjectFit": 0.2
                         }
                     ]
                 },
                 {
-                    "id": 20250804,
+                    "id": 20250200,
                     "name": "Eve",
                     "surname": "Johnson",
                     "dateofbirth": "1998-03-18",
@@ -1761,7 +1840,12 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 469,
+                            "projectId": 2025080,
+                            "AssignedCapacity": 0.6,
+                            "ProjectFit": 0
+                        },
+                        {
+                            "projectId": 2025081,
                             "AssignedCapacity": 0.6,
                             "ProjectFit": 0
                         }
@@ -1777,7 +1861,7 @@
                     "EmployeeCapacity": 5,
                     "assignedEmployees": [
                         20250803,
-                        20250804
+                        20250200
                     ]
                 },
                 {
@@ -1790,7 +1874,7 @@
                         20250800,
                         20250801,
                         20250802,
-                        20250804
+                        20250200
                     ]
                 },
                 {
@@ -1819,7 +1903,12 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 933,
+                            "projectId": 2025091,
+                            "AssignedCapacity": 0.2,
+                            "ProjectFit": 0.6
+                        },
+                        {
+                            "projectId": 2025092,
                             "AssignedCapacity": 0.2,
                             "ProjectFit": 0.6
                         }
@@ -1835,14 +1924,14 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 602,
+                            "projectId": 2025091,
                             "AssignedCapacity": 0.3,
                             "ProjectFit": 0.3
                         }
                     ]
                 },
                 {
-                    "id": 20250902,
+                    "id": 20250101,
                     "name": "Steve",
                     "surname": "Gonzalez",
                     "dateofbirth": "1986-02-12",
@@ -1851,7 +1940,12 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 626,
+                            "projectId": 2025090,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.7
+                        },
+                        {
+                            "projectId": 2025091,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.7
                         }
@@ -1867,7 +1961,7 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 576,
+                            "projectId": 2025091,
                             "AssignedCapacity": 0.9,
                             "ProjectFit": 0.6
                         }
@@ -1881,13 +1975,7 @@
                     "position": "Junior",
                     "salary": 54356,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 950,
-                            "AssignedCapacity": 1.3,
-                            "ProjectFit": 0.1
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250905,
@@ -1897,29 +1985,17 @@
                     "position": "Lead",
                     "salary": 58182,
                     "vacation": 21,
-                    "assignments": [
-                        {
-                            "id": 872,
-                            "AssignedCapacity": 1,
-                            "ProjectFit": 0.2
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
-                    "id": 20250906,
+                    "id": 20260001,
                     "name": "Bob",
                     "surname": "Wilson",
                     "dateofbirth": "1984-06-04",
                     "position": "Lead",
                     "salary": 60275,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 294,
-                            "AssignedCapacity": 1.1,
-                            "ProjectFit": 0.2
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250907,
@@ -1929,13 +2005,7 @@
                     "position": "Junior",
                     "salary": 50544,
                     "vacation": 20,
-                    "assignments": [
-                        {
-                            "id": 707,
-                            "AssignedCapacity": 1.2,
-                            "ProjectFit": 0.3
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20250908,
@@ -1945,13 +2015,7 @@
                     "position": "Senior",
                     "salary": 66267,
                     "vacation": 18,
-                    "assignments": [
-                        {
-                            "id": 824,
-                            "AssignedCapacity": 0,
-                            "ProjectFit": 0.3
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -1962,7 +2026,7 @@
                     "budjet": 384957,
                     "EmployeeCapacity": 4,
                     "assignedEmployees": [
-                        20250902
+                        20250101
                     ]
                 },
                 {
@@ -1974,7 +2038,7 @@
                     "assignedEmployees": [
                         20250900,
                         20250901,
-                        20250902,
+                        20250101,
                         20250903
                     ]
                 },
@@ -2002,7 +2066,17 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 665,
+                            "projectId": 2025100,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2025101,
+                            "AssignedCapacity": 0.1,
+                            "ProjectFit": 0.3
+                        },
+                        {
+                            "projectId": 2025102,
                             "AssignedCapacity": 0.1,
                             "ProjectFit": 0.3
                         }
@@ -2018,7 +2092,7 @@
                     "vacation": 28,
                     "assignments": [
                         {
-                            "id": 899,
+                            "projectId": 2025101,
                             "AssignedCapacity": 0.8,
                             "ProjectFit": 0.1
                         }
@@ -2034,7 +2108,12 @@
                     "vacation": 27,
                     "assignments": [
                         {
-                            "id": 687,
+                            "projectId": 2025101,
+                            "AssignedCapacity": 1,
+                            "ProjectFit": 0.1
+                        },
+                        {
+                            "projectId": 2025102,
                             "AssignedCapacity": 1,
                             "ProjectFit": 0.1
                         }
@@ -2050,7 +2129,7 @@
                     "vacation": 23,
                     "assignments": [
                         {
-                            "id": 328,
+                            "projectId": 2025102,
                             "AssignedCapacity": 0.4,
                             "ProjectFit": 0.1
                         }
@@ -2066,7 +2145,7 @@
                     "vacation": 17,
                     "assignments": [
                         {
-                            "id": 170,
+                            "projectId": 2025102,
                             "AssignedCapacity": 1.3,
                             "ProjectFit": 0.6
                         }
@@ -2082,43 +2161,31 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 427,
+                            "projectId": 2025102,
                             "AssignedCapacity": 1.2,
                             "ProjectFit": 0.3
                         }
                     ]
                 },
                 {
-                    "id": 20251006,
+                    "id": 20260001,
                     "name": "Bob",
                     "surname": "Wilson",
                     "dateofbirth": "1983-02-10",
                     "position": "Lead",
                     "salary": 65625,
                     "vacation": 25,
-                    "assignments": [
-                        {
-                            "id": 451,
-                            "AssignedCapacity": 0,
-                            "ProjectFit": 0.7
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
-                    "id": 20251007,
+                    "id": 20250202,
                     "name": "Henry",
                     "surname": "Johnson",
                     "dateofbirth": "1990-07-08",
                     "position": "Lead",
                     "salary": 65654,
                     "vacation": 23,
-                    "assignments": [
-                        {
-                            "id": 749,
-                            "AssignedCapacity": 1.2,
-                            "ProjectFit": 0.7
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
@@ -2172,7 +2239,12 @@
                     "vacation": 22,
                     "assignments": [
                         {
-                            "id": 9,
+                            "projectId": 2025111,
+                            "AssignedCapacity": 0.7,
+                            "ProjectFit": 0.7
+                        },
+                        {
+                            "projectId": 2025112,
                             "AssignedCapacity": 0.7,
                             "ProjectFit": 0.7
                         }
@@ -2188,7 +2260,7 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 825,
+                            "projectId": 2025111,
                             "AssignedCapacity": 1.3,
                             "ProjectFit": 0.1
                         }
@@ -2204,7 +2276,22 @@
                     "vacation": 24,
                     "assignments": [
                         {
-                            "id": 8,
+                            "projectId": 2025110,
+                            "AssignedCapacity": 1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025111,
+                            "AssignedCapacity": 1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025112,
+                            "AssignedCapacity": 1,
+                            "ProjectFit": 0.2
+                        },
+                        {
+                            "projectId": 2025113,
                             "AssignedCapacity": 1,
                             "ProjectFit": 0.2
                         }
@@ -2218,13 +2305,7 @@
                     "position": "Senior",
                     "salary": 65096,
                     "vacation": 16,
-                    "assignments": [
-                        {
-                            "id": 805,
-                            "AssignedCapacity": 1,
-                            "ProjectFit": 0.1
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20251104,
@@ -2234,13 +2315,7 @@
                     "position": "BO",
                     "salary": 47212,
                     "vacation": 25,
-                    "assignments": [
-                        {
-                            "id": 939,
-                            "AssignedCapacity": 1.3,
-                            "ProjectFit": 0.9
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20251105,
@@ -2250,13 +2325,7 @@
                     "position": "Middle",
                     "salary": 48906,
                     "vacation": 25,
-                    "assignments": [
-                        {
-                            "id": 165,
-                            "AssignedCapacity": 1.1,
-                            "ProjectFit": 0.7
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20251106,
@@ -2266,13 +2335,7 @@
                     "position": "Lead",
                     "salary": 89156,
                     "vacation": 16,
-                    "assignments": [
-                        {
-                            "id": 423,
-                            "AssignedCapacity": 1.1,
-                            "ProjectFit": 0.9
-                        }
-                    ]
+                    "assignments": []
                 },
                 {
                     "id": 20251107,
@@ -2282,13 +2345,7 @@
                     "position": "Junior",
                     "salary": 79270,
                     "vacation": 19,
-                    "assignments": [
-                        {
-                            "id": 54,
-                            "AssignedCapacity": 0.7,
-                            "ProjectFit": 0.1
-                        }
-                    ]
+                    "assignments": []
                 }
             ],
             "projects": [
