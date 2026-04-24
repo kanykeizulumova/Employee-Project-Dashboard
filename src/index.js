@@ -7,6 +7,7 @@ const openButton = document.getElementById('open-button');
 const toggleButton = document.getElementById('toggle-button');
 const sidePanel = document.getElementById('side-panel');
 
+const projectsContainer = document.getElementById('projects-table-container');
 
 toggleButton.addEventListener('click', (e) => {
     sidePanel.classList.add('hidden');
@@ -22,6 +23,8 @@ const addProjectBtn = document.getElementById('add-project-btn');
 const addProjectForm = document.querySelector('.add-new-project-container');
 const addEmployeeBtn = document.getElementById('add-employee-btn');
 const addEmployeeForm = document.querySelector('.add-new-employee-container');
+const employeeCancelBtn = document.getElementById('employee-cancel');
+const projectCancelBtn = document.getElementById('project-cancel');
 
 addProjectBtn.addEventListener('click', () => {
     addProjectForm.classList.remove('hidden');
@@ -29,6 +32,15 @@ addProjectBtn.addEventListener('click', () => {
 
 addEmployeeBtn.addEventListener('click', () => {
     addEmployeeForm.classList.remove('hidden');
+})
+
+
+employeeCancelBtn.addEventListener('click', () => {
+    addEmployeeForm.classList.add('hidden')
+})
+
+projectCancelBtn.addEventListener('click', () => {
+    addProjectForm.classList.add('hidden')
 })
 
 const state = {
@@ -93,13 +105,16 @@ function renderProjectsTableEmpty() {
 }
 
 function renderProjectsTable(data) {
+    const projectsContainer = document.getElementById('projects-table-container');
     const totalIncome = document.getElementById('total-income');
-    totalIncome.innerHTML = `Total Estimated Income: ${data.reduce((sum, proj) => sum + (proj.budjet || 0), 0).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
+
+    const total = data.reduce((sum, proj) => sum + (Number(proj.budjet) || 0), 0);
+    totalIncome.innerHTML = `Total Estimated Income: $${total.toLocaleString()}`;
 
     const tableHtml = `
         <table id="projects-table">
             <thead>
-                <tr>
+               <tr>
                     <th class="sortable filterable" data-sort="companyName" data-filter="companyName">
                         Company Name <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span>
                     </th>
@@ -118,24 +133,20 @@ function renderProjectsTable(data) {
                     <tr>
                         <td>${proj.companyName}</td>
                         <td>${proj.projectname}</td>
-                        <td>$ ${Number(proj.budjet).toFixed(2)}</td>
-                        <td>${proj.EmployeeCapacity}</td>
+                        <td>$ ${Number(proj.budjet).toLocaleString()}</td>
                         <td>
-                        <button class="show-btn btn" data-id="${proj.assignedEmployees}">Show Assigned Employees</button>
+                            <button class="show-btn btn" data-project-id="${proj.id}">Show Assigned Employees</button>
                         </td>
-                        
                         <td>
-                         <button class="delete-btn btn" data-id="${proj.id}">Delete</button>
+                             <button class="delete-btn btn" data-id="${proj.id}">Delete</button>
                         </td>
                     </tr>
                 `).join('')}
             </tbody>
         </table>
     `;
-
     projectsContainer.innerHTML = tableHtml;
 }
-
 function renderEmployeesTableEmpty() {
     const container = document.getElementById('table-container');
 
@@ -231,62 +242,84 @@ navEmployees.addEventListener('click', (e) => {
     setActiveTab(navEmployees);
 });
 
-const projectsContainer = document.getElementById('projects-table-container');
 
-projectsContainer.addEventListener('click', (e) => {
-    if (e.target.classList.contains('show-btn')) {
-        const projectId = e.target.getAttribute('data-project-id');
+
+projectsContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('show-btn')) {
+        const projectId = event.target.getAttribute('data-project-id');
         showProjectStaff(projectId);
     }
 });
 
 function showProjectStaff(projectId) {
-    const currentData = catalogDt.monthlyData[getPeriodKey()];
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const pId = Number(projectId);
+
+    const targetProject = currentData.projects.find(p => p.id === pId);
+    const employeeIds = targetProject.assignedEmployees;
+
     const assignedStaff = currentData.employees.filter(emp =>
-        emp.assignments.id == projectId || (emp.assignments && emp.assignments.includes(Number(projectId)))
+        employeeIds.includes(emp.id)
     );
 
-    renderEmployeesAssignments(assignedStaff);
+    renderEmployeesAssignments(assignedStaff, pId);
 }
 
-function renderEmployeesAssignments(data) {
-    const popupDetails = document.getElementById('popup-details')
-    popupDetails.style.display = '';
+function renderEmployeesAssignments(staffList, projectId) {
+    const popup = document.getElementById('popup-details');
+    const content = document.getElementById('popup-content');
     const header = document.getElementById('popup-header');
-    header.innerHTML = `<h3>Employees on E-Commerce Platform</h3> <button class="close-popup-btn btn">×</button>`
-    const container = document.getElementById('popup-content');
 
-    const tableHtml = `
-        <table id="employees-table">
-            <thead>
-    <tr>
-         <th>Employee</th>
-            <th>Capacity</th>
-            <th>Fit</th>
-            <th>Vacation</th>
-            <th>Effective</th>
-            <th>Revenue</th>
-            <th>Cost</th>
-            <th>Profit</th>
-            <th>Actions</th>
-    </tr>
-</thead>
+    header.innerHTML = `<h3>Assigned Employees</h3> <button class="close-popup-btn btn" onclick="this.closest('#popup-details').style.display='none'">×</button>`;
 
-            <tbody>
-                ${data.map(emp => `
+    if (staffList.length === 0) {
+        content.innerHTML = "<p style='padding: 20px;'>No employees assigned to this project.</p>";
+    } else {
+        const tableHtml = `
+            <table id="employees-table">
+                <thead>
                     <tr>
-                        <td>${emp.name}  ${emp.surname}</td>
-                        <td>${emp.assignments.AssignedCapacity}</td>
-                        <td>${emp.assignments.ProjectFit}</td>
-                        <td> <button class="edit-btn btn" data-id="${emp.assignments}">Edit assignments</button >
-                        <button class="unassign-btn btn" data-id="${emp.assignments}">Unassign</button >
-                        </td >
-                    </tr >
-        `).join('')
-        }
-            </tbody >
-        </table >
-    `;
+                        <th>Employee</th>
+                        <th>Capacity</th>
+                        <th>Fit</th>
+                        <th>Vacation</th>
+                        <th>Effective</th>
+                        <th>Revenue</th>
+                        <th>Cost</th>
+                        <th>Profit</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${staffList.map(emp => {
 
-    container.innerHTML = tableHtml;
+            const job = emp.assignments.find(a => Number(a.id) === Number(projectId)) || emp.assignments[0];
+
+            return `
+                            <tr>
+                                <td>${emp.name} ${emp.surname}</td>
+                                <td>${job ? job.AssignedCapacity : '0'}</td>
+                                <td>${job ? job.ProjectFit : '0'}</td>
+                                <td>
+                                <button class="edit-btn btn" data-id="${emp.assignments}">Edit assignments</button >
+                                    <button class="unassign-btn btn" data-emp-id="${emp.id}">Unassign</button>
+                                </td>
+                            </tr>
+                        `;
+        }).join('')}
+                </tbody>
+            </table>
+        `;
+        content.innerHTML = tableHtml;
+    }
+
+    popup.style.display = 'block';
 }
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateDashboard();
+});
