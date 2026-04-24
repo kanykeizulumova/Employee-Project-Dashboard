@@ -213,17 +213,108 @@ tr:hover {
     top: 0;
     right: 0;
     width: 400px;
+    max-width: 90%;
+    padding: 20px;
     height: 100%;
     transform: translate(0);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     visibility: visible;
     opacity: 1;
     background-color: var(--panel-bg);
     z-index: 100;
 }
 
+
+.add-new-project-container h2,
+.add-new-employee-container h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #1f2937;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 10px;
+}
+
 .contact-form-in {
     display: flex;
     flex-direction: column;
+}
+
+.contact-form-in p {
+    margin-bottom: 15px;
+}
+
+.contact-form-in label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.contact-form-in input,
+.contact-form-in select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.contact-form-in input:focus,
+.contact-form-in select:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.btn-form-submit {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.button-submit {
+    background-color: #4f46e5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.button-submit:hover {
+    background-color: #4338ca;
+}
+
+.button-cancel {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 10px 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button-cancel:hover {
+    background-color: #e5e7eb;
+}
+
+.error {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    min-height: 15px;
+}
+
+input:invalid {
+    border-color: #fca5a5;
 }
 
 #popup-details {
