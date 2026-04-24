@@ -187,11 +187,7 @@ tr:hover {
     transition: background 0.2s;
 }
 
-.show-btn,
-.delete-btn,
-.edit-btn,
-.vacation-btn,
-.assignment-btn {
+.btn {
     background: transparent;
     border: 1px solid var(--border-color);
     padding: 0.4rem 0.8rem;
@@ -201,11 +197,7 @@ tr:hover {
     font-size: 0.8rem;
 }
 
-.edit-btn:hover,
-.show-btn:hover,
-.delete-btn:hover,
-.vacation-btn:hover,
-.assignment-btn:hover {
+.btn:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
     background-color: #f5f3ff;
@@ -232,4 +224,30 @@ tr:hover {
 .contact-form-in {
     display: flex;
     flex-direction: column;
+}
+
+#popup-details {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px #0000004d;
+    z-index: 10000;
+    width: 80%;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+#popup-header {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
 }

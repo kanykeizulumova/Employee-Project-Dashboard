@@ -66,7 +66,6 @@ yearSelect.addEventListener('change', (e) => {
 
 
 function renderProjectsTableEmpty() {
-    const container = document.getElementById('projects-table-container');
     const totalIncome = document.getElementById('total-income');
     totalIncome.innerHTML = `Total Estimated Income: $0.00`;
 
@@ -90,11 +89,10 @@ function renderProjectsTableEmpty() {
         </table>
     `;
 
-    container.innerHTML = tableHtml;
+    projectsContainer.innerHTML = tableHtml;
 }
 
 function renderProjectsTable(data) {
-    const container = document.getElementById('projects-table-container');
     const totalIncome = document.getElementById('total-income');
     totalIncome.innerHTML = `Total Estimated Income: ${data.reduce((sum, proj) => sum + (proj.budjet || 0), 0).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`;
 
@@ -123,19 +121,19 @@ function renderProjectsTable(data) {
                         <td>$ ${Number(proj.budjet).toFixed(2)}</td>
                         <td>${proj.EmployeeCapacity}</td>
                         <td>
-                        <button class="show-btn" data-id="${proj.assignedEmployees}">Show Assigned Employees</button>
+                        <button class="show-btn btn" data-id="${proj.assignedEmployees}">Show Assigned Employees</button>
                         </td>
                         
-                        <th>
-                         <button class="delete-btn" data-id="${proj.id}">Delete</button>
-                        </th>
+                        <td>
+                         <button class="delete-btn btn" data-id="${proj.id}">Delete</button>
+                        </td>
                     </tr>
                 `).join('')}
             </tbody>
         </table>
     `;
 
-    container.innerHTML = tableHtml;
+    projectsContainer.innerHTML = tableHtml;
 }
 
 function renderEmployeesTableEmpty() {
@@ -190,14 +188,14 @@ function renderEmployeesTable(data) {
                         <td>$ ${emp.salary.toLocaleString()}</td>
                         
                         <td>${emp.projectId}</td>
-                        <td> <button class="show-btn" data-id="${emp.assignments}">Show Assignments</button >
+                        <td> <button class="show-btn btn" data-id="${emp.assignments}">Show Assignments</button >
                         </td >
 
-        <th>
-            <button class="vacation-btn" data-id="${emp.vacation}">Availability</button>
-            <button class="edit-btn" data-id="${emp.id}">Delete</button>
-            <button class="assignment-btn" data-id="${emp.assignments}">Assign</button>
-        </th>
+        <td>
+            <button class="vacation-btn btn" data-id="${emp.vacation}">Availability</button>
+            <button class="edit-btn btn" data-id="${emp.id}">Delete</button>
+            <button class="assignment-btn btn" data-id="${emp.assignments}">Assign</button>
+        </td>
                     </tr >
         `).join('')}
             </tbody>
@@ -232,3 +230,63 @@ navEmployees.addEventListener('click', (e) => {
     projectsContent.classList.add('hidden');
     setActiveTab(navEmployees);
 });
+
+const projectsContainer = document.getElementById('projects-table-container');
+
+projectsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('show-btn')) {
+        const projectId = e.target.getAttribute('data-project-id');
+        showProjectStaff(projectId);
+    }
+});
+
+function showProjectStaff(projectId) {
+    const currentData = catalogDt.monthlyData[getPeriodKey()];
+    const assignedStaff = currentData.employees.filter(emp =>
+        emp.assignments.id == projectId || (emp.assignments && emp.assignments.includes(Number(projectId)))
+    );
+
+    renderEmployeesAssignments(assignedStaff);
+}
+
+function renderEmployeesAssignments(data) {
+    const popupDetails = document.getElementById('popup-details')
+    popupDetails.style.display = '';
+    const header = document.getElementById('popup-header');
+    header.innerHTML = `<h3>Employees on E-Commerce Platform</h3> <button class="close-popup-btn btn">×</button>`
+    const container = document.getElementById('popup-content');
+
+    const tableHtml = `
+        <table id="employees-table">
+            <thead>
+    <tr>
+         <th>Employee</th>
+            <th>Capacity</th>
+            <th>Fit</th>
+            <th>Vacation</th>
+            <th>Effective</th>
+            <th>Revenue</th>
+            <th>Cost</th>
+            <th>Profit</th>
+            <th>Actions</th>
+    </tr>
+</thead>
+
+            <tbody>
+                ${data.map(emp => `
+                    <tr>
+                        <td>${emp.name}  ${emp.surname}</td>
+                        <td>${emp.assignments.AssignedCapacity}</td>
+                        <td>${emp.assignments.ProjectFit}</td>
+                        <td> <button class="edit-btn btn" data-id="${emp.assignments}">Edit assignments</button >
+                        <button class="unassign-btn btn" data-id="${emp.assignments}">Unassign</button >
+                        </td >
+                    </tr >
+        `).join('')
+        }
+            </tbody >
+        </table >
+    `;
+
+    container.innerHTML = tableHtml;
+}
