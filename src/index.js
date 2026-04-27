@@ -398,8 +398,71 @@ function renderProjectsInPopup(projects, employee) {
 }
 
 
+function createCalendar(year, month, vacationDates) {
+    const calendarHeader = document.getElementById('calendar-header');
+    const calendarGrid = document.getElementById('calendar-grid');
+    const calendarInfo = document.getElementById('calendar-info');
+    const backdrop = document.createElement('div');
+    backdrop.className = 'popup-backdrop';
 
+    //const vacationDates = ["2026-04-15", "2026-04-16", "2026-04-20"];
+    const vacationDays = vacationDates.map(vac => {
+        const vacDate = new Date(vac);
+        return vacDate.getDate();
+    });
+    console.log(vacationDates);
+    console.log(vacationDays);
 
+    let d = new Date(year, month);
+    let table = '<table><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>';
+
+    for (let i = 0; i < d.getDay(); i++) {
+        table += '<td></td>';
+    }
+
+    while (d.getMonth() == month) {
+        if (vacationDays.includes(d.getDate())) {
+            table += '<td class="vacation-day">' + d.getDate() + '</td > ';
+        } else {
+            table += '<td>' + d.getDate() + '</td>';
+        }
+        if (d.getDay() == 6) {
+            table += '</tr><tr>';
+        }
+        d.setDate(d.getDate() + 1);
+    }
+
+    if (d.getDay() != 0) {
+        for (let i = d.getDay(); i < 7; i++) {
+            table += '<td></td>';
+        }
+    }
+    table += '</tr></table>';
+    calendarGrid.innerHTML = table;
+
+    let headerTable = `<h2> Employee name </h2>
+    <h3>${month} </h3>
+    <button class="close-calendar-btn btn">×</button>`
+    calendarHeader.innerHTML = headerTable;
+    document.body.appendChild(backdrop);
+
+}
+
+function getDay(date) {
+    let day = date.getDay();
+    if (day == 0) day = 7;
+    return day - 1;
+}
+
+const closeCalendarBtn = document.querySelector('.close-calendar-btn');
+const calendarWrapper = document.getElementById('calendar-wrapper');
+const backdrop = document.querySelector('.popup-backdrop');
+
+closeCalendarBtn.addEventListener('click', () => {
+    calendarWrapper.classList.add('hidden');
+    backdrop.classList.add('hidden');
+
+})
 
 
 document.addEventListener('DOMContentLoaded', () => {
