@@ -2,6 +2,8 @@ import './style.css';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
 
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 const openButton = document.getElementById('open-button');
 const toggleButton = document.getElementById('toggle-button');
 const sidePanel = document.getElementById('side-panel');
@@ -314,7 +316,6 @@ function renderEmployeesAssignments(staffList, projectId) {
 }
 
 
-e
 employeeContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('show-assignments-btn')) {
         const employeeId = event.target.getAttribute('data-employee-id');
@@ -322,16 +323,16 @@ employeeContainer.addEventListener('click', (event) => {
     }
     if (event.target.classList.contains('vacation-btn')) {
         const employeeId = event.target.getAttribute('data-employee-id');
-        const vacationData = event.target.getAttribute('data-id');
         const periodKey = getPeriodKey();
         const currentData = catalogDt.monthlyData[periodKey];
         const eId = Number(employeeId);
         const employee = currentData.employees.find(e => e.id === eId);
         if (!employee) return;
-        createCalendar(state.selectedYear, state.selectedMonth, employee.vacation);
+        const employeeFullName = employee.name + ' ' + employee.surname;
+        createCalendar(state.selectedYear, state.selectedMonth, employee.vacation, employeeFullName);
+        calendarWrapper.style.display = 'block';
     };
 });
-
 
 
 function showEmployeeProjects(employeeId) {
@@ -512,8 +513,8 @@ function createCalendar(year, month, vacationDates, fullName) {
     table += '</tr></table>';
     calendarGrid.innerHTML = table;
 
-    let headerTable = `<h2> Employee name </h2>
-    <h3>${month} </h3>
+    let headerTable = `<h2>${fullName} - Availability</h2>
+    <h3>${monthNames[month]} ${year}</h3>
     <button class="close-calendar-btn btn">×</button>`
     calendarHeader.innerHTML = headerTable;
     document.body.appendChild(backdrop);
@@ -525,17 +526,19 @@ function getDay(date) {
     if (day == 0) day = 7;
     return day - 1;
 }
-
-const closeCalendarBtn = document.querySelector('.close-calendar-btn');
 const calendarWrapper = document.getElementById('calendar-wrapper');
-const backdrop = document.querySelector('.popup-backdrop');
 
-closeCalendarBtn.addEventListener('click', () => {
-    calendarWrapper.classList.add('hidden');
-    backdrop.classList.add('hidden');
-
-})
-
+calendarWrapper.addEventListener('click', (event) => {
+    if (event.target.classList.contains('close-calendar-btn')) {
+        document.getElementById('calendar-header').innerHTML = '';
+        document.getElementById('calendar-grid').innerHTML = '';
+        const backdrop = document.querySelector('.popup-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+        calendarWrapper.style.display = 'none';
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     updateDashboard();

@@ -375,3 +375,10 @@ input:invalid {
     border: 1px solid #ecf0f1;
     border-radius: 6px;
 }
+
+.close-calendar-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: x-large;
+}
