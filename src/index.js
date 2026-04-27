@@ -2,7 +2,6 @@ import './style.css';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
 
-
 const openButton = document.getElementById('open-button');
 const toggleButton = document.getElementById('toggle-button');
 const sidePanel = document.getElementById('side-panel');
@@ -315,6 +314,7 @@ function renderEmployeesAssignments(staffList, projectId) {
 }
 
 
+e
 employeeContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('show-assignments-btn')) {
         const employeeId = event.target.getAttribute('data-employee-id');
@@ -331,6 +331,7 @@ employeeContainer.addEventListener('click', (event) => {
         createCalendar(state.selectedYear, state.selectedMonth, employee.vacation);
     };
 });
+
 
 
 function showEmployeeProjects(employeeId) {
@@ -397,8 +398,79 @@ function renderProjectsInPopup(projects, employee) {
     popup.style.display = 'block';
 }
 
+function countWorkingDays(year, month) {
+    let workingDays = 0;
+    const daysInMonth = new Date(year, month, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month - 1, day);
+        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+        if (!isWeekend) {
+            workingDays++;
+        }
+    }
+    return workingDays;
+}
 
-function createCalendar(year, month, vacationDates) {
+//vacationWorkingDays = count of vacation days that are weekdays;
+
+function countVacationWorkingDays(year, month) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+
+    const vacationDays = currentData.employees.reduce((total, emp) => {
+        const validVacationDaysCount = emp.vacation.filter((vac) => {
+            const date = new Date(vac);
+            const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+            return !isWeekend;
+        }).length;
+
+        return validVacationDaysCount;
+    }, 0);
+
+    return vacationDays;
+}
+
+
+console.log(countWorkingDays(2026, 3));
+console.log(countVacationWorkingDays(state.selectedYear, state.selectedMonth));
+console.log(getVacationCoefficient(state.selectedYear, state.selectedMonth));
+
+function getVacationCoefficient(year, month) {
+    let workingDays = countWorkingDays(year, month);
+    let vacationWorkingDays = countVacationWorkingDays(year, month);
+    const vacationCoefficient = (workingDays - vacationWorkingDays) / workingDays;
+    return vacationCoefficient;
+}
+
+
+//$$effectiveCapacity = Assigned\ Capacity \times Project\ Fit \times vacationCoefficient$$
+
+
+function countAssignedCapacity(year, month) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const assignedCapacity = currentData.employees.flatMap(emp => {
+        return emp.assignments.map(assignment => {
+            return {
+                employeeName: emp.name + emp.surname,
+                projectId: assignment.projectId,
+                assignedCapacity: assignment.AssignedCapacity,
+                projectFit: assignment.ProjectFit
+            }
+        });
+    })
+    return assignedCapacity;
+};
+
+console.log(countAssignedCapacity());
+//console.log(getVacationCoefficient(state.selectedYear, state.selectedMonth));
+
+
+function getEffectiveCapacity(year, month) { }
+
+
+
+function createCalendar(year, month, vacationDates, fullName) {
     const calendarHeader = document.getElementById('calendar-header');
     const calendarGrid = document.getElementById('calendar-grid');
     const calendarInfo = document.getElementById('calendar-info');
