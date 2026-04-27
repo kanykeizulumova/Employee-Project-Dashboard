@@ -46,7 +46,7 @@ projectCancelBtn.addEventListener('click', () => {
 
 const state = {
     selectedYear: '2026',
-    selectedMonth: '3', // April
+    selectedMonth: '1', // March
 };
 
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
@@ -200,9 +200,9 @@ function renderEmployeesTable(data) {
                         </td >
 
         <td>
-            <button class="vacation-btn btn" data-id="${emp.vacation}">Availability</button>
-            <button class="edit-btn btn" data-id="${emp.id}">Delete</button>
-            <button class="assignment-btn btn" data-id="${emp.assignments}">Assign</button>
+            <button class="vacation-btn btn" data-employee-id="${emp.id}">Availability</button>
+            <button class="edit-btn btn" data-employee-id="${emp.id}">Delete</button>
+            <button class="assignment-btn btn" data-employee-id="${emp.id}">Assign</button>
         </td>
                     </tr >
         `).join('')}
@@ -299,8 +299,8 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${job ? job.AssignedCapacity : '0'}</td>
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
-                                <button class="edit-btn btn" data-id="${emp.assignments}">Edit assignments</button >
-                                <button class="unassign-btn btn" data-emp-id="${emp.id}">Unassign</button>
+                                <button class="edit-btn btn" data-employee-id="${emp.id}">Edit assignments</button >
+                                <button class="unassign-btn btn" data-employee-id="${emp.id}">Unassign</button>
                                 </td>
                             </tr>
                         `;
@@ -320,7 +320,19 @@ employeeContainer.addEventListener('click', (event) => {
         const employeeId = event.target.getAttribute('data-employee-id');
         showEmployeeProjects(employeeId);
     }
+    if (event.target.classList.contains('vacation-btn')) {
+        const employeeId = event.target.getAttribute('data-employee-id');
+        const vacationData = event.target.getAttribute('data-id');
+        const periodKey = getPeriodKey();
+        const currentData = catalogDt.monthlyData[periodKey];
+        const eId = Number(employeeId);
+        const employee = currentData.employees.find(e => e.id === eId);
+        if (!employee) return;
+        createCalendar(state.selectedYear, state.selectedMonth, employee.vacation);
+    };
 });
+
+
 function showEmployeeProjects(employeeId) {
     const periodKey = getPeriodKey();
     const currentData = catalogDt.monthlyData[periodKey];
@@ -369,12 +381,11 @@ function renderProjectsInPopup(projects, employee) {
             return `
                             <tr>
                                 <td>${proj.projectname}</td>
-                                <td>${proj.companyName}</td>
                                 <td>${job ? job.AssignedCapacity : '0'}</td>
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
-                                    <button class="edit-btn btn" data-id="${job}">Edit assignments</button >
-                                    <button class="unassign-btn btn" data-project-id="${proj.id}" data-emp-id="${employee.id}">Unassign</button>
+                                    <button class="edit-btn btn" data-employee-id="${employee.id}">Edit assignments</button >
+                                    <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
                                 </td>
                             </tr>
                         `;
@@ -385,14 +396,6 @@ function renderProjectsInPopup(projects, employee) {
     }
     popup.style.display = 'block';
 }
-
-
-
-
-
-
-
-
 
 
 
