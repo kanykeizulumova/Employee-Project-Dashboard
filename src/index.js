@@ -449,24 +449,33 @@ function getVacationCoefficient(year, month, vacationDates) {
 }
 
 
-//$$effectiveCapacity = Assigned\ Capacity \times Project\ Fit \times vacationCoefficient$$
-
-
-function countAssignedCapacity(year, month) {
+function countAssignedCapacity(year, month, employeeId, projectId) {
     const periodKey = getPeriodKey();
     const currentData = catalogDt.monthlyData[periodKey];
-    const assignedCapacity = currentData.employees.flatMap(emp => {
-        return emp.assignments.map(assignment => {
-            return {
-                employeeName: emp.name + emp.surname,
-                projectId: assignment.projectId,
-                assignedCapacity: assignment.AssignedCapacity,
-                projectFit: assignment.ProjectFit
-            }
-        });
-    })
-    return assignedCapacity;
-};
+    const employee = currentData.employees.find(e => e.id === Number(employeeId));
+
+    if (!employee || !employee.assignments) return 0;
+
+    const job = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
+    return job ? job.AssignedCapacity : 0;
+}
+
+function countProjectFit(year, month, employeeId, projectId) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const employee = currentData.employees.find(e => e.id === Number(employeeId));
+
+    if (!employee || !employee.assignments) return 0;
+
+    const job = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
+    return job ? job.ProjectFit : 0;
+}
+
+
+console.log(countAssignedCapacity(state.selectedYear, state.selectedMonth, 2, 102));
+console.log(countProjectFit(state.selectedYear, state.selectedMonth, 2, 102));
+
+//$$effectiveCapacity = AssignedCapacity x ProjectFit x vacationCoefficient$$
 
 
 function getEffectiveCapacity(year, month) { }
@@ -485,9 +494,6 @@ function createCalendar(year, month, vacationDates, fullName) {
         const vacDate = new Date(vac);
         return vacDate.getDate();
     });
-    console.log(vacationDates);
-    console.log(vacationDays);
-
     let d = new Date(year, month);
     let table = '<table><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>';
 
