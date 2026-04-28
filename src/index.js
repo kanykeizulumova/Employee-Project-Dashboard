@@ -25,6 +25,9 @@ function saveData(data) {
 function addProject(newProject) {
     let periodKey = getPeriodKey();
     let newCatalog = getData();
+    if (!newCatalog.monthlyData[periodKey]) {
+        newCatalog.monthlyData[periodKey] = { employees: [], projects: [] };
+    }
     newCatalog.monthlyData[periodKey].projects.push(newProject);
     saveData(newCatalog);
     updateDashboard();
@@ -32,6 +35,9 @@ function addProject(newProject) {
 function addEmployee(newEmployee) {
     let periodKey = getPeriodKey();
     let newCatalog = getData();
+    if (!newCatalog.monthlyData[periodKey]) {
+        newCatalog.monthlyData[periodKey] = { employees: [], projects: [] };
+    }
     newCatalog.monthlyData[periodKey].employees.push(newEmployee);
     saveData(newCatalog);
     updateDashboard();
@@ -80,6 +86,9 @@ let periodKey = getPeriodKey();
 let currentData = getData().monthlyData[periodKey];
 
 function updateDashboard() {
+    periodKey = getPeriodKey();
+    currentData = getData().monthlyData[periodKey];
+
     if (currentData) {
         renderEmployeesTable(currentData.employees);
         renderProjectsTable(currentData.projects);
@@ -94,15 +103,11 @@ const yearSelect = document.getElementById('year-select');
 
 monthSelect.addEventListener('change', (e) => {
     state.selectedMonth = e.target.value;
-    periodKey = getPeriodKey();
-    currentData = getData().monthlyData[periodKey];
     updateDashboard();
 });
 
 yearSelect.addEventListener('change', (e) => {
     state.selectedYear = e.target.value;
-    periodKey = getPeriodKey();
-    currentData = getData().monthlyData[periodKey];
     updateDashboard();
 });
 
@@ -702,9 +707,27 @@ calendarWrapper.addEventListener('click', (event) => {
     }
 });
 
-const addEmplForm = document.querySelector('.contact-form-in');
-addEmplForm.addEventListener('click', (e) => { })
+const addEmplForm = document.querySelector('.add-new-employee-container .contact-form-in');
+addEmplForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newEmployee = {
+        id: Date.now(),
+        name: document.getElementById('employee-name').value,
+        surname: document.getElementById('employee-surname').value,
+        dateofbirth: document.getElementById('dob').value,
+        position: document.getElementById('position').value,
+        salary: Number(document.getElementById('salary').value),
+        vacation: [],
+        assignments: [],
+    }
+    console.log(newEmployee);
+    addEmployee(newEmployee);
+    addEmplForm.reset();
+    addEmployeeForm.classList.add('hidden')
+})
 
+console.log('Инициализация приложения...');
+console.log(getData());
 
 
 
