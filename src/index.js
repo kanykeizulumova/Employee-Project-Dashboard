@@ -43,6 +43,24 @@ function addEmployee(newEmployee) {
     updateDashboard();
 }
 
+function deleteEmployee(employeeId) {
+    let periodKey = getPeriodKey();
+    let newCatalog = getData();
+    const newArray = newCatalog.monthlyData[periodKey].employees.filter(emp => emp.id !== employeeId);
+    newCatalog.monthlyData[periodKey].employees = newArray;
+    saveData(newCatalog);
+    updateDashboard();
+}
+
+function deleteProject(projectId) {
+    let periodKey = getPeriodKey();
+    let newCatalog = getData();
+    const newArray = newCatalog.monthlyData[periodKey].projects.filter(proj => proj.id !== projectId);
+    newCatalog.monthlyData[periodKey].projects = newArray;
+    saveData(newCatalog);
+    updateDashboard();
+}
+
 toggleButton.addEventListener('click', (e) => {
     sidePanel.classList.add('hidden');
     openButton.classList.remove('hidden');
@@ -724,6 +742,8 @@ addEmplForm.addEventListener('submit', (e) => {
     addEmplForm.reset();
     addEmployeeForm.classList.add('hidden')
 })
+
+
 
 const addPorjForm = document.querySelector('.add-new-project-container .contact-form-in');
 addPorjForm.addEventListener('submit', (e) => {
