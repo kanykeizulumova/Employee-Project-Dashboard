@@ -111,7 +111,10 @@ function renderProjectsTable(data) {
     const totalIncome = document.getElementById('total-income');
 
     const total = data.reduce((sum, proj) => sum + (Number(proj.budjet) || 0), 0);
-    totalIncome.innerHTML = `Total Estimated Income: $${total.toLocaleString()}`;
+    const totalProfit = countProjectProfitTotal(state.selectedYear, state.selectedMonth);
+    const totalBenchCost = countBenchCost(state.selectedYear, state.selectedMonth);
+
+    totalIncome.innerHTML = `Total Estimated Income: $${totalProfit.toLocaleString()} (Bench Cost: $${totalBenchCost.toLocaleString()})   `;
 
     const tableHtml = `
         <table id="projects-table">
@@ -132,13 +135,12 @@ function renderProjectsTable(data) {
             </thead>
             <tbody>
                 ${data.map(proj => {
-                    const usedCap = getUsedEffectiveCapacity(state.selectedYear, state.selectedMonth, proj.id);
-                    const totalCap = proj.EmployeeCapacity;
-                    const isOverCap = usedCap > totalCap;
-                    // Временно отключили расчет Estimated Income
-                    // const estimatedIncome = countProjectEstimatedIncome(state.selectedYear, state.selectedMonth, proj.id);
+        const usedCap = getUsedEffectiveCapacity(state.selectedYear, state.selectedMonth, proj.id);
+        const totalCap = proj.EmployeeCapacity;
+        const isOverCap = usedCap > totalCap;
+        const estimatedIncome = countProjectProfit(state.selectedYear, state.selectedMonth, proj.id)
 
-                    return `
+        return `
                     <tr>
                         <td>${proj.companyName}</td>
                         <td>${proj.projectname}</td>
@@ -149,7 +151,7 @@ function renderProjectsTable(data) {
                         <td>
                             <button class="show-btn btn" data-project-id="${proj.id}">Show Assigned Employees</button>
                         </td>
-                        <td>$ 0.00</td>
+                        <td>$ ${estimatedIncome.toFixed(2)}</td>
                         <td>
                              <button class="delete-btn btn" data-id="${proj.id}">Delete</button>
                         </td>
@@ -483,9 +485,6 @@ function countProjectFit(year, month, employeeId, projectId) {
 }
 
 
-console.log(countAssignedCapacity(state.selectedYear, state.selectedMonth, 2, 102));
-console.log(countProjectFit(state.selectedYear, state.selectedMonth, 2, 102));
-
 //$$effectiveCapacity = AssignedCapacity x ProjectFit x vacationCoefficient$$
 
 
@@ -501,7 +500,6 @@ function getUsedEffectiveCapacity(year, month, projectId) {
     const periodKey = getPeriodKey();
     const currentData = catalogDt.monthlyData[periodKey];
     return currentData.employees.reduce((sum, emp) => {
-        // Убеждаемся, что сотрудник назначен на этот проект
         if (!emp.assignments || !emp.assignments.some(a => a.projectId === Number(projectId))) return sum;
         return sum + getEffectiveCapacity(year, month, emp.id, projectId, emp.vacation);
     }, 0);
@@ -529,15 +527,46 @@ function countRevenuePerCapacity(year, month, projectId) {
     return capacityForRevenue > 0 ? budget / capacityForRevenue : 0;
 }
 
-// Заработок проекта (Estimated Income) = countRevenuePerCapacity * usedEffectiveCapacity
-// Временно закомментировано, так как логика еще не готова
-/*
-function countProjectEstimatedIncome(year, month, projectId) {
+//projectProfit = projectRevenue - projectCosts
+function countProjectProfit(year, month, projectId) {
     const revenuePerCapacity = countRevenuePerCapacity(year, month, projectId);
     const usedEffectiveCapacity = getUsedEffectiveCapacity(year, month, projectId);
-    return revenuePerCapacity * usedEffectiveCapacity;
+    const projectRevenue = revenuePerCapacity * usedEffectiveCapacity;
+
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+
+    const projectCosts = currentData.employees.reduce((sum, emp) => {
+        if (!emp.assignments) return sum;
+
+        const job = emp.assignments.find(a => Number(a.projectId) === Number(projectId));
+        if (job) {
+            return sum + countEmployeeCost(year, month, emp.id, projectId);
+        }
+        return sum;
+    }, 0);
+
+    return projectRevenue - projectCosts;
 }
-*/
+
+// Total Estimated Income = Sum of all projects' profit - bench payments
+function countProjectProfitTotal(year, month) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const totalProjectsProfit = currentData.projects.reduce((sum, proj) => {
+        const profit = countProjectProfit(year, month, proj.id);
+        return sum + profit;
+    }, 0);
+
+    const totalBenchCost = countBenchCost(year, month);
+
+    return totalProjectsProfit - totalBenchCost;
+}
+
+
+//employeeProfit = sum of profits from all assignments
+
+
 
 //employeeRevenue = revenuePerEffectiveCapacity × employeeEffectiveCapacity
 function countEmployeeRevenue(year, month, employeeId, projectId, vacationDates) {
