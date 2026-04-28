@@ -478,7 +478,47 @@ console.log(countProjectFit(state.selectedYear, state.selectedMonth, 2, 102));
 //$$effectiveCapacity = AssignedCapacity x ProjectFit x vacationCoefficient$$
 
 
-function getEffectiveCapacity(year, month) { }
+function getEffectiveCapacity(year, month) {
+    const assignedCapacity = countAssignedCapacity(year, month, employeeId, projectId);
+    const projectFit = countProjectFit(year, month, employeeId, projectId);
+    const vacationCoefficient = getVacationCoefficient(year, month, vacationDates);
+    return assignedCapacity * projectFit * vacationCoefficient;
+}
+
+//usedEffectiveCapacity = sum of all employees' effective capacities
+//capacityForRevenue = max(projectCapacity, usedEffectiveCapacity)
+
+function getUsedEffectiveCapacity(year, month) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    return currentData.employees.reduce((sum, emp) => {
+        const empCapacity = countAssignedCapacity(year, month, emp.id, projectId);
+        const empFit = countProjectFit(year, month, emp.id, projectId);
+        const empVacationCoefficient = getVacationCoefficient(year, month, emp.vacation);
+        return sum + (empCapacity * empFit * empVacationCoefficient);
+    }, 0);
+}
+
+function getCapacityForRevenue(year, month) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const projectCapacity = currentData.projects.filter(p => p.id === Number(projectId))[0].employeeCapacity;
+    const usedEffectiveCapacity = getUsedEffectiveCapacity(year, month);
+    return Math.max(projectCapacity, usedEffectiveCapacity);
+}
+
+//Revenue per effective capacity = budget ÷ capacity for revenue
+
+function countRevenuePerCapacity(year, month) {
+    const periodKey = getPeriodKey();
+    const currentData = catalogDt.monthlyData[periodKey];
+    const budget = currentData.projects.filter(p => p.id === Number(projectId))[0].budjet;
+    const capacityForRevenue = getCapacityForRevenue(year, month);
+    return budget / capacityForRevenue;
+}
+
+
+
 
 
 
