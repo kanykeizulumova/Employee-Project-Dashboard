@@ -517,6 +517,31 @@ function createCalendar(year, month, vacationDates, fullName) {
     <h3>${monthNames[month]} ${year}</h3>
     <button class="close-calendar-btn btn">×</button>`
     calendarHeader.innerHTML = headerTable;
+    let workingDays = countWorkingDays(year, month);
+    let vacationWorkingDays = countVacationWorkingDays(year, month);
+    const vacationDay = vacationDates.flatMap(vac => {
+        const vacDate = new Date(vac);
+        return {
+            day: vacDate.getDate(),
+            month: vacDate.getMonth()
+        };
+    });
+    const beautifulOutput = vacationDay.map(item => {
+        return `${item.day}.${item.month}`;
+    }).join(', ');
+
+
+    console.log(beautifulOutput);
+
+    let infoHeader = `<p>Working Days: ${vacationWorkingDays} / ${workingDays} days</p>
+    <div id="working-days-info">
+    <p>Vacation Days:</p>
+    <ul>${beautifulOutput}</ul>
+    <button class="set-vacation-btn btn">Set Vacation</button>
+    </div>`
+    calendarInfo.innerHTML = infoHeader;
+
+
     document.body.appendChild(backdrop);
 
 }
