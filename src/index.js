@@ -47,7 +47,7 @@ projectCancelBtn.addEventListener('click', () => {
 
 const state = {
     selectedYear: '2026',
-    selectedMonth: '1', // March
+    selectedMonth: '2', // March
 };
 
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
@@ -401,9 +401,9 @@ function renderProjectsInPopup(projects, employee) {
 
 function countWorkingDays(year, month) {
     let workingDays = 0;
-    const daysInMonth = new Date(year, month, 0).getDate();
+    const daysInMonth = new Date(year, Number(month) + 1, 0).getDate();
     for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month - 1, day);
+        const date = new Date(year, month, day);
         const isWeekend = date.getDay() === 0 || date.getDay() === 6;
         if (!isWeekend) {
             workingDays++;
@@ -414,31 +414,22 @@ function countWorkingDays(year, month) {
 
 //vacationWorkingDays = count of vacation days that are weekdays;
 
-function countVacationWorkingDays(year, month) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
+function countVacationWorkingDays(vacationDates) {
+    if (!vacationDates) return 0;
 
-    const vacationDays = currentData.employees.reduce((total, emp) => {
-        const validVacationDaysCount = emp.vacation.filter((vac) => {
-            const date = new Date(vac);
-            const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-            return !isWeekend;
-        }).length;
+    const validVacationDaysCount = vacationDates.filter((vac) => {
+        const date = new Date(vac);
+        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+        return !isWeekend;
+    }).length;
 
-        return validVacationDaysCount;
-    }, 0);
-
-    return vacationDays;
+    return validVacationDaysCount;
 }
 
 
-console.log(countWorkingDays(2026, 3));
-console.log(countVacationWorkingDays(state.selectedYear, state.selectedMonth));
-console.log(getVacationCoefficient(state.selectedYear, state.selectedMonth));
-
-function getVacationCoefficient(year, month) {
+function getVacationCoefficient(year, month, vacationDates) {
     let workingDays = countWorkingDays(year, month);
-    let vacationWorkingDays = countVacationWorkingDays(year, month);
+    let vacationWorkingDays = countVacationWorkingDays(vacationDates);
     const vacationCoefficient = (workingDays - vacationWorkingDays) / workingDays;
     return vacationCoefficient;
 }
@@ -518,7 +509,7 @@ function createCalendar(year, month, vacationDates, fullName) {
     <button class="close-calendar-btn btn">×</button>`
     calendarHeader.innerHTML = headerTable;
     let workingDays = countWorkingDays(year, month);
-    let vacationWorkingDays = countVacationWorkingDays(year, month);
+    let vacationWorkingDays = countVacationWorkingDays(vacationDates);
     const vacationDay = vacationDates.flatMap(vac => {
         const vacDate = new Date(vac);
         return {
@@ -532,8 +523,9 @@ function createCalendar(year, month, vacationDates, fullName) {
 
 
     console.log(beautifulOutput);
+    const workedDays = workingDays - vacationWorkingDays;
 
-    let infoHeader = `<p>Working Days: ${vacationWorkingDays} / ${workingDays} days</p>
+    let infoHeader = `<p>Working Days: ${workedDays} / ${workingDays} days</p>
     <div id="working-days-info">
     <p>Vacation Days:</p>
     <ul>${beautifulOutput}</ul>
