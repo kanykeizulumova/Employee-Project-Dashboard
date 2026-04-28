@@ -171,6 +171,20 @@ function renderEmployeesTableEmpty() {
     employeeContainer.innerHTML = tableHtml;
 }
 
+function calculateAge(birthDateString) {
+    if (!birthDateString) return '';
+    const birthDate = new Date(birthDateString);
+    const date = new Date(state.selectedYear, state.selectedMonth.toLowerCase(), 1);
+
+    let age = date.getFullYear() - birthDate.getFullYear();
+    const monthDiff = date.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && date.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
 function renderEmployeesTable(data) {
     const tableHtml = `
         <table id="employees-table">
@@ -192,7 +206,7 @@ function renderEmployeesTable(data) {
                     <tr>
                         <td>${emp.name}</td>
                         <td>${emp.surname}</td>
-                        <td>${emp.age}</td>
+                        <td>${calculateAge(emp.dateofbirth)}</td>
                         <td>${emp.position}</td>
                         <td>$ ${emp.salary.toLocaleString()}</td>
                         
@@ -454,9 +468,6 @@ function countAssignedCapacity(year, month) {
     return assignedCapacity;
 };
 
-console.log(countAssignedCapacity());
-//console.log(getVacationCoefficient(state.selectedYear, state.selectedMonth));
-
 
 function getEffectiveCapacity(year, month) { }
 
@@ -521,8 +532,6 @@ function createCalendar(year, month, vacationDates, fullName) {
         return `${item.day}.${item.month}`;
     }).join(', ');
 
-
-    console.log(beautifulOutput);
     const workedDays = workingDays - vacationWorkingDays;
 
     let infoHeader = `<p>Working Days: ${workedDays} / ${workingDays} days</p>
