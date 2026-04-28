@@ -720,10 +720,25 @@ addEmplForm.addEventListener('submit', (e) => {
         vacation: [],
         assignments: [],
     }
-    console.log(newEmployee);
     addEmployee(newEmployee);
     addEmplForm.reset();
     addEmployeeForm.classList.add('hidden')
+})
+
+const addPorjForm = document.querySelector('.add-new-project-container .contact-form-in');
+addPorjForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newProject = {
+        id: Date.now(),
+        companyName: document.getElementById('project-name').value,
+        projectname: document.getElementById('company-name').value,
+        budjet: Number(document.getElementById('budget').value),
+        EmployeeCapacity: document.getElementById('capacity').value,
+        assignedEmployees: [],
+    }
+    addProject(newProject)
+    addPorjForm.reset();
+    addProjectForm.classList.add('hidden')
 })
 
 console.log('Инициализация приложения...');
