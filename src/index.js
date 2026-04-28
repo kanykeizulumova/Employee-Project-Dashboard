@@ -5,12 +5,6 @@ if (!localStorage.getItem('catalogDt')) {
     localStorage.setItem('catalogDt', JSON.stringify(catalogDt));
 }
 
-function getData() {
-    return JSON.parse(localStorage.getItem('catalogDt'))
-}
-function saveData(data) {
-    localStorage.setItem('catalogDt', JSON.stringify(data));
-}
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -20,6 +14,28 @@ const sidePanel = document.getElementById('side-panel');
 
 const projectsContainer = document.getElementById('projects-table-container');
 const employeeContainer = document.getElementById('table-container');
+
+function getData() {
+    return JSON.parse(localStorage.getItem('catalogDt'))
+}
+function saveData(data) {
+    localStorage.setItem('catalogDt', JSON.stringify(data));
+}
+
+function addProject(newProject) {
+    let periodKey = getPeriodKey();
+    let newCatalog = getData();
+    newCatalog.monthlyData[periodKey].projects.push(newProject);
+    saveData(newCatalog);
+    updateDashboard();
+}
+function addEmployee(newEmployee) {
+    let periodKey = getPeriodKey();
+    let newCatalog = getData();
+    newCatalog.monthlyData[periodKey].employees.push(newEmployee);
+    saveData(newCatalog);
+    updateDashboard();
+}
 
 toggleButton.addEventListener('click', (e) => {
     sidePanel.classList.add('hidden');
@@ -59,10 +75,10 @@ const state = {
     selectedYear: '2026',
     selectedMonth: '2', // March
 };
-
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
 let periodKey = getPeriodKey();
 let currentData = getData().monthlyData[periodKey];
+
 function updateDashboard() {
     if (currentData) {
         renderEmployeesTable(currentData.employees);
@@ -686,6 +702,22 @@ calendarWrapper.addEventListener('click', (event) => {
     }
 });
 
+const addEmplForm = document.querySelector('.contact-form-in');
+addEmplForm.addEventListener('click', (e) => { })
+
+
+
+
+
+
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    if (!localStorage.getItem('catalogDt')) {
+        localStorage.setItem('catalogDt', JSON.stringify(catalogDt));
+    }
     updateDashboard();
 });
