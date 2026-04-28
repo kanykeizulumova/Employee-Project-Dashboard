@@ -1,6 +1,16 @@
 import './style.css';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
+if (!localStorage.getItem('catalogDt')) {
+    localStorage.setItem('catalogDt', JSON.stringify(catalogDt));
+}
+
+function getData() {
+    return JSON.parse(localStorage.getItem('catalogDt'))
+}
+function saveData(data) {
+    localStorage.setItem('catalogDt', JSON.stringify(data));
+}
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -51,10 +61,9 @@ const state = {
 };
 
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
-
+let periodKey = getPeriodKey();
+let currentData = getData().monthlyData[periodKey];
 function updateDashboard() {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     if (currentData) {
         renderEmployeesTable(currentData.employees);
         renderProjectsTable(currentData.projects);
@@ -69,11 +78,15 @@ const yearSelect = document.getElementById('year-select');
 
 monthSelect.addEventListener('change', (e) => {
     state.selectedMonth = e.target.value;
+    periodKey = getPeriodKey();
+    currentData = getData().monthlyData[periodKey];
     updateDashboard();
 });
 
 yearSelect.addEventListener('change', (e) => {
     state.selectedYear = e.target.value;
+    periodKey = getPeriodKey();
+    currentData = getData().monthlyData[periodKey];
     updateDashboard();
 });
 
@@ -277,8 +290,6 @@ projectsContainer.addEventListener('click', (event) => {
 });
 
 function showProjectStaff(projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const pId = Number(projectId);
 
     const targetProject = currentData.projects.find(p => p.id === pId);
@@ -350,8 +361,6 @@ employeeContainer.addEventListener('click', (event) => {
     }
     if (event.target.classList.contains('vacation-btn')) {
         const employeeId = event.target.getAttribute('data-employee-id');
-        const periodKey = getPeriodKey();
-        const currentData = catalogDt.monthlyData[periodKey];
         const eId = Number(employeeId);
         const employee = currentData.employees.find(e => e.id === eId);
         if (!employee) return;
@@ -363,8 +372,6 @@ employeeContainer.addEventListener('click', (event) => {
 
 
 function showEmployeeProjects(employeeId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const eId = Number(employeeId);
 
     const employee = currentData.employees.find(e => e.id === eId);
@@ -463,8 +470,6 @@ function getVacationCoefficient(year, month, vacationDates) {
 
 
 function countAssignedCapacity(year, month, employeeId, projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const employee = currentData.employees.find(e => e.id === Number(employeeId));
 
     if (!employee || !employee.assignments) return 0;
@@ -474,8 +479,6 @@ function countAssignedCapacity(year, month, employeeId, projectId) {
 }
 
 function countProjectFit(year, month, employeeId, projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const employee = currentData.employees.find(e => e.id === Number(employeeId));
 
     if (!employee || !employee.assignments) return 0;
@@ -497,8 +500,6 @@ function getEffectiveCapacity(year, month, employeeId, projectId, vacationDates)
 
 //usedEffectiveCapacity = sum of all employees' effective capacities
 function getUsedEffectiveCapacity(year, month, projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     return currentData.employees.reduce((sum, emp) => {
         if (!emp.assignments || !emp.assignments.some(a => a.projectId === Number(projectId))) return sum;
         return sum + getEffectiveCapacity(year, month, emp.id, projectId, emp.vacation);
@@ -507,8 +508,6 @@ function getUsedEffectiveCapacity(year, month, projectId) {
 
 //capacityForRevenue = max(projectCapacity, usedEffectiveCapacity)
 function getCapacityForRevenue(year, month, projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const project = currentData.projects.find(p => p.id === Number(projectId));
     if (!project) return 0;
     const projectCapacity = project.EmployeeCapacity;
@@ -518,8 +517,6 @@ function getCapacityForRevenue(year, month, projectId) {
 
 //Revenue per effective capacity = budget ÷ capacity for revenue
 function countRevenuePerCapacity(year, month, projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const project = currentData.projects.find(p => p.id === Number(projectId));
     if (!project) return 0;
     const budget = project.budjet;
@@ -532,9 +529,6 @@ function countProjectProfit(year, month, projectId) {
     const revenuePerCapacity = countRevenuePerCapacity(year, month, projectId);
     const usedEffectiveCapacity = getUsedEffectiveCapacity(year, month, projectId);
     const projectRevenue = revenuePerCapacity * usedEffectiveCapacity;
-
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
 
     const projectCosts = currentData.employees.reduce((sum, emp) => {
         if (!emp.assignments) return sum;
@@ -551,8 +545,6 @@ function countProjectProfit(year, month, projectId) {
 
 // Total Estimated Income = Sum of all projects' profit - bench payments
 function countProjectProfitTotal(year, month) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const totalProjectsProfit = currentData.projects.reduce((sum, proj) => {
         const profit = countProjectProfit(year, month, proj.id);
         return sum + profit;
@@ -565,7 +557,18 @@ function countProjectProfitTotal(year, month) {
 
 
 //employeeProfit = sum of profits from all assignments
+function getEmployeeProfit(year, month, employeeId, projectId, vacationDates) {
+    const revenue = countEmployeeRevenue(year, month, employeeId, projectId, vacationDates);
+    const cost = countEmployeeCost(year, month, employeeId, projectId);
+    return revenue - cost;
+}
 
+console.log(getEmployeeProfit(state.selectedYear, state.selectedMonth, 1, 101, [
+    "2025-03-11",
+    "2025-03-12",
+    "2025-03-13",
+    "2025-03-18"
+]));
 
 
 //employeeRevenue = revenuePerEffectiveCapacity × employeeEffectiveCapacity
@@ -577,8 +580,6 @@ function countEmployeeRevenue(year, month, employeeId, projectId, vacationDates)
 
 //employeeCost = salary × max(0.5, assignedCapacity)
 function countEmployeeCost(year, month, employeeId, projectId) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const employee = currentData.employees.find(e => e.id === Number(employeeId));
     if (!employee) return 0;
     const salary = employee.salary;
@@ -588,8 +589,6 @@ function countEmployeeCost(year, month, employeeId, projectId) {
 
 //benchCost = salary × 0.5  // For unassigned employees
 function countBenchCost(year, month) {
-    const periodKey = getPeriodKey();
-    const currentData = catalogDt.monthlyData[periodKey];
     const benchEmp = currentData.employees.filter(e => !e.assignments || e.assignments.length === 0);
     return benchEmp.reduce((sum, emp) => sum + (emp.salary * 0.5), 0);
 }
