@@ -46,8 +46,14 @@ function addEmployee(newEmployee) {
 function deleteEmployee(employeeId) {
     let periodKey = getPeriodKey();
     let newCatalog = getData();
+
     const newArray = newCatalog.monthlyData[periodKey].employees.filter(emp => emp.id !== employeeId);
     newCatalog.monthlyData[periodKey].employees = newArray;
+
+    newCatalog.monthlyData[periodKey].projects.forEach(proj => {
+        proj.assignedEmployees = proj.assignedEmployees.filter(empId => empId !== employeeId);
+    });
+
     saveData(newCatalog);
     updateDashboard();
 }
@@ -57,6 +63,10 @@ function deleteProject(projectId) {
     let newCatalog = getData();
     const newArray = newCatalog.monthlyData[periodKey].projects.filter(proj => proj.id !== projectId);
     newCatalog.monthlyData[periodKey].projects = newArray;
+
+    newCatalog.monthlyData[periodKey].employees.forEach(emp => {
+        emp.assignments = emp.assignments.filter(projId => projId !== projectId);
+    })
     saveData(newCatalog);
     updateDashboard();
 }
