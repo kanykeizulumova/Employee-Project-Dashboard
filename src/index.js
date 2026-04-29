@@ -349,7 +349,15 @@ projectsContainer.addEventListener('click', (event) => {
     }
     if (event.target.classList.contains('delete-btn')) {
         const projectId = Number(event.target.getAttribute('data-id'));
-        deleteProject(projectId);
+        let periodKey = getPeriodKey();
+        let newCatalog = getData();
+        const project = newCatalog.monthlyData[periodKey].projects.find(e => e.id === projectId);
+        const projectName = project ? project.projectname : '';
+        if (confirm(`Are you sure you want to delete ${projectName}? This will unassign all employees from this project.`)) {
+            deleteProject(projectId);
+        } else {
+            return;
+        }
     }
 });
 
@@ -434,8 +442,16 @@ employeeContainer.addEventListener('click', (event) => {
     };
     if (event.target.classList.contains('delete-emp-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
-        deleteEmployee(employeeId);
-    };
+        let periodKey = getPeriodKey();
+        let newCatalog = getData();
+        const employee = newCatalog.monthlyData[periodKey].employees.find(e => e.id === employeeId);
+        const employeeName = employee ? employee.name + ' ' + employee.surname : '';
+        if (confirm(`Are you sure you want to delete ${employeeName}?`)) {
+            deleteEmployee(employeeId);
+        }
+    } else {
+        return;
+    }
 
     if (event.target.classList.contains('assignment-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
