@@ -71,6 +71,17 @@ function deleteProject(projectId) {
     updateDashboard();
 }
 
+function assignEmployeeToProject(employeeId, projectId, assignedCapacityCoef, projectFitCoef) {
+    let periodKey = getPeriodKey();
+    let newCatalog = getData();
+    const NeededEmp = newCatalog.monthlyData[periodKey].employees.find(emp => emp.id === employeeId);
+    const NeededProj = newCatalog.monthlyData[periodKey].projects.find(proj => proj.id === projectId);
+    NeededProj.assignedEmployees.push(employeeId);
+    NeededEmp.assignments.push({ projectId: projectId, assignedCapacity: assignedCapacityCoef, projectFit: projectFitCoef });
+    saveData(newCatalog);
+    updateDashboard();
+}
+
 toggleButton.addEventListener('click', (e) => {
     sidePanel.classList.add('hidden');
     openButton.classList.remove('hidden');
