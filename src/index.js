@@ -436,8 +436,31 @@ employeeContainer.addEventListener('click', (event) => {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
         deleteEmployee(employeeId);
     };
+
+    if (event.target.classList.contains('assignment-btn')) {
+        const employeeId = Number(event.target.getAttribute('data-employee-id'));
+        openAssignmentPopup(employeeId);
+    }
 })
 
+function openAssignmentPopup(employeeId) {
+    document.getElementById('assignment-popup').classList.remove('hidden');
+
+    const applyBtn = document.querySelector('.apply-assignment');
+
+    applyBtn.setAttribute('data-employee-id', employeeId);
+    const selectElement = document.getElementById('select-project');
+    selectElement.innerHTML = '<option value="">Select a project</option>';
+    let periodKey = getPeriodKey();
+    let catalog = getData();
+    let currentProjects = catalog.monthlyData[periodKey].projects;
+    currentProjects.forEach(proj => {
+        const option = document.createElement('option');
+        option.value = proj.id;
+        option.textContent = proj.projectname;
+        selectElement.appendChild(option);
+    });
+}
 
 function showEmployeeProjects(employeeId) {
     const eId = Number(employeeId);
@@ -772,7 +795,20 @@ addEmplForm.addEventListener('submit', (e) => {
     addEmployeeForm.classList.add('hidden')
 })
 
+const applyAssignmentBtn = document.querySelector('.apply-assignment');
+applyAssignmentBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const employeeId = Number(e.target.getAttribute('data-employee-id'));
+    const projectId = Number(document.getElementById('select-project').value);
+    const assignedCapacityCoef = Number(document.getElementById('capacity-range').value);
+    const projectFitCoef = Number(document.getElementById('projectfit-range').value);
+    assignEmployeeToProject(employeeId, projectId, assignedCapacityCoef, projectFitCoef)
+})
 
+const cancelAssignmentBtn = document.querySelector('.cancel-assignment');
+cancelAssignmentBtn.addEventListener('click', (e) => {
+    document.getElementById('assignment-popup').classList.add('hidden');
+})
 
 const addPorjForm = document.querySelector('.add-new-project-container .contact-form-in');
 addPorjForm.addEventListener('submit', (e) => {
@@ -790,8 +826,6 @@ addPorjForm.addEventListener('submit', (e) => {
     addProjectForm.classList.add('hidden')
 })
 
-console.log('Инициализация приложения...');
-console.log(getData());
 
 
 

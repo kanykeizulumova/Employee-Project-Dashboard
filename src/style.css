@@ -382,3 +382,18 @@ input:invalid {
     right: 20px;
     font-size: x-large;
 }
+
+#assignment-popup {
+    position: fixed;
+    background-color: #fff;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px #0003;
+    padding: 20px;
+    z-index: 10001;
+    min-width: 320px;
+    max-width: 400px;
+    left: 648.667px;
+    top: 391.438px;
+    right: auto;
+}

@@ -170,6 +170,32 @@
         <div id="popup-header"></div>
         <div id="popup-content"></div>
     </div>
+    <div id="assignment-popup" class="hidden">
+        <div class="assignment-popup-content" id="popup-content">
+            <h3 id="popup-header"></h3>
+            <div class="capacity-status">
+                <p></p>
+                <p></p>
+            </div>
+            <label>Select Project:</label>
+            <select class="project-select" id="select-project">
+                <option value="">Select a project</option>
+                <option value=""></option>
+            </select>
+            <div class="capacity-input-section" style="display: block;">
+                <p>Capacity Allocation: </p>
+                <input type="range" class="capacity-input" id="capacity-range" min="0" max="1.5" step="0.1" value="1.0">
+                <p>Project Fit: </p>
+                <input type="range" class="fit-input" id="projectfit-range" min="0" max="1" step="0.1" value="1.0">
+            </div>
+            <div class="project-info" style="display: block;"></div>
+            <div class="validation-message warning" style="display: block;"></div>
+            <div class="popup-buttons">
+                <button class="apply-assignment btn">Assign</button>
+                <button class="cancel-assignment btn">Cancel</button>
+            </div>
+        </div>
+    </div>
     <div id="calendar-wrapper" style="
     display: none;">
         <div id="calendar-header"></div>
