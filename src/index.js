@@ -281,8 +281,8 @@ function renderEmployeesTable(data) {
 
         <td>
             <button class="vacation-btn btn" data-employee-id="${emp.id}">Availability</button>
-            <button class="edit-btn btn" data-employee-id="${emp.id}">Delete</button>
             <button class="assignment-btn btn" data-employee-id="${emp.id}">Assign</button>
+            <button class="delete-emp-btn btn" data-employee-id="${emp.id}">Delete</button>
         </td>
                     </tr >
         `).join('')}
@@ -325,6 +325,10 @@ projectsContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('show-btn')) {
         const projectId = event.target.getAttribute('data-project-id');
         showProjectStaff(projectId);
+    }
+    if (event.target.classList.contains('delete-btn')) {
+        const projectId = Number(event.target.getAttribute('data-id'));
+        deleteProject(projectId);
     }
 });
 
@@ -407,7 +411,11 @@ employeeContainer.addEventListener('click', (event) => {
         createCalendar(state.selectedYear, state.selectedMonth, employee.vacation, employeeFullName);
         calendarWrapper.style.display = 'block';
     };
-});
+    if (event.target.classList.contains('delete-emp-btn')) {
+        const employeeId = Number(event.target.getAttribute('data-employee-id'));
+        deleteEmployee(employeeId);
+    };
+})
 
 
 function showEmployeeProjects(employeeId) {
