@@ -77,7 +77,7 @@ function assignEmployeeToProject(employeeId, projectId, assignedCapacityCoef, pr
     const NeededEmp = newCatalog.monthlyData[periodKey].employees.find(emp => emp.id === employeeId);
     const NeededProj = newCatalog.monthlyData[periodKey].projects.find(proj => proj.id === projectId);
     NeededProj.assignedEmployees.push(employeeId);
-    NeededEmp.assignments.push({ projectId: projectId, assignedCapacity: assignedCapacityCoef, projectFit: projectFitCoef });
+    NeededEmp.assignments.push({ projectId: projectId, AssignedCapacity: assignedCapacityCoef, ProjectFit: projectFitCoef });
     saveData(newCatalog);
     updateDashboard();
 }
@@ -466,27 +466,33 @@ function openAssignmentPopup(employeeId) {
     let periodKey = getPeriodKey();
     let catalog = getData();
     let currentProjects = catalog.monthlyData[periodKey].projects;
-    let selectedProjectId = Number(selectElement.value);
-    let selectedProject = currentProjects.find(p => p.id === selectedProjectId);
-    let projectTotalRequired = selectedProject ? selectedProject.EmployeeCapacity : 'N/A';
-    console.log(projectTotalRequired)
+    let allEmployees = catalog.monthlyData[periodKey].employees;
 
     currentProjects.forEach(proj => {
         const option = document.createElement('option');
         option.value = proj.id;
-        option.textContent = `${proj.projectname} Available: ${projectTotalRequired}`;
+        const projectAssigned = allEmployees.reduce((sum, emp) => {
+            if (!emp.assignments) return sum;
+            const assignment = emp.assignments.find(a => Number(a.projectId) === proj.id);
+            if (assignment) {
+                const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
+                const fit = assignment.ProjectFit !== undefined ? assignment.ProjectFit : assignment.projectFit;
+                return sum + (Number(cap) * Number(fit));
+            }
+            return sum;
+        }, 0);
+
+        const available = Number(proj.EmployeeCapacity - projectAssigned);
+
+        option.textContent = `${proj.projectname} (Available: ${available.toFixed(2)})`;
         selectElement.appendChild(option);
     });
 
-
-
-
     const employee = catalog.monthlyData[periodKey].employees.find(e => e.id === employeeId);
     const currentCapacity = employee.assignments.reduce((sum, assignment) => {
-        const capacity = assignment.assignedCapacity ? Number(assignment.assignedCapacity) : 0;
-        return sum + capacity;
+        const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
+        return sum + (cap ? Number(cap) : 0);
     }, 0);
-
 
     const popupHeader = document.getElementById('popup-header-assign');
     popupHeader.innerHTML = `Assign ${employee.name} ${employee.surname}`;
@@ -495,13 +501,10 @@ function openAssignmentPopup(employeeId) {
     const fitInput = document.getElementById('projectfit-range');
     const validationMessageEl = document.querySelector('.validation-message');
 
-
-
     const CapacityStatus = document.querySelector('.current-capacity');
     const AvailableCapacity = document.querySelector('.available-capacity');
-    CapacityStatus.innerHTML = `Current Capacity: ${currentCapacity}`;
-    AvailableCapacity.innerHTML = `Available Capacity: ${Number(1.0 - currentCapacity).toFixed(2)}`;
-
+    CapacityStatus.innerHTML = `Current Capacity: ${currentCapacity.toFixed(2)}`;
+    AvailableCapacity.innerHTML = `Available Capacity: ${(1.0 - currentCapacity).toFixed(2)}`;
 
     validationMessageEl.textContent = '';
     validationMessageEl.classList.remove('error', 'warning');
@@ -510,56 +513,70 @@ function openAssignmentPopup(employeeId) {
         const allocatedCapacity = Number(capacityInput.value);
         const projectFit = Number(fitInput.value);
 
-        const newTotalCapacity = Number(currentCapacity + allocatedCapacity);
+        const capDisplay = document.getElementById('capacity-value-display');
+        if (capDisplay) capDisplay.textContent = allocatedCapacity.toFixed(1);
+
+        const fitDisplay = document.getElementById('fit-value-display');
+        if (fitDisplay) fitDisplay.textContent = projectFit.toFixed(1);
+
+        const newTotalCapacity = currentCapacity + allocatedCapacity;
 
         if (newTotalCapacity > 1.5) {
-            validationMessageEl.textContent = `Error: Total capacity would be ${newTotalCapacity}. Maximum allowed is 1.5.`;
+            validationMessageEl.textContent = `Error: Total capacity would be ${newTotalCapacity.toFixed(2)}. Maximum allowed is 1.5.`;
             validationMessageEl.classList.remove('warning');
             validationMessageEl.classList.add('error');
         } else if (newTotalCapacity > 1.0) {
-            validationMessageEl.textContent = `Warning: Employee is over-capacity (Total: ${newTotalCapacity}).`;
+            validationMessageEl.textContent = `Warning: Employee is over-capacity (Total: ${newTotalCapacity.toFixed(2)}).`;
             validationMessageEl.classList.remove('error');
             validationMessageEl.classList.add('warning');
         } else {
-            validationMessageEl.textContent = `Total expected capacity: ${newTotalCapacity}`;
+            validationMessageEl.textContent = `Total expected capacity: ${newTotalCapacity.toFixed(2)}`;
             validationMessageEl.classList.remove('error', 'warning');
         }
 
-        const effectiveCapacity = (allocatedCapacity * projectFit).toFixed(2);
-
+        const effectiveCapacity = allocatedCapacity * projectFit;
         const selectedProjectId = Number(selectElement.value);
-        const selectedProject = currentProjects.find(p => p.id === selectedProjectId);
 
-        const allEmployees = catalog.monthlyData[periodKey].employees;
-        const currentProjectAssigned = allEmployees.reduce((totalSum, emp) => {
-            const assignment = emp.assignments.find(a => a.id === selectedProjectId);
-            if (assignment) {
-                const effectiveCapacity = (assignment.assignedCapacity * assignment.projectFit).toFixed(2);
-                return totalSum + Number(effectiveCapacity);
-            }
-            return totalSum;
-        }, 0);
+        let currentProjectAssigned = 0;
+        let projectTotalRequired = 0;
 
+        if (selectedProjectId) {
+            const selectedProject = currentProjects.find(p => p.id === selectedProjectId);
+            projectTotalRequired = selectedProject ? selectedProject.EmployeeCapacity : 0;
 
+            currentProjectAssigned = allEmployees.reduce((totalSum, emp) => {
+                if (!emp.assignments) return totalSum;
+                const assignment = emp.assignments.find(a => Number(a.projectId) === selectedProjectId);
+                if (assignment) {
+                    const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
+                    const fit = assignment.ProjectFit !== undefined ? assignment.ProjectFit : assignment.projectFit;
+                    return totalSum + (Number(cap) * Number(fit));
+                }
+                return totalSum;
+            }, 0);
+        }
 
-        const projectTotalRequired = selectedProject?.EmployeeCapacity || 5;
-
-        const afterAssignmentValue = currentProjectAssigned + Number(effectiveCapacity);
+        const afterAssignmentValue = currentProjectAssigned + effectiveCapacity;
 
         const effectiveCap = document.querySelector('.effective-capacity');
-        effectiveCap.innerHTML = `${effectiveCapacity}`;
+        if (effectiveCap) effectiveCap.innerHTML = effectiveCapacity.toFixed(2);
+
+        const usedCapacityHTML = document.querySelector('.used-capacity');
+        if (usedCapacityHTML) usedCapacityHTML.innerHTML = currentProjectAssigned.toFixed(2);
 
         const projectCapacityHTML = document.querySelector('.total-capacity');
-        projectCapacityHTML.innerHTML = `${currentProjectAssigned} / ${projectTotalRequired}`;
+        if (projectCapacityHTML) projectCapacityHTML.innerHTML = projectTotalRequired;
 
         const afterAssignmentHTML = document.querySelector('.target-capacity');
-        afterAssignmentHTML.innerHTML = `${afterAssignmentValue} / ${projectTotalRequired}`;
+        if (afterAssignmentHTML) afterAssignmentHTML.innerHTML = `${afterAssignmentValue.toFixed(2)} / ${projectTotalRequired}`;
     }
     capacityInput.oninput = updateCalculations;
     fitInput.oninput = updateCalculations;
     selectElement.onchange = updateCalculations;
     updateCalculations();
 }
+
+
 
 function showEmployeeProjects(employeeId) {
     const eId = Number(employeeId);
@@ -906,8 +923,8 @@ applyAssignmentBtn.addEventListener('click', (e) => {
     const employee = currentData.monthlyData[periodKey].employees.find(e => e.id === employeeId);
 
     const currentCapacity = employee.assignments.reduce((sum, assignment) => {
-        const capacity = assignment.assignedCapacity ? Number(assignment.assignedCapacity) : 0;
-        return sum + capacity;
+        const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
+        return sum + (cap ? Number(cap) : 0);
     }, 0);
 
     const newTotalCapacity = currentCapacity + assignedCapacityCoef;
