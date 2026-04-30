@@ -173,20 +173,21 @@
     <div id="assignment-popup" class="hidden">
         <div class="assignment-popup-content" id="popup-content">
             <h3 id="popup-header-assign"></h3>
+            <p id="popup-header-p"></p>
             <div class="capacity-status">
                 <p class="current-capacity"></p>
                 <p class="available-capacity"></p>
             </div>
-            <label>Select Project:</label>
+            <label id="select-label">Select Project:</label>
             <select class="project-select" id="select-project">
                 <option value="">Select a project</option>
                 <option value=""></option>
             </select>
             <div class="capacity-input-section" style="display: block;">
-                <p>Capacity Allocation: </p>
+                <p>Capacity Allocation: <span id="capacity-value-display">1.0</span></p>
                 <input type="range" class="capacity-input" id="capacity-range" min="0" max="1.5" step="0.1" value="1.0">
                 <span class="capacity-hint">Adjust capacity (0.0 - 1.5)</span>
-                <p>Project Fit: </p>
+                <p>Project Fit: <span id="fit-value-display">1.0</span></p>
                 <input type="range" class="fit-input" id="projectfit-range" min="0" max="1" step="0.1" value="1.0">
                 <span class="capacity-hint">Project fit coefficient (0.0-1.0). <br>Effective capacity = capacity ×
                     fit</span>

@@ -408,7 +408,7 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${job ? job.AssignedCapacity : '0'}</td>
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
-                                <button class="edit-btn btn" data-employee-id="${emp.id}">Edit assignments</button >
+                                <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}">Edit assignments</button >
                                 <button class="unassign-btn btn" data-employee-id="${emp.id}">Unassign</button>
                                 </td>
                             </tr>
@@ -577,6 +577,61 @@ function openAssignmentPopup(employeeId) {
 }
 
 
+function openEditAssignmentPopup(employeeId, projectId) {
+    const eId = Number(employeeId);
+    const employee = currentData.employees.find(e => e.id === eId);
+    if (!employee) return;
+
+    const currentAssignment = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
+
+    const fitInput = document.getElementById('projectfit-range');
+    const capacityInput = document.getElementById('capacity-range');
+    fitInput.value = currentAssignment.ProjectFit;
+    capacityInput.value = currentAssignment.AssignedCapacity;
+
+
+    const applyBtn = document.querySelector('.apply-assignment');
+    applyBtn.setAttribute('data-employee-id', employeeId);
+    applyBtn.setAttribute('data-project-id', projectId);
+
+    updateCalculations();
+}
+
+function saveEditAssignment() {
+    const applyBtn = document.querySelector('.apply-assignment');
+    const empId = Number(applyBtn.getAttribute('data-employee-id'));
+    const projId = Number(applyBtn.getAttribute('data-project-id'));
+
+    const employee = currentData.employees.find(e => e.id === empId);
+    const currentAssignment = employee.assignments.find(a => Number(a.projectId) === projId);
+
+    const newCapacity = document.getElementById('capacity-range').value;
+    const newFit = document.getElementById('projectfit-range').value;
+
+    currentAssignment.AssignedCapacity = newCapacity;
+    currentAssignment.ProjectFit = newFit;
+
+    document.getElementById('assignment-popup').classList.add('hidden');
+}
+const popupContainer = document.getElementById('popup-details');
+popupContainer.addEventListener('click', (event) => {
+    if (event.target.classList.contains('edit-btn')) {
+        event.preventDefault();
+        const employeeId = Number(event.target.getAttribute('data-employee-id'));
+        const projectId = Number(event.target.getAttribute('data-project-id'));
+        const employee = currentData.employees.find(e => e.id === employeeId);
+        const projectName = currentData.projects.find(proj => proj.id === projectId);
+        console.log()
+        document.getElementById('assignment-popup').classList.remove('hidden');
+        document.querySelector('.capacity-status').classList.add('hidden');
+        document.getElementById('select-project').classList.add('hidden');
+        document.getElementById('select-label').classList.add('hidden');
+        document.querySelector('.project-info').classList.add('hidden');
+        document.getElementById('popup-header-assign').innerHTML = `Edit Assignment`;
+        document.getElementById('popup-header-p').innerHTML = `${employee.name} ${employee.surname} on ${projectName.projectname}`
+    }
+});
+
 
 function showEmployeeProjects(employeeId) {
     const eId = Number(employeeId);
@@ -627,7 +682,7 @@ function renderProjectsInPopup(projects, employee) {
                                 <td>${job ? job.AssignedCapacity : '0'}</td>
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
-                                    <button class="edit-btn btn" data-employee-id="${employee.id}">Edit assignments</button >
+                                    <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}">Edit assignments</button >
                                     <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
                                 </td>
                             </tr>
