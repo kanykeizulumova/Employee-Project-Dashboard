@@ -457,3 +457,22 @@ input:invalid {
     border-radius: 6px;
     margin-bottom: 15px;
 }
+
+.validation-message {
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: .9em;
+}
+
+.validation-message.error {
+    background-color: #ffe6e6;
+    border-left: 3px solid #e74c3c;
+    color: #c0392b;
+}
+
+.validation-message.warning {
+    background-color: #ffe6e6;
+    border-left: 3px solid #e7803c;
+    color: #db7827;
+}
