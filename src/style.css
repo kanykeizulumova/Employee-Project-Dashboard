@@ -397,3 +397,63 @@ input:invalid {
     top: 391.438px;
     right: auto;
 }
+
+.capacity-input,
+.fit-input {
+    width: 100%;
+    padding: 0;
+    border: none;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.capacity-status {
+    background-color: #e8f4f8;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: .9em;
+    border-left: 3px solid #3498db;
+}
+
+.assignment-popup-content h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 8px;
+}
+
+.assignment-popup-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.assignment-popup-content .project-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+.capacity-input-section {
+    margin-bottom: 15px;
+}
+
+.capacity-hint {
+    display: block;
+    font-size: .8em;
+    color: #7f8c8d;
+    margin-top: 4px;
+}
+
+.project-info {
+    background-color: #ecf0f1;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}

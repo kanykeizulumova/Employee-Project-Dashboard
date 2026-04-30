@@ -355,8 +355,6 @@ projectsContainer.addEventListener('click', (event) => {
         const projectName = project ? project.projectname : '';
         if (confirm(`Are you sure you want to delete ${projectName}? This will unassign all employees from this project.`)) {
             deleteProject(projectId);
-        } else {
-            return;
         }
     }
 });
@@ -449,8 +447,6 @@ employeeContainer.addEventListener('click', (event) => {
         if (confirm(`Are you sure you want to delete ${employeeName}?`)) {
             deleteEmployee(employeeId);
         }
-    } else {
-        return;
     }
 
     if (event.target.classList.contains('assignment-btn')) {
@@ -459,23 +455,43 @@ employeeContainer.addEventListener('click', (event) => {
     }
 })
 
-function openAssignmentPopup(employeeId) {
-    document.getElementById('assignment-popup').classList.remove('hidden');
+function updateCalculations() {
+    const allocatedCapacity = Number(capacityInput.value);
+    const projectFit = Number(fitInput.value);
 
-    const applyBtn = document.querySelector('.apply-assignment');
+    const newTotalCapacity = currentCapacity + allocatedCapacity;
 
-    applyBtn.setAttribute('data-employee-id', employeeId);
-    const selectElement = document.getElementById('select-project');
-    selectElement.innerHTML = '<option value="">Select a project</option>';
-    let periodKey = getPeriodKey();
-    let catalog = getData();
-    let currentProjects = catalog.monthlyData[periodKey].projects;
-    currentProjects.forEach(proj => {
-        const option = document.createElement('option');
-        option.value = proj.id;
-        option.textContent = proj.projectname;
-        selectElement.appendChild(option);
-    });
+    if (newTotalCapacity > 1.5) {
+        validationMessageEl.textContent = `Error: Total capacity would be ${newTotalCapacity}. Maximum allowed is 1.5.`;
+        validationMessageEl.classList.remove('warning');
+        validationMessageEl.classList.add('error');
+    } else if (newTotalCapacity > 1.0) {
+        validationMessageEl.textContent = `Warning: Employee is over-capacity (Total: ${newTotalCapacity}).`;
+        validationMessageEl.classList.remove('error');
+        validationMessageEl.classList.add('warning');
+    } else {
+        validationMessageEl.textContent = `Total expected capacity: ${newTotalCapacity}`;
+        validationMessageEl.classList.remove('error', 'warning');
+    }
+
+    const effectiveCapacity = (allocatedCapacity * projectFit).toFixed(2);
+
+    const selectedProjectId = Number(selectElement.value);
+    const selectedProject = currentProjects.find(p => p.id === selectedProjectId);
+
+    const currentProjectAssigned = selectedProject?.currentAssigned || 0;
+    const projectTotalRequired = selectedProject?.totalRequired || 5;
+
+    const afterAssignmentValue = currentProjectAssigned + Number(effectiveCapacity);
+
+    const effectiveCap = document.querySelector('.effective-capacity');
+    effectiveCap.innerHTML = `${effectiveCapacity}`;
+
+    const projectCapacityHTML = document.querySelector('.total-capacity');
+    projectCapacityHTML.innerHTML = `${currentProjectAssigned} / ${projectTotalRequired}`;
+
+    const afterAssignmentHTML = document.querySelector('.target-capacity');
+    afterAssignmentHTML.innerHTML = `${afterAssignmentValue} / ${projectTotalRequired}`;
 }
 
 function showEmployeeProjects(employeeId) {
@@ -818,7 +834,21 @@ applyAssignmentBtn.addEventListener('click', (e) => {
     const projectId = Number(document.getElementById('select-project').value);
     const assignedCapacityCoef = Number(document.getElementById('capacity-range').value);
     const projectFitCoef = Number(document.getElementById('projectfit-range').value);
-    assignEmployeeToProject(employeeId, projectId, assignedCapacityCoef, projectFitCoef)
+    let periodKey = getPeriodKey();
+    let currentData = getData();
+    const employee = currentData.monthlyData[periodKey].employees.find(e => e.id === employeeId);
+
+    const currentCapacity = employee.assignments.reduce((sum, assignment) => {
+        const capacity = assignment.assignedCapacity ? Number(assignment.assignedCapacity) : 0;
+        return sum + capacity;
+    }, 0);
+    const newTotalCapacity = currentCapacity + assignedCapacityCoef;
+
+    if (newTotalCapacity > 1.5) {
+        return;
+    }
+    assignEmployeeToProject(employeeId, projectId, assignedCapacityCoef, projectFitCoef);
+    document.getElementById('assignment-popup').classList.add('hidden');
 })
 
 const cancelAssignmentBtn = document.querySelector('.cancel-assignment');
