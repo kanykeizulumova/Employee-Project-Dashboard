@@ -270,55 +270,131 @@ tr:hover {
     background-color: var(--slate-50);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.add-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
+/* Buttons*/
+button {
+    font-family: inherit;
 }
-
-.add-btn:hover {
-    background-color: var(--primary-hover);
-}
-
-
 
 .btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    transition: all 0.2s;
-    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
-.btn:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    background-color: #f5f3ff;
+.add-btn,
+.button-submit,
+.apply-assignment,
+.save-assignment {
+    background-color: var(--indigo-600);
+    color: white;
+    border: 1px solid var(--indigo-600);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
 }
+
+.add-btn:hover,
+.button-submit:hover,
+.apply-assignment:hover,
+.save-assignment:hover {
+    background-color: var(--indigo-700);
+    border-color: var(--indigo-700);
+    box-shadow: var(--shadow-md);
+}
+
+.show-assignments-btn,
+.show-btn {
+    background-color: var(--slate-100);
+    color: var(--slate-700);
+    border: 1px solid var(--slate-200);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.show-assignments-btn:hover,
+.show-btn:hover {
+    background-color: var(--slate-200);
+    color: var(--slate-900);
+}
+
+.assignment-btn {
+    background-color: var(--emerald-50);
+    color: var(--emerald-600);
+    border: 1px solid var(--emerald-100);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 4px;
+}
+
+.assignment-btn:hover {
+    background-color: var(--emerald-100);
+    border-color: var(--emerald-200);
+}
+
+.vacation-btn {
+    background-color: #f3e8ff;
+    color: #9333ea;
+    border: 1px solid #e9d5ff;
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 4px;
+}
+
+.vacation-btn:hover {
+    background-color: #e9d5ff;
+    border-color: #d8b4fe;
+}
+
+.delete-emp-btn,
+.delete-btn,
+.unassign-btn {
+    background-color: var(--red-50);
+    color: var(--red-600);
+    border: 1px solid var(--red-100);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.delete-emp-btn:hover,
+.delete-btn:hover,
+.unassign-btn:hover {
+    background-color: var(--red-100);
+    border-color: var(--red-200);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 .hidden {
     display: none !important;
@@ -393,20 +469,6 @@ tr:hover {
     margin-top: 25px;
 }
 
-.button-submit {
-    background-color: #4f46e5;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.button-submit:hover {
-    background-color: #4338ca;
-}
 
 .button-cancel {
     background-color: #f3f4f6;
@@ -596,52 +658,6 @@ input:invalid {
 
 #popup-header-p {
     margin-bottom: 15px;
-}
-
-.delete-emp-btn,
-.delete-btn,
-.unassign-btn {
-    background-color: #e74c3c;
-    color: #fff;
-}
-
-.delete-emp-btn:hover,
-.delete-btn:hover,
-.unassign-btn:hover {
-    background-color: #6e1d14;
-    color: #fff;
-    border: none;
-}
-
-.show-assignments-btn:hover,
-.show-btn:hover {
-    background-color: #1E5945;
-    color: #fff;
-}
-
-.show-assignments-btn,
-.show-btn {
-    background-color: #98FB98;
-    color: black;
-}
-
-.assignment-btn {
-    background-color: #30BA8F;
-}
-
-.assignment-btn:hover {
-    background-color: #0A5F38;
-    color: #fff;
-}
-
-.vacation-btn {
-    background-color: #9590ef;
-}
-
-.vacation-btn:hover {
-    background-color: #726aea;
-    color: #fff;
-
 }
 
 .unassignment-popup-overlay {
