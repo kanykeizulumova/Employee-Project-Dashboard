@@ -684,70 +684,49 @@ input:invalid:not(:placeholder-shown) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.vacation-day {
-    background-color: #e67e22;
-    color: #fff;
-    font-weight: 700;
-    border-color: #d35400;
-    border: 1px solid #ecf0f1;
-    border-radius: 6px;
+/* Assignment Inputs */
+.capacity-input-section label,
+.assignment-popup-content label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--slate-700);
+    margin-bottom: 0.5rem;
 }
 
 .capacity-input,
 .fit-input {
     width: 100%;
-    padding: 0;
-    border: none;
-    margin-top: 5px;
-    box-sizing: border-box;
-}
-
-.assignment-popup-content label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.capacity-input-section {
-    margin-bottom: 15px;
+    margin: 8px 0;
+    accent-color: var(--indigo-600);
 }
 
 .capacity-hint {
     display: block;
-    font-size: .8em;
-    color: #7f8c8d;
-    margin-top: 4px;
+    font-size: 0.8rem;
+    color: var(--slate-500);
+    margin-bottom: 12px;
 }
 
+.popup-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/* UNASSIGNMENTS */
 .unassign-message {
     font-size: 0.95rem;
-    color: #475569;
+    color: var(--slate-600);
     line-height: 1.5;
     margin: 0;
 }
 
 .unassignment-info {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 5px 20px;
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-md);
+    padding: 8px 20px;
     display: flex;
     flex-direction: column;
 }
@@ -757,7 +736,7 @@ input:invalid:not(:placeholder-shown) {
     justify-content: space-between;
     align-items: center;
     padding: 12px 0;
-    border-bottom: 1px dashed #cbd5e1;
+    border-bottom: 1px dashed var(--slate-300);
 }
 
 .info-row:last-child {
@@ -766,33 +745,27 @@ input:invalid:not(:placeholder-shown) {
 
 .info-label {
     font-size: 0.85rem;
-    color: #64748b;
+    color: var(--slate-500);
     font-weight: 500;
 }
 
 .info-value {
     font-size: 0.95rem;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--slate-900);
 }
 
 .negative-income {
-    color: #ef4444;
+    color: var(--red-500);
 }
 
 .positive-income {
-    color: #10b981;
+    color: var(--emerald-500);
 }
 
 .popup-actions {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-    margin-top: 5px;
-}
-
-.popup-confirm-unassign {
-    padding: 0.6rem 1.2rem;
-    font-weight: 500;
-    border: none;
+    margin-top: 8px;
 }
