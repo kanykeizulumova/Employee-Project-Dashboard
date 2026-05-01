@@ -384,9 +384,51 @@ button {
     border-color: var(--red-200);
 }
 
+.button-cancel,
+.cancel-assignment,
+.popup-cancel,
+.close-calendar-btn,
+.close-popup-btn {
+    background-color: transparent;
+    color: var(--slate-500);
+    border: 1px solid var(--slate-300);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
 
+.button-cancel:hover,
+.cancel-assignment:hover,
+.popup-cancel:hover,
+.close-calendar-btn:hover,
+.close-popup-btn:hover {
+    background-color: var(--slate-100);
+    color: var(--slate-800);
+}
 
+.close-popup-btn,
+.close-calendar-btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 1.2rem;
+    border: none;
+}
 
+.close-calendar-btn {
+    position: relative;
+    bottom: 80px;
+    left: 380px;
+    color: var(--slate-900);
+}
+
+.set-vacation-btn {
+    background-color: #fdebce;
+}
+
+.set-vacation-btn:hover {
+    background-color: var(--amber-500);
+}
 
 
 
@@ -469,21 +511,6 @@ button {
     margin-top: 25px;
 }
 
-
-.button-cancel {
-    background-color: #f3f4f6;
-    color: #4b5563;
-    padding: 10px 20px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.button-cancel:hover {
-    background-color: #e5e7eb;
-}
-
 .error {
     color: #ef4444;
     font-size: 12px;
@@ -553,13 +580,6 @@ input:invalid {
     border-color: #d35400;
     border: 1px solid #ecf0f1;
     border-radius: 6px;
-}
-
-.close-calendar-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    font-size: x-large;
 }
 
 #assignment-popup {
@@ -746,20 +766,6 @@ input:invalid {
     justify-content: flex-end;
     gap: 12px;
     margin-top: 5px;
-}
-
-.popup-cancel {
-    background-color: #f1f5f9;
-    color: #475569;
-    border: 1px solid #cbd5e1;
-    font-weight: 500;
-    padding: 0.6rem 1.2rem;
-}
-
-.popup-cancel:hover {
-    background-color: #e2e8f0;
-    color: #0f172a;
-    border-color: #94a3b8;
 }
 
 .popup-confirm-unassign {
