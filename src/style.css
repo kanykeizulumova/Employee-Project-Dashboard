@@ -131,36 +131,49 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
+/* Navigation */
 .month-selector {
     margin: 2rem 0;
 }
 
 .month-selector h3 {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--slate-400);
+    margin-bottom: 0.75rem;
     text-transform: uppercase;
-    padding-left: 10px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    padding-left: 0.5rem;
 }
 
 .month-select,
-.year-select {
+.year-select,
+.project-select,
+select {
     width: 100%;
-    padding: 0.6rem;
+    padding: 0.6rem 1rem;
     margin-bottom: 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     background-color: #fff;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    color: var(--slate-700);
+    cursor: pointer;
+    transition: all 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+.month-select:focus,
+.year-select:focus,
+.project-select:focus,
+select:focus {
+    outline: none;
+    border-color: var(--indigo-500);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 nav {
@@ -171,22 +184,38 @@ nav {
 
 .nav-item {
     text-decoration: none;
-    color: var(--text-muted);
+    color: var(--slate-600);
     padding: 0.75rem 1rem;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     transition: all 0.2s;
     font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 
 .nav-item:hover {
-    background-color: #f3f4f6;
-    color: var(--primary-color);
+    background-color: var(--slate-100);
+    color: var(--slate-900);
 }
 
 .nav-item.active {
-    background-color: #eef2ff;
-    color: var(--primary-color);
+    background-color: var(--indigo-50);
+    color: var(--indigo-600);
+    font-weight: 600;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #main-content {
     flex-grow: 1;
@@ -502,7 +531,7 @@ input:invalid {
     color: #2c3e50;
 }
 
-.assignment-popup-content .project-select {
+.assignment-popup-content {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #bdc3c7;
