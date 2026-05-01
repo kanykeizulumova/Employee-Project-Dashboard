@@ -60,6 +60,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     overflow: hidden;
+    line-height: 1.5;
 }
 
 .wrapper {
@@ -68,15 +69,17 @@ body {
     width: 100vw;
 }
 
+/* Sidebar */
 #side-panel {
-    width: 260px;
+    width: 280px;
     background-color: var(--panel-bg);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 100;
+    box-shadow: var(--shadow-sm);
 }
 
 #side-panel.hidden {
@@ -84,22 +87,58 @@ body {
     position: absolute;
 }
 
+#toggle-button {
+    background-color: var(--indigo-50);
+    color: var(--indigo-600);
+    border: 1px solid var(--indigo-100);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#toggle-button:hover {
+    background-color: var(--indigo-100);
+}
+
 #open-button {
     position: fixed;
     top: 1rem;
     left: 1rem;
-    padding: 0.5rem 1rem;
-    background: var(--primary-color);
+    padding: 0.6rem 1rem;
+    background: var(--indigo-600);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     z-index: 90;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s;
+}
+
+#open-button:hover {
+    background: var(--indigo-700);
 }
 
 #open-button.hidden {
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
 
 .month-selector {
     margin: 2rem 0;
@@ -217,15 +256,7 @@ tr:hover {
     background-color: var(--primary-hover);
 }
 
-#toggle-button {
-    background-color: #eef2ff;
-    color: black;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
+
 
 .btn {
     background: transparent;
