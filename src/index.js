@@ -409,8 +409,8 @@ function renderEmployeesAssignments(staffList, projectId) {
             return `
                             <tr>
                                 <td>${emp.name} ${emp.surname}</td>
-                                <td>${job ? (job.AssignedCapacity !== undefined ? job.AssignedCapacity : job.assignedCapacity) : '0'}</td>
-                                <td>${job ? (job.ProjectFit !== undefined ? job.ProjectFit : job.projectFit) : '0'}</td>
+                                <td>${job ? job.AssignedCapacity : '0'}</td>
+                                <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>${emp ? emp.vacation.length : '0'} days </td>
                                 <td>${effective}</td>
                                 <td>
@@ -488,9 +488,7 @@ function openAssignmentPopup(employeeId) {
             if (!emp.assignments) return sum;
             const assignment = emp.assignments.find(a => Number(a.projectId) === proj.id);
             if (assignment) {
-                const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
-                const fit = assignment.ProjectFit !== undefined ? assignment.ProjectFit : assignment.projectFit;
-                return sum + (Number(cap) * Number(fit));
+                return sum + (Number(assignment.AssignedCapacity) * Number(assignment.ProjectFit));
             }
             return sum;
         }, 0);
@@ -503,8 +501,7 @@ function openAssignmentPopup(employeeId) {
 
     const employee = catalog.monthlyData[periodKey].employees.find(e => e.id === employeeId);
     const currentCapacity = employee.assignments.reduce((sum, assignment) => {
-        const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
-        return sum + (cap ? Number(cap) : 0);
+        return sum + (assignment.AssignedCapacity ? Number(assignment.AssignedCapacity) : 0);
     }, 0);
 
     const popupHeader = document.getElementById('popup-header-assign');
@@ -561,9 +558,7 @@ function openAssignmentPopup(employeeId) {
                 if (!emp.assignments) return totalSum;
                 const assignment = emp.assignments.find(a => Number(a.projectId) === selectedProjectId);
                 if (assignment) {
-                    const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
-                    const fit = assignment.ProjectFit !== undefined ? assignment.ProjectFit : assignment.projectFit;
-                    return totalSum + (Number(cap) * Number(fit));
+                    return totalSum + (Number(assignment.AssignedCapacity) * Number(assignment.ProjectFit));
                 }
                 return totalSum;
             }, 0);
@@ -599,8 +594,8 @@ function openEditAssignmentPopup(employeeId, projectId, source) {
 
     const fitInput = document.getElementById('projectfit-range');
     const capacityInput = document.getElementById('capacity-range');
-    fitInput.value = currentAssignment.ProjectFit !== undefined ? currentAssignment.ProjectFit : currentAssignment.projectFit;
-    capacityInput.value = currentAssignment.AssignedCapacity !== undefined ? currentAssignment.AssignedCapacity : currentAssignment.assignedCapacity;
+    fitInput.value = currentAssignment.ProjectFit;
+    capacityInput.value = currentAssignment.AssignedCapacity;
 
     document.getElementById('fit-value-display').textContent = Number(fitInput.value).toFixed(1);
     document.getElementById('capacity-value-display').textContent = Number(capacityInput.value).toFixed(1);
@@ -717,8 +712,8 @@ function renderProjectsInPopup(projects, employee) {
             return `
                             <tr>
                                 <td>${proj.projectname}</td>
-                                <td>${job ? (job.AssignedCapacity !== undefined ? job.AssignedCapacity : job.assignedCapacity) : '0'}</td>
-                                <td>${job ? (job.ProjectFit !== undefined ? job.ProjectFit : job.projectFit) : '0'}</td>
+                                <td>${job ? job.AssignedCapacity : '0'}</td>
+                                <td>${job ? job.ProjectFit : '0'}</td>
                                 <td> ${employee ? employee.vacation.length : '0'} days </td>
                                 <td> ${effective}</td>
                                 <td>
@@ -778,8 +773,7 @@ function countAssignedCapacity(year, month, employeeId, projectId) {
 
     const job = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
     if (!job) return 0;
-    const cap = job.AssignedCapacity !== undefined ? job.AssignedCapacity : job.assignedCapacity;
-    return Number(cap) || 0;
+    return Number(job.AssignedCapacity) || 0;
 }
 
 function countProjectFit(year, month, employeeId, projectId) {
@@ -789,8 +783,7 @@ function countProjectFit(year, month, employeeId, projectId) {
 
     const job = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
     if (!job) return 0;
-    const fit = job.ProjectFit !== undefined ? job.ProjectFit : job.projectFit;
-    return Number(fit) || 0;
+    return Number(job.ProjectFit) || 0;
 }
 
 
@@ -1023,8 +1016,7 @@ applyAssignmentBtn.addEventListener('click', (e) => {
     const employee = currentData.monthlyData[periodKey].employees.find(e => e.id === employeeId);
 
     const currentCapacity = employee.assignments.reduce((sum, assignment) => {
-        const cap = assignment.AssignedCapacity !== undefined ? assignment.AssignedCapacity : assignment.assignedCapacity;
-        return sum + (cap ? Number(cap) : 0);
+        return sum + (assignment.AssignedCapacity ? Number(assignment.AssignedCapacity) : 0);
     }, 0);
 
     const newTotalCapacity = currentCapacity + assignedCapacityCoef;
