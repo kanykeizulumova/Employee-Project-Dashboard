@@ -288,30 +288,46 @@ function renderEmployeesTable(data) {
                 </tr>
             </thead>
             <tbody>
-                ${data.map(emp => `
+                ${data.map(emp => {
+        let estimatedPayment = 0;
+        let projectedIncome = 0;
+
+        if (!emp.assignments || emp.assignments.length === 0) {
+            estimatedPayment = emp.salary * 0.5;
+            projectedIncome = -estimatedPayment;
+        } else {
+            emp.assignments.forEach(a => {
+                estimatedPayment += countEmployeeCost(state.selectedYear, state.selectedMonth, emp.id, a.projectId);
+                projectedIncome += getEmployeeProfit(state.selectedYear, state.selectedMonth, emp.id, a.projectId, emp.vacation);
+            });
+        }
+
+        return `
                     <tr>
                         <td>${emp.name}</td>
                         <td>${emp.surname}</td>
                         <td>${calculateAge(emp.dateofbirth)}</td>
                         <td>${emp.position}</td>
                         <td>$ ${emp.salary.toLocaleString()}</td>
-                        
-                        <td>${emp.assignments.map(a => a.projectId).join(', ')}</td>
-                        <td> <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects</button>
-                        </td >
-
-        <td>
-            <button class="vacation-btn btn" data-employee-id="${emp.id}">Availability</button>
-            <button class="assignment-btn btn" data-employee-id="${emp.id}">Assign</button>
-            <button class="delete-emp-btn btn" data-employee-id="${emp.id}">Delete</button>
-        </td>
-                    </tr >
-        `).join('')}
+                        <td>$ ${estimatedPayment.toFixed(2)}</td>
+                        <td>
+                            <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects</button>
+                        </td>
+                        <td>$ ${projectedIncome.toFixed(2)}</td>
+                        <td>
+                            <button class="vacation-btn btn" data-employee-id="${emp.id}">Availability</button>
+                            <button class="assignment-btn btn" data-employee-id="${emp.id}">Assign</button>
+                            <button class="delete-emp-btn btn" data-employee-id="${emp.id}">Delete</button>
+                        </td>
+                    </tr>
+        `}).join('')}
             </tbody>
         </table>
     `;
 
+
     employeeContainer.innerHTML = tableHtml;
+
 }
 
 
@@ -405,6 +421,9 @@ function renderEmployeesAssignments(staffList, projectId) {
             const job = emp.assignments.find(a => Number(a.projectId) === Number(projectId)) || emp.assignments[0];
             let vacationDates = emp.vacation;
             const effective = getEffectiveCapacity(state.selectedYear, state.selectedMonth, emp.id, projectId, vacationDates).toFixed(2);
+            const revenue = countEmployeeRevenue(state.selectedYear, state.selectedMonth, emp.id, projectId, vacationDates).toFixed(2);
+            const empCost = countEmployeeCost(state.selectedYear, state.selectedMonth, emp.id, projectId).toFixed(2);
+            const profit = (revenue - empCost).toFixed(2);
 
             return `
                             <tr>
@@ -413,6 +432,9 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>${emp ? emp.vacation.length : '0'} days </td>
                                 <td>${effective}</td>
+                                <td>${revenue} $</td>
+                                <td>${empCost} $</td>
+                                <td>${profit} $</td>
                                 <td>
                                 <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}" data-source="project">Edit assignments</button >
                                 <button class="unassign-btn btn" data-employee-id="${emp.id}">Unassign</button>
@@ -709,6 +731,9 @@ function renderProjectsInPopup(projects, employee) {
             const job = employee.assignments.find(a => a.projectId === proj.id);
             let vacationDates = employee.vacation;
             const effective = getEffectiveCapacity(state.selectedYear, state.selectedMonth, employee.id, proj.id, vacationDates).toFixed(2);
+            const revenue = countEmployeeRevenue(state.selectedYear, state.selectedMonth, employee.id, proj.id, vacationDates).toFixed(2);
+            const empCost = countEmployeeCost(state.selectedYear, state.selectedMonth, employee.id, proj.id).toFixed(2);
+            const profit = (revenue - empCost).toFixed(2);
             return `
                             <tr>
                                 <td>${proj.projectname}</td>
@@ -716,6 +741,9 @@ function renderProjectsInPopup(projects, employee) {
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td> ${employee ? employee.vacation.length : '0'} days </td>
                                 <td> ${effective}</td>
+                                <td> ${revenue} $</td>
+                                <td>${empCost} $</td>
+                                <td>${profit} $</td>
                                 <td>
                                     <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}" data-source="employee">Edit assignments</button >
                                     <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
