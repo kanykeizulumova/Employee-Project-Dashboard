@@ -769,3 +769,59 @@ input:invalid:not(:placeholder-shown) {
     gap: 12px;
     margin-top: 8px;
 }
+
+
+/* CALENDAR */
+#calendar-header h3 {
+    color: var(--slate-500);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+#calendar-grid table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px;
+    margin: 16px 0;
+    cursor: pointer;
+}
+
+#calendar-grid th {
+    background: none;
+    border: none;
+    text-align: center;
+    padding: 8px;
+    color: var(--slate-500);
+    font-size: 0.8rem;
+}
+
+#calendar-grid td {
+    border: 1px solid var(--slate-200);
+    border-radius: var(--radius-sm);
+    text-align: center;
+    padding: 12px;
+    font-weight: 500;
+    color: var(--slate-700);
+}
+
+.vacation-day {
+    background-color: var(--amber-50) !important;
+    color: var(--amber-500) !important;
+    border-color: var(--amber-200) !important;
+}
+
+#calendar-info {
+    background: var(--slate-50);
+    padding: 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    color: var(--slate-700);
+    border: 1px solid var(--slate-200);
+}
+
+#calendar-info ul {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding-left: 20px;
+    color: var(--slate-600);
+}
