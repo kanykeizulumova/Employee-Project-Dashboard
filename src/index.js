@@ -408,7 +408,7 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${job ? job.AssignedCapacity : '0'}</td>
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
-                                <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}">Edit assignments</button >
+                                <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}" data-source="project">Edit assignments</button >
                                 <button class="unassign-btn btn" data-employee-id="${emp.id}">Unassign</button>
                                 </td>
                             </tr>
@@ -457,7 +457,14 @@ employeeContainer.addEventListener('click', (event) => {
 
 function openAssignmentPopup(employeeId) {
     document.getElementById('assignment-popup').classList.remove('hidden');
-
+    document.querySelector('.capacity-status').classList.remove('hidden');
+    document.getElementById('select-project').classList.remove('hidden');
+    document.getElementById('select-label').classList.remove('hidden');
+    document.querySelector('.project-info').classList.remove('hidden');
+    document.querySelector('.apply-assignment').classList.remove('hidden');
+    document.querySelector('.save-assignment').classList.add('hidden');
+    document.getElementById('popup-header-assign').innerHTML = ``;
+    document.getElementById('popup-header-p').innerHTML = ``;
     const applyBtn = document.querySelector('.apply-assignment');
 
     applyBtn.setAttribute('data-employee-id', employeeId);
@@ -577,7 +584,7 @@ function openAssignmentPopup(employeeId) {
 }
 
 
-function openEditAssignmentPopup(employeeId, projectId) {
+function openEditAssignmentPopup(employeeId, projectId, source) {
     const eId = Number(employeeId);
     const employee = currentData.employees.find(e => e.id === eId);
     if (!employee) return;
@@ -586,23 +593,26 @@ function openEditAssignmentPopup(employeeId, projectId) {
 
     const fitInput = document.getElementById('projectfit-range');
     const capacityInput = document.getElementById('capacity-range');
-    fitInput.value = currentAssignment.ProjectFit;
-    capacityInput.value = currentAssignment.AssignedCapacity;
+    fitInput.value = currentAssignment.ProjectFit !== undefined ? currentAssignment.ProjectFit : currentAssignment.projectFit;
+    capacityInput.value = currentAssignment.AssignedCapacity !== undefined ? currentAssignment.AssignedCapacity : currentAssignment.assignedCapacity;
 
+    document.getElementById('fit-value-display').textContent = Number(fitInput.value).toFixed(1);
+    document.getElementById('capacity-value-display').textContent = Number(capacityInput.value).toFixed(1);
 
-    const applyBtn = document.querySelector('.apply-assignment');
-    applyBtn.setAttribute('data-employee-id', employeeId);
-    applyBtn.setAttribute('data-project-id', projectId);
-
-    updateCalculations();
+    const saveBtn = document.querySelector('.save-assignment');
+    saveBtn.setAttribute('data-employee-id', employeeId);
+    saveBtn.setAttribute('data-project-id', projectId);
+    saveBtn.setAttribute('data-context', source || '');
 }
 
 function saveEditAssignment() {
-    const applyBtn = document.querySelector('.apply-assignment');
-    const empId = Number(applyBtn.getAttribute('data-employee-id'));
-    const projId = Number(applyBtn.getAttribute('data-project-id'));
+    const saveBtn = document.querySelector('.save-assignment');
+    const empId = Number(saveBtn.getAttribute('data-employee-id'));
+    const projId = Number(saveBtn.getAttribute('data-project-id'));
 
-    const employee = currentData.employees.find(e => e.id === empId);
+    let periodKey = getPeriodKey();
+    let catalog = getData();
+    const employee = catalog.monthlyData[periodKey].employees.find(e => e.id === empId);
     const currentAssignment = employee.assignments.find(a => Number(a.projectId) === projId);
 
     const newCapacity = document.getElementById('capacity-range').value;
@@ -611,7 +621,16 @@ function saveEditAssignment() {
     currentAssignment.AssignedCapacity = newCapacity;
     currentAssignment.ProjectFit = newFit;
 
+    saveData(catalog);
+    updateDashboard();
+
     document.getElementById('assignment-popup').classList.add('hidden');
+    const context = saveBtn.getAttribute('data-context');
+    if (context === 'employee') {
+        showEmployeeProjects(empId);
+    } else {
+        showProjectStaff(projId);
+    }
 }
 const popupContainer = document.getElementById('popup-details');
 popupContainer.addEventListener('click', (event) => {
@@ -619,18 +638,29 @@ popupContainer.addEventListener('click', (event) => {
         event.preventDefault();
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
         const projectId = Number(event.target.getAttribute('data-project-id'));
+        const source = event.target.getAttribute('data-source');
         const employee = currentData.employees.find(e => e.id === employeeId);
         const projectName = currentData.projects.find(proj => proj.id === projectId);
-        console.log()
         document.getElementById('assignment-popup').classList.remove('hidden');
         document.querySelector('.capacity-status').classList.add('hidden');
         document.getElementById('select-project').classList.add('hidden');
         document.getElementById('select-label').classList.add('hidden');
         document.querySelector('.project-info').classList.add('hidden');
+        document.querySelector('.apply-assignment').classList.add('hidden');
+        document.querySelector('.save-assignment').classList.remove('hidden');
         document.getElementById('popup-header-assign').innerHTML = `Edit Assignment`;
-        document.getElementById('popup-header-p').innerHTML = `${employee.name} ${employee.surname} on ${projectName.projectname}`
+        document.getElementById('popup-header-p').innerHTML = `<strong>${employee.name} ${employee.surname}</strong> on <strong>${projectName.projectname}</strong>`;
+        
+        openEditAssignmentPopup(employeeId, projectId, source);
     }
 });
+
+const SaveAssignmentBtn = document.querySelector('.save-assignment');
+SaveAssignmentBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    saveEditAssignment();
+})
+
 
 
 function showEmployeeProjects(employeeId) {
@@ -682,7 +712,7 @@ function renderProjectsInPopup(projects, employee) {
                                 <td>${job ? job.AssignedCapacity : '0'}</td>
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>
-                                    <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}">Edit assignments</button >
+                                    <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}" data-source="employee">Edit assignments</button >
                                     <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
                                 </td>
                             </tr>

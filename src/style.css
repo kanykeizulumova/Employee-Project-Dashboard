@@ -476,3 +476,7 @@ input:invalid {
     border-left: 3px solid #e7803c;
     color: #db7827;
 }
+
+#popup-header-p {
+    margin-bottom: 15px;
+}
