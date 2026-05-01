@@ -547,28 +547,79 @@ input:invalid:not(:placeholder-shown) {
     padding-bottom: 1rem;
 }
 
-
-
-
-
-
-
+#popup-details,
+.assignment-popup-content,
+.calendar-popup-content,
+.unassignment-popup-content {
+    background: var(--panel-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow: hidden;
+    position: relative;
+}
 
 #popup-details {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px #0000004d;
-    z-index: 10000;
-    width: 80%;
-    max-height: 80vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    z-index: 10010;
+    border: 1px solid var(--slate-200);
+    width: 85%;
+    max-width: 1200px;
 }
+
+#assignment-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10020;
+}
+
+.assignment-popup-content {
+    width: 400px;
+    padding: 24px;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+.calendar-popup-content {
+    min-width: 450px;
+    max-width: 600px;
+    padding: 24px;
+    gap: 20px;
+    background: white;
+}
+
+.unassignment-popup-content {
+    padding: 24px;
+    min-width: 450px;
+    max-width: 550px;
+    gap: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #popup-header {
     background-color: var(--bg-color);
@@ -587,21 +638,6 @@ input:invalid:not(:placeholder-shown) {
     border-color: #d35400;
     border: 1px solid #ecf0f1;
     border-radius: 6px;
-}
-
-#assignment-popup {
-    position: fixed;
-    background-color: #fff;
-    border: 1px solid #bdc3c7;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px #0003;
-    padding: 20px;
-    z-index: 10001;
-    min-width: 320px;
-    max-width: 400px;
-    left: 648.667px;
-    top: 391.438px;
-    right: auto;
 }
 
 .capacity-input,
@@ -635,15 +671,6 @@ input:invalid:not(:placeholder-shown) {
     margin-bottom: 8px;
     font-weight: 600;
     color: #2c3e50;
-}
-
-.assignment-popup-content {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #bdc3c7;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    font-size: 1em;
 }
 
 .capacity-input-section {
@@ -685,18 +712,6 @@ input:invalid:not(:placeholder-shown) {
 
 #popup-header-p {
     margin-bottom: 15px;
-}
-
-.unassignment-popup-content {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    min-width: 450px;
-    max-width: 550px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
 .unassignment-popup-content h3 {
