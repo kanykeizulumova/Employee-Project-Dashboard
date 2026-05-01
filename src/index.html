@@ -221,6 +221,52 @@
         <div id="calendar-grid"></div>
         <div id="calendar-info"></div>
     </div>
+    <div class="unassignment-popup-overlay hidden">
+        <div class="unassignment-popup-content">
+            <h3>Unassign Confirmation</h3>
+            <p class="unassign-message"></p>
+
+            <div class="unassignment-info">
+                <div class="info-row">
+                    <span class="info-label">Assigned Capacity:</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Employee Salary Share:</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Budget Share:</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Employee Estimated Income:</span>
+                    <span class="info-value negative-income"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Current Project Capacity:</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Capacity After Unassignment:</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Project Income Now:</span>
+                    <span class="info-value negative-income"></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Project Income After:</span>
+                    <span class="info-value positive-income"></span>
+                </div>
+            </div>
+
+            <div class="popup-actions">
+                <button class="btn popup-cancel">Cancel</button>
+                <button class="btn popup-confirm-unassign unassign-btn">Unassign</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 
