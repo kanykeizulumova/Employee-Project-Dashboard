@@ -448,7 +448,7 @@ function renderEmployeesAssignments(staffList, projectId) {
         content.innerHTML = tableHtml;
     }
 
-    popup.style.display = 'block';
+    popup.style.display = 'flex';
 }
 
 
@@ -464,7 +464,8 @@ employeeContainer.addEventListener('click', (event) => {
         if (!employee) return;
         const employeeFullName = employee.name + ' ' + employee.surname;
         createCalendar(state.selectedYear, state.selectedMonth, employee.vacation, employeeFullName);
-        calendarWrapper.style.display = 'block';
+        calendarWrapper.classList.remove('hidden');
+        calendarWrapper.style.display = 'flex';
     };
     if (event.target.classList.contains('delete-emp-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
@@ -792,7 +793,7 @@ function renderProjectsInPopup(projects, employee) {
             </table>
         `;
     }
-    popup.style.display = 'block';
+    popup.style.display = 'flex';
 }
 
 function countWorkingDays(year, month) {
@@ -957,8 +958,6 @@ function createCalendar(year, month, vacationDates, fullName) {
     const calendarHeader = document.getElementById('calendar-header');
     const calendarGrid = document.getElementById('calendar-grid');
     const calendarInfo = document.getElementById('calendar-info');
-    const backdrop = document.createElement('div');
-    backdrop.className = 'popup-backdrop';
 
     //const vacationDates = ["2026-04-15", "2026-04-16", "2026-04-20"];
     const vacationDays = vacationDates.map(vac => {
@@ -1018,10 +1017,6 @@ function createCalendar(year, month, vacationDates, fullName) {
     <button class="set-vacation-btn btn">Set Vacation</button>
     </div>`
     calendarInfo.innerHTML = infoHeader;
-
-
-    document.body.appendChild(backdrop);
-
 }
 
 function getDay(date) {
@@ -1032,14 +1027,10 @@ function getDay(date) {
 const calendarWrapper = document.getElementById('calendar-wrapper');
 
 calendarWrapper.addEventListener('click', (event) => {
-    if (event.target.classList.contains('close-calendar-btn')) {
+    if (event.target.classList.contains('close-calendar-btn') || event.target.id === 'calendar-wrapper') {
         document.getElementById('calendar-header').innerHTML = '';
         document.getElementById('calendar-grid').innerHTML = '';
-        const backdrop = document.querySelector('.popup-backdrop');
-        if (backdrop) {
-            backdrop.remove();
-        }
-        calendarWrapper.style.display = 'none';
+        calendarWrapper.classList.add('hidden');
     }
 });
 
