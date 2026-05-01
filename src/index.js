@@ -437,7 +437,7 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${profit} $</td>
                                 <td>
                                 <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}" data-source="project">Edit assignments</button >
-                                <button class="unassign-btn btn" data-employee-id="${emp.id}">Unassign</button>
+                                <button class="unassign-btn btn" data-project-id="${projectId}" data-employee-id="${emp.id}">Unassign</button>
                                 </td>
                             </tr>
                         `;
@@ -655,6 +655,17 @@ function saveEditAssignment() {
         showProjectStaff(projId);
     }
 }
+
+function unassignEmployee(employeeId, projectId) {
+    let periodKey = getPeriodKey();
+    let catalog = getData();
+    const employee = catalog.monthlyData[periodKey].employees.find(e => e.id === employeeId);
+    const project = catalog.monthlyData[periodKey].projects.find(p => p.id === projectId);
+    employee.assignments = employee.assignments.filter(a => Number(a.projectId) !== Number(projectId));
+    project.assignedEmployees = project.assignedEmployees.filter(eId => Number(eId) !== Number(employeeId));
+    saveData(catalog);
+    updateDashboard();
+}
 const popupContainer = document.getElementById('popup-details');
 popupContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('edit-btn')) {
@@ -676,7 +687,33 @@ popupContainer.addEventListener('click', (event) => {
 
         openEditAssignmentPopup(employeeId, projectId, source);
     }
+    if (event.target.classList.contains('unassign-btn')) {
+        const employeeId = Number(event.target.getAttribute('data-employee-id'));
+        const projectId = Number(event.target.getAttribute('data-project-id'));
+        const employee = currentData.employees.find(e => e.id === employeeId);
+        const projectName = currentData.projects.find(proj => proj.id === projectId);
+        document.querySelector('.unassignment-popup-overlay').classList.remove('hidden');
+        document.querySelector('.unassign-message').innerHTML = `You want to unassign <strong>${employee.name} ${employee.surname}</strong> (1.0 capacity) from <strong>${projectName.projectname}</strong>?`
+        const UnassignBtn = document.querySelector('.popup-confirm-unassign');
+        UnassignBtn.setAttribute('data-employee-id', employeeId);
+        UnassignBtn.setAttribute('data-project-id', projectId);
+
+    }
 });
+
+const unassignmentPopup = document.querySelector('.unassignment-popup-overlay');
+unassignmentPopup.addEventListener('click', (e) => {
+    if (e.target.classList.contains('popup-cancel')) {
+        document.querySelector('.unassignment-popup-overlay').classList.add('hidden');
+    }
+    if (e.target.classList.contains('popup-confirm-unassign')) {
+        const employeeId = Number(document.querySelector('.apply-assignment').getAttribute('data-employee-id'));
+        const projectId = Number(document.querySelector('.apply-assignment').getAttribute('data-project-id'));
+        unassignEmployee(employeeId, projectId);
+        document.querySelector('.unassignment-popup-overlay').classList.add('hidden');
+    }
+})
+
 
 const SaveAssignmentBtn = document.querySelector('.save-assignment');
 SaveAssignmentBtn.addEventListener('click', (e) => {
@@ -889,14 +926,6 @@ function getEmployeeProfit(year, month, employeeId, projectId, vacationDates) {
     const cost = countEmployeeCost(year, month, employeeId, projectId);
     return revenue - cost;
 }
-
-console.log(getEmployeeProfit(state.selectedYear, state.selectedMonth, 1, 101, [
-    "2025-03-11",
-    "2025-03-12",
-    "2025-03-13",
-    "2025-03-18"
-]));
-
 
 
 //employeeRevenue = revenuePerEffectiveCapacity × employeeEffectiveCapacity
