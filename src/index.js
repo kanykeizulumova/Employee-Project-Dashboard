@@ -361,7 +361,6 @@ projectsContainer.addEventListener('click', (event) => {
 
 function showProjectStaff(projectId) {
     const pId = Number(projectId);
-
     const targetProject = currentData.projects.find(p => p.id === pId);
     const employeeIds = targetProject.assignedEmployees;
 
@@ -377,7 +376,10 @@ function renderEmployeesAssignments(staffList, projectId) {
     const content = document.getElementById('popup-content');
     const header = document.getElementById('popup-header');
 
-    header.innerHTML = `<h3>Assigned Employees</h3> <button class="close-popup-btn btn" onclick="this.closest('#popup-details').style.display='none'">×</button>`;
+    let periodKey = getPeriodKey();
+    let currentData = getData();
+    const targetProject = currentData.monthlyData[periodKey].projects.find(p => p.id === projectId);
+    header.innerHTML = `<h3>Assigned Employees on ${targetProject.projectname}</h3> <button class="close-popup-btn btn" onclick="this.closest('#popup-details').style.display='none'">×</button>`;
 
     if (staffList.length === 0) {
         content.innerHTML = "<p style='padding: 20px;'>No employees assigned to this project.</p>";
@@ -401,12 +403,16 @@ function renderEmployeesAssignments(staffList, projectId) {
                     ${staffList.map(emp => {
 
             const job = emp.assignments.find(a => Number(a.projectId) === Number(projectId)) || emp.assignments[0];
+            let vacationDates = emp.vacation;
+            const effective = getEffectiveCapacity(state.selectedYear, state.selectedMonth, emp.id, projectId, vacationDates).toFixed(2);
 
             return `
                             <tr>
                                 <td>${emp.name} ${emp.surname}</td>
-                                <td>${job ? job.AssignedCapacity : '0'}</td>
-                                <td>${job ? job.ProjectFit : '0'}</td>
+                                <td>${job ? (job.AssignedCapacity !== undefined ? job.AssignedCapacity : job.assignedCapacity) : '0'}</td>
+                                <td>${job ? (job.ProjectFit !== undefined ? job.ProjectFit : job.projectFit) : '0'}</td>
+                                <td>${emp ? emp.vacation.length : '0'} days </td>
+                                <td>${effective}</td>
                                 <td>
                                 <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}" data-source="project">Edit assignments</button >
                                 <button class="unassign-btn btn" data-employee-id="${emp.id}">Unassign</button>
@@ -650,7 +656,7 @@ popupContainer.addEventListener('click', (event) => {
         document.querySelector('.save-assignment').classList.remove('hidden');
         document.getElementById('popup-header-assign').innerHTML = `Edit Assignment`;
         document.getElementById('popup-header-p').innerHTML = `<strong>${employee.name} ${employee.surname}</strong> on <strong>${projectName.projectname}</strong>`;
-        
+
         openEditAssignmentPopup(employeeId, projectId, source);
     }
 });
@@ -706,11 +712,15 @@ function renderProjectsInPopup(projects, employee) {
                 <tbody>
                     ${projects.map(proj => {
             const job = employee.assignments.find(a => a.projectId === proj.id);
+            let vacationDates = employee.vacation;
+            const effective = getEffectiveCapacity(state.selectedYear, state.selectedMonth, employee.id, proj.id, vacationDates).toFixed(2);
             return `
                             <tr>
                                 <td>${proj.projectname}</td>
-                                <td>${job ? job.AssignedCapacity : '0'}</td>
-                                <td>${job ? job.ProjectFit : '0'}</td>
+                                <td>${job ? (job.AssignedCapacity !== undefined ? job.AssignedCapacity : job.assignedCapacity) : '0'}</td>
+                                <td>${job ? (job.ProjectFit !== undefined ? job.ProjectFit : job.projectFit) : '0'}</td>
+                                <td> ${employee ? employee.vacation.length : '0'} days </td>
+                                <td> ${effective}</td>
                                 <td>
                                     <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}" data-source="employee">Edit assignments</button >
                                     <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
@@ -767,7 +777,9 @@ function countAssignedCapacity(year, month, employeeId, projectId) {
     if (!employee || !employee.assignments) return 0;
 
     const job = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
-    return job ? job.AssignedCapacity : 0;
+    if (!job) return 0;
+    const cap = job.AssignedCapacity !== undefined ? job.AssignedCapacity : job.assignedCapacity;
+    return Number(cap) || 0;
 }
 
 function countProjectFit(year, month, employeeId, projectId) {
@@ -776,7 +788,9 @@ function countProjectFit(year, month, employeeId, projectId) {
     if (!employee || !employee.assignments) return 0;
 
     const job = employee.assignments.find(a => Number(a.projectId) === Number(projectId));
-    return job ? job.ProjectFit : 0;
+    if (!job) return 0;
+    const fit = job.ProjectFit !== undefined ? job.ProjectFit : job.projectFit;
+    return Number(fit) || 0;
 }
 
 
@@ -861,6 +875,7 @@ console.log(getEmployeeProfit(state.selectedYear, state.selectedMonth, 1, 101, [
     "2025-03-13",
     "2025-03-18"
 ]));
+
 
 
 //employeeRevenue = revenuePerEffectiveCapacity × employeeEffectiveCapacity
