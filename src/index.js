@@ -98,6 +98,7 @@ const addEmployeeBtn = document.getElementById('add-employee-btn');
 const addEmployeeForm = document.querySelector('.add-new-employee-container');
 const employeeCancelBtn = document.getElementById('employee-cancel');
 const projectCancelBtn = document.getElementById('project-cancel');
+const seedDataBtn = document.getElementById('seed-data-btn');
 
 addProjectBtn.addEventListener('click', () => {
     addProjectForm.classList.remove('hidden');
@@ -114,6 +115,11 @@ employeeCancelBtn.addEventListener('click', () => {
 
 projectCancelBtn.addEventListener('click', () => {
     addProjectForm.classList.add('hidden')
+})
+
+seedDataBtn.addEventListener('click', (e) => {
+    document.getElementById('seed-data-popup-back').classList.remove('hidden');
+    document.getElementById('seed-data-popup-back').style.display = "inline";
 })
 
 const state = {
@@ -718,6 +724,18 @@ popupContainer.addEventListener('click', (event) => {
 
     }
 });
+
+const seedDataPopup = document.getElementById('seed-data-popup-back');
+seedDataPopup.addEventListener('click', (e) => {
+    if (e.target.classList.contains('close-popup-btn')) {
+        document.getElementById('seed-data-popup-back').classList.add('hidden');
+    }
+})
+
+function getSeedData() {
+
+}
+
 
 const unassignmentPopup = document.querySelector('.unassignment-popup-overlay');
 unassignmentPopup.addEventListener('click', (e) => {
