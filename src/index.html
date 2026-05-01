@@ -188,7 +188,7 @@
                 <input type="range" class="capacity-input" id="capacity-range" min="0" max="1.5" step="0.1" value="1.0">
                 <span class="capacity-hint">Adjust capacity (0.0 - 1.5)</span>
                 <p>Project Fit: <span id="fit-value-display">1.0</span></p>
-                <input type="range" class="fit-input" id="projectfit-range" min="0" max="1" step="0.1" value="1.0">
+                <input type="range" class="fit-input" id="projectfit-range" min="0" max="1" step="0.05" value="1.0">
                 <span class="capacity-hint">Project fit coefficient (0.0-1.0). <br>Effective capacity = capacity ×
                     fit</span>
             </div>
@@ -230,27 +230,27 @@
             <div class="unassignment-info">
                 <div class="info-row">
                     <span class="info-label">Assigned Capacity:</span>
-                    <span class="info-value"></span>
+                    <span class="info-value" id="unassign-capacity"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Employee Salary Share:</span>
-                    <span class="info-value"></span>
+                    <span class="info-value" id="unassign-salary-share"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Budget Share:</span>
-                    <span class="info-value"></span>
+                    <span class="info-value" id="unassign-budget-share"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Employee Estimated Income:</span>
-                    <span class="info-value negative-income"></span>
+                    <span class="info-value negative-income" id="unassign-income"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Current Project Capacity:</span>
-                    <span class="info-value"></span>
+                    <span class="info-value" id="unassign-project-capacity"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Capacity After Unassignment:</span>
-                    <span class="info-value"></span>
+                    <span class="info-value" id="unassign-after-capacity"></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Project Income Now:</span>

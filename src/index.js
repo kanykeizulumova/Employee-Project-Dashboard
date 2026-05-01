@@ -547,10 +547,10 @@ function openAssignmentPopup(employeeId) {
         const projectFit = Number(fitInput.value);
 
         const capDisplay = document.getElementById('capacity-value-display');
-        if (capDisplay) capDisplay.textContent = allocatedCapacity.toFixed(1);
+        if (capDisplay) capDisplay.textContent = allocatedCapacity.toFixed(2);
 
         const fitDisplay = document.getElementById('fit-value-display');
-        if (fitDisplay) fitDisplay.textContent = projectFit.toFixed(1);
+        if (fitDisplay) fitDisplay.textContent = projectFit.toFixed(2);
 
         const newTotalCapacity = currentCapacity + allocatedCapacity;
 
@@ -620,8 +620,8 @@ function openEditAssignmentPopup(employeeId, projectId, source) {
     fitInput.value = currentAssignment.ProjectFit;
     capacityInput.value = currentAssignment.AssignedCapacity;
 
-    document.getElementById('fit-value-display').textContent = Number(fitInput.value).toFixed(1);
-    document.getElementById('capacity-value-display').textContent = Number(capacityInput.value).toFixed(1);
+    document.getElementById('fit-value-display').textContent = Number(fitInput.value).toFixed(2);
+    document.getElementById('capacity-value-display').textContent = Number(capacityInput.value).toFixed(2);
 
     const saveBtn = document.querySelector('.save-assignment');
     saveBtn.setAttribute('data-employee-id', employeeId);
@@ -665,6 +665,7 @@ function unassignEmployee(employeeId, projectId) {
     employee.assignments = employee.assignments.filter(a => Number(a.projectId) !== Number(projectId));
     project.assignedEmployees = project.assignedEmployees.filter(eId => Number(eId) !== Number(employeeId));
     saveData(catalog);
+    showEmployeeProjects(employeeId, projectId);
     updateDashboard();
 }
 const popupContainer = document.getElementById('popup-details');
@@ -693,8 +694,24 @@ popupContainer.addEventListener('click', (event) => {
         const projectId = Number(event.target.getAttribute('data-project-id'));
         const employee = currentData.employees.find(e => e.id === employeeId);
         const projectName = currentData.projects.find(proj => proj.id === projectId);
+        const job = employee.assignments.find(a => a.projectId === projectId);
+        const assignedCap = job ? Number(job.AssignedCapacity) : 0;
+        const empCost = countEmployeeCost(state.selectedYear, state.selectedMonth, employee.id, projectId).toFixed(2);
+        const projectedIncome = getEmployeeProfit(state.selectedYear, state.selectedMonth, employee.id, projectId, employee.vacation);
+        const usedCap = getUsedEffectiveCapacity(state.selectedYear, state.selectedMonth, projectId);
+        const totalCap = projectName.EmployeeCapacity;
+        const afterCap = usedCap - assignedCap;
+
         document.querySelector('.unassignment-popup-overlay').classList.remove('hidden');
-        document.querySelector('.unassign-message').innerHTML = `You want to unassign <strong>${employee.name} ${employee.surname}</strong> (1.0 capacity) from <strong>${projectName.projectname}</strong>?`
+        document.querySelector('.unassign-message').innerHTML = `You want to unassign <strong>${employee.name} ${employee.surname}</strong> (${assignedCap.toFixed(2)} capacity) from <strong>${projectName.projectname}</strong>?`
+        document.getElementById('unassign-capacity').innerHTML = `${assignedCap.toFixed(2)}`;
+        document.getElementById('unassign-salary-share').innerHTML = `$ ${empCost}`;
+        document.getElementById('unassign-income').innerHTML = `$ ${projectedIncome.toFixed(2)}`;
+        document.getElementById('unassign-project-capacity').innerHTML = `${usedCap.toFixed(2)} / ${totalCap}`;
+        document.getElementById('unassign-after-capacity').innerHTML = `${afterCap.toFixed(2)} / ${totalCap}`;
+
+
+
         const UnassignBtn = document.querySelector('.popup-confirm-unassign');
         UnassignBtn.setAttribute('data-employee-id', employeeId);
         UnassignBtn.setAttribute('data-project-id', projectId);
@@ -708,8 +725,8 @@ unassignmentPopup.addEventListener('click', (e) => {
         document.querySelector('.unassignment-popup-overlay').classList.add('hidden');
     }
     if (e.target.classList.contains('popup-confirm-unassign')) {
-        const employeeId = Number(document.querySelector('.apply-assignment').getAttribute('data-employee-id'));
-        const projectId = Number(document.querySelector('.apply-assignment').getAttribute('data-project-id'));
+        const employeeId = Number(e.target.getAttribute('data-employee-id'));
+        const projectId = Number(e.target.getAttribute('data-project-id'));
         unassignEmployee(employeeId, projectId);
         document.querySelector('.unassignment-popup-overlay').classList.add('hidden');
     }
@@ -866,7 +883,7 @@ function getEffectiveCapacity(year, month, employeeId, projectId, vacationDates)
 //usedEffectiveCapacity = sum of all employees' effective capacities
 function getUsedEffectiveCapacity(year, month, projectId) {
     return currentData.employees.reduce((sum, emp) => {
-        if (!emp.assignments || !emp.assignments.some(a => a.projectId === Number(projectId))) return sum;
+        if (!emp.assignments || !emp.assignments.some(a => Number(a.projectId) === Number(projectId))) return sum;
         return sum + getEffectiveCapacity(year, month, emp.id, projectId, emp.vacation);
     }, 0);
 }
