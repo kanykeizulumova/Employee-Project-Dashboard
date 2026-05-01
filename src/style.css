@@ -480,3 +480,49 @@ input:invalid {
 #popup-header-p {
     margin-bottom: 15px;
 }
+
+.delete-emp-btn,
+.delete-btn,
+.unassign-btn {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.delete-emp-btn:hover,
+.delete-btn:hover,
+.unassign-btn:hover {
+    background-color: #6e1d14;
+    color: #fff;
+    border: none;
+}
+
+.show-assignments-btn:hover,
+.show-btn:hover {
+    background-color: #1E5945;
+    color: #fff;
+}
+
+.show-assignments-btn,
+.show-btn {
+    background-color: #98FB98;
+    color: black;
+}
+
+.assignment-btn {
+    background-color: #30BA8F;
+}
+
+.assignment-btn:hover {
+    background-color: #0A5F38;
+    color: #fff;
+}
+
+.vacation-btn {
+    background-color: #9590ef;
+}
+
+.vacation-btn:hover {
+    background-color: #726aea;
+    color: #fff;
+
+}
