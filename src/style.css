@@ -430,7 +430,62 @@ button {
     background-color: var(--amber-500);
 }
 
+/* FORMS & INPUTS */
+.contact-form-in {
+    display: flex;
+    flex-direction: column;
+}
 
+.contact-form-in p {
+    margin-bottom: 1rem;
+}
+
+.contact-form-in label>span,
+.contact-form-in label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: var(--slate-700);
+    font-size: 0.9rem;
+}
+
+.contact-form-in input,
+.contact-form-in select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--slate-800);
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.contact-form-in input:focus,
+.contact-form-in select:focus {
+    outline: none;
+    border-color: var(--indigo-500);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.btn-form-submit {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.error {
+    color: var(--red-500);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: block;
+    min-height: 1rem;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: var(--red-300);
+}
 
 
 
@@ -468,59 +523,6 @@ button {
     font-size: 1.5rem;
     border-bottom: 2px solid #f3f4f6;
     padding-bottom: 10px;
-}
-
-.contact-form-in {
-    display: flex;
-    flex-direction: column;
-}
-
-.contact-form-in p {
-    margin-bottom: 15px;
-}
-
-.contact-form-in label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #4b5563;
-}
-
-.contact-form-in input,
-.contact-form-in select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
-}
-
-.contact-form-in input:focus,
-.contact-form-in select:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-.btn-form-submit {
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-    margin-top: 25px;
-}
-
-.error {
-    color: #ef4444;
-    font-size: 12px;
-    margin-top: 4px;
-    display: block;
-    min-height: 15px;
-}
-
-input:invalid {
-    border-color: #fca5a5;
 }
 
 #popup-details {
