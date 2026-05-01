@@ -487,43 +487,72 @@ input:invalid:not(:placeholder-shown) {
     border-color: var(--red-300);
 }
 
-
-
-
-
-
-
 .hidden {
     display: none !important;
 }
 
+/* Backdrop */
+.popup-backdrop,
+.unassignment-popup-overlay,
+#calendar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10040;
+}
+
+#calendar-wrapper {
+    z-index: 10030;
+}
+
+/* Slide-in panels (Add Project/Employee) */
 .add-new-project-container,
 .add-new-employee-container {
     position: fixed;
     top: 0;
     right: 0;
-    width: 400px;
+    width: 450px;
     max-width: 90%;
-    padding: 20px;
+    padding: 2rem;
     height: 100%;
-    transform: translate(0);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    visibility: visible;
-    opacity: 1;
+    transform: translateX(0);
+    box-shadow: var(--shadow-xl);
     background-color: var(--panel-bg);
-    z-index: 100;
+    z-index: 10050;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
 }
 
+.add-new-project-container.hidden,
+.add-new-employee-container.hidden {
+    transform: translateX(100%);
+    display: block !important;
+}
 
 .add-new-project-container h2,
 .add-new-employee-container h2 {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color: #1f2937;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--slate-900);
     font-size: 1.5rem;
-    border-bottom: 2px solid #f3f4f6;
-    padding-bottom: 10px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--slate-200);
+    padding-bottom: 1rem;
 }
+
+
+
+
+
+
+
 
 #popup-details {
     position: fixed;
@@ -549,30 +578,6 @@ input:invalid:not(:placeholder-shown) {
     justify-content: space-between;
     align-items: center;
     border-radius: 8px 8px 0 0;
-}
-
-#calendar-wrapper {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px #0003;
-    z-index: 10002;
-    min-width: 400px;
-    max-width: 550px;
-    padding: 20px;
-}
-
-.popup-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #00000080;
-    z-index: 9999;
 }
 
 .vacation-day {
@@ -680,19 +685,6 @@ input:invalid:not(:placeholder-shown) {
 
 #popup-header-p {
     margin-bottom: 15px;
-}
-
-.unassignment-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #00000080;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10002;
 }
 
 .unassignment-popup-content {
