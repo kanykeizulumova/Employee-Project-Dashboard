@@ -1,7 +1,6 @@
 import './style.css';
 import './validation.js'
-import './calendar.js'
-import { createCalendar } from './calendar.js';
+import { createCalendar, countVacationWorkingDays, getVacationCoefficient } from './calendar.js';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
 if (!localStorage.getItem('catalogDt')) {
@@ -901,42 +900,6 @@ function renderProjectsInPopup(projects, employee) {
     popup.style.display = 'flex';
 }
 
-function countWorkingDays(year, month) {
-    let workingDays = 0;
-    const daysInMonth = new Date(year, Number(month) + 1, 0).getDate();
-    for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-        if (!isWeekend) {
-            workingDays++;
-        }
-    }
-    return workingDays;
-}
-
-//vacationWorkingDays = count of vacation days that are weekdays;
-
-function countVacationWorkingDays(vacationDates) {
-    if (!vacationDates) return 0;
-
-    const validVacationDaysCount = vacationDates.filter((vac) => {
-        const date = new Date(vac);
-        const isWeekend = date.getDay() === 0 || date.getDay() === 6;
-        return !isWeekend;
-    }).length;
-
-    return validVacationDaysCount;
-}
-
-
-function getVacationCoefficient(year, month, vacationDates) {
-    let workingDays = countWorkingDays(year, month);
-    let vacationWorkingDays = countVacationWorkingDays(vacationDates);
-    const vacationCoefficient = (workingDays - vacationWorkingDays) / workingDays;
-    return vacationCoefficient;
-}
-
-
 function countAssignedCapacity(year, month, employeeId, projectId) {
     const employee = currentData.employees.find(e => e.id === Number(employeeId));
 
@@ -959,7 +922,6 @@ function countProjectFit(year, month, employeeId, projectId) {
 
 
 //$$effectiveCapacity = AssignedCapacity x ProjectFit x vacationCoefficient$$
-
 
 function getEffectiveCapacity(year, month, employeeId, projectId, vacationDates) {
     const assignedCapacity = countAssignedCapacity(year, month, employeeId, projectId);
@@ -1054,71 +1016,6 @@ function countEmployeeCost(year, month, employeeId, projectId) {
 function countBenchCost(year, month) {
     const benchEmp = currentData.employees.filter(e => !e.assignments || e.assignments.length === 0);
     return benchEmp.reduce((sum, emp) => sum + (emp.salary * 0.5), 0);
-}
-
-function createCalendar(year, month, vacationDates, fullName) {
-    const calendarHeader = document.getElementById('calendar-header');
-    const calendarGrid = document.getElementById('calendar-grid');
-    const calendarInfo = document.getElementById('calendar-info');
-
-    //const vacationDates = ["2026-04-15", "2026-04-16", "2026-04-20"];
-    const vacationDays = vacationDates.map(vac => {
-        const vacDate = new Date(vac);
-        return vacDate.getDate();
-    });
-    let d = new Date(year, month);
-    let table = '<table><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>';
-
-    for (let i = 0; i < d.getDay(); i++) {
-        table += '<td></td>';
-    }
-
-    while (d.getMonth() == month) {
-        if (vacationDays.includes(d.getDate())) {
-            table += '<td class="vacation-day">' + d.getDate() + '</td > ';
-        } else {
-            table += '<td>' + d.getDate() + '</td>';
-        }
-        if (d.getDay() == 6) {
-            table += '</tr><tr>';
-        }
-        d.setDate(d.getDate() + 1);
-    }
-
-    if (d.getDay() != 0) {
-        for (let i = d.getDay(); i < 7; i++) {
-            table += '<td></td>';
-        }
-    }
-    table += '</tr></table>';
-    calendarGrid.innerHTML = table;
-
-    let headerTable = `<h2>${fullName} - Availability</h2>
-    <h3>${monthNames[month]} ${year}</h3>
-    <button class="close-calendar-btn btn">×</button>`
-    calendarHeader.innerHTML = headerTable;
-    let workingDays = countWorkingDays(year, month);
-    let vacationWorkingDays = countVacationWorkingDays(vacationDates);
-    const vacationDay = vacationDates.flatMap(vac => {
-        const vacDate = new Date(vac);
-        return {
-            day: vacDate.getDate(),
-            month: vacDate.getMonth()
-        };
-    });
-    const beautifulOutput = vacationDay.map(item => {
-        return `${item.day}.${item.month}`;
-    }).join(', ');
-
-    const workedDays = workingDays - vacationWorkingDays;
-
-    let infoHeader = `<p>Working Days: ${workedDays} / ${workingDays} days</p>
-    <div id="working-days-info">
-    <p>Vacation Days:</p>
-    <ul>${beautifulOutput}</ul>
-    <button class="set-vacation-btn btn">Set Vacation</button>
-    </div>`
-    calendarInfo.innerHTML = infoHeader;
 }
 
 function getDay(date) {
