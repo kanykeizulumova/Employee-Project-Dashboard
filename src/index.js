@@ -732,7 +732,9 @@ seedDataPopup.addEventListener('click', (e) => {
         document.getElementById('seed-data-popup-back').classList.add('hidden');
     }
     if (e.target.classList.contains('btn-seed-data')) {
-
+        e.preventDefault()
+        const key = e.target.getAttribute('data-copy-month');
+        copySeedData(key)
     }
 })
 
@@ -777,7 +779,7 @@ function getSeedData() {
                 <td>${project.length}</td>
                 <td>${employee.length}</td>
                 <td>$${totalIncome.toFixed(2)}</td>
-                <td><button class="btn btn-seed-data" data-month = "${key}">Seed</button></td>
+                <td><button class="btn btn-seed-data" data-copy-month = "${key}" data-current-month = "${periodKey}">Seed</button></td>
         </tr>`;
     }).join('')}
         </tbody>
@@ -787,13 +789,21 @@ function getSeedData() {
 }
 
 
-// console.log(getSeedData());
-
-function seedDataFromMonth(sourceMonthKey) {
+function copySeedData(sourceKey) {
     let periodKey = getPeriodKey();
     let catalog = getData();
-    const sourceData = catalog.monthlyData[sourceMonthKey];
-    const targetData = catalog.monthlyData[periodKey];
+
+    let copiedData = JSON.parse(JSON.stringify(catalog.monthlyData[sourceKey]));
+
+    copiedData.employees.forEach(emp => {
+        emp.vacation = [];
+    });
+
+    catalog.monthlyData[periodKey] = copiedData;
+
+    saveData(catalog);
+    updateDashboard();
+    document.getElementById('seed-data-popup-back').classList.add('hidden');
 }
 
 const unassignmentPopup = document.querySelector('.unassignment-popup-overlay');
