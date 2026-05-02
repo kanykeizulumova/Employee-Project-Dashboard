@@ -303,6 +303,12 @@ button {
     box-shadow: var(--shadow-sm);
 }
 
+.button-submit:disabled {
+    background-color: var(--indigo-100);
+    border: 1px solid var(--indigo-100);
+    color: black;
+}
+
 .add-btn:hover,
 .button-submit:hover,
 .apply-assignment:hover,

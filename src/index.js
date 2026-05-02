@@ -1,5 +1,7 @@
 import './style.css';
 import './validation.js'
+import './calendar.js'
+import { createCalendar } from './calendar.js';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
 if (!localStorage.getItem('catalogDt')) {
@@ -1054,9 +1056,6 @@ function countBenchCost(year, month) {
     return benchEmp.reduce((sum, emp) => sum + (emp.salary * 0.5), 0);
 }
 
-
-
-
 function createCalendar(year, month, vacationDates, fullName) {
     const calendarHeader = document.getElementById('calendar-header');
     const calendarGrid = document.getElementById('calendar-grid');
@@ -1140,6 +1139,9 @@ calendarWrapper.addEventListener('click', (event) => {
 const addEmplForm = document.querySelector('.add-new-employee-container .contact-form-in');
 addEmplForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (!addEmplForm.checkValidity()) {
+        return;
+    }
     const newEmployee = {
         id: Date.now(),
         name: document.getElementById('employee-name').value,
@@ -1187,6 +1189,9 @@ cancelAssignmentBtn.addEventListener('click', (e) => {
 const addPorjForm = document.querySelector('.add-new-project-container .contact-form-in');
 addPorjForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    if (!addPorjForm.checkValidity()) {
+        return;
+    }
     const newProject = {
         id: Date.now(),
         companyName: document.getElementById('project-name').value,

@@ -90,7 +90,7 @@
             <p>
                 <label for="budget">
                     <span>Budget: *</span>
-                    <input type="number" id="budget" name="budget" required placeholder="Enter budget amount" />
+                    <input type="number" id="budget" name="budget" required min="1" placeholder="Enter budget amount" />
                     <span class="error" aria-live="polite"></span>
                 </label>
             </p>
@@ -98,13 +98,14 @@
             <p>
                 <label for="capacity">
                     <span>Employee Capacity: *</span>
-                    <input type="number" id="capacity" name="capacity" required placeholder="Number of employees" />
+                    <input type="number" id="capacity" name="capacity" required min="0.1"
+                        placeholder="Number of employees" />
                     <span class="error" aria-live="polite"></span>
                 </label>
             </p>
 
             <div class="btn-form-submit">
-                <button type="submit" class="button-submit">Add</button>
+                <button type="submit" class="button-submit" disabled>Add</button>
                 <button type="button" id="project-cancel" class="button-cancel">Cancel</button>
             </div>
         </form>
@@ -140,7 +141,7 @@
 
             <p>
                 <label for="position">Position: *</label>
-                <select id="position" name="position" required>
+                <select id="position" name="position" required aria-describedby="position-error">
                     <option value="">Select position</option>
                     <option value="Junior">Junior</option>
                     <option value="Middle">Middle</option>
@@ -155,13 +156,13 @@
             <p>
                 <label for="salary">
                     <span>Salary: *</span>
-                    <input type="number" id="salary" name="salary" required placeholder="Enter salary amount" />
+                    <input type="number" id="salary" name="salary" required min="1" placeholder="Enter salary amount" />
                     <span class="error" aria-live="polite"></span>
                 </label>
             </p>
 
             <div class="btn-form-submit">
-                <button type="submit" class="button-submit">Add</button>
+                <button type="submit" class="button-submit" disabled>Add</button>
                 <button type="button" id="employee-cancel" class="button-cancel">Cancel</button>
             </div>
         </form>
