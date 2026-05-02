@@ -118,6 +118,7 @@ projectCancelBtn.addEventListener('click', () => {
 })
 
 seedDataBtn.addEventListener('click', (e) => {
+    getSeedData();
     document.getElementById('seed-data-popup-back').classList.remove('hidden');
     document.getElementById('seed-data-popup-back').style.display = "inline";
 })
@@ -729,7 +730,9 @@ const seedDataPopup = document.getElementById('seed-data-popup-back');
 seedDataPopup.addEventListener('click', (e) => {
     if (e.target.classList.contains('close-popup-btn')) {
         document.getElementById('seed-data-popup-back').classList.add('hidden');
-        getSeedData();
+    }
+    if (e.target.classList.contains('btn-seed-data')) {
+
     }
 })
 
@@ -738,9 +741,13 @@ function getSeedData() {
     let catalog = getData();
     const allMonths = Object.keys(catalog.monthlyData);
     let leftMonths = allMonths.filter(key => key !== periodKey);
+    let currentMonth = state.selectedMonth;
+    console.log(state.selectedMonth);
+
+    let currentYear = state.selectedYear;
     const content = document.querySelector('.seed-popup-content');
     content.innerHTML = `
-    <p>Select a month to copy its data to the current month</p>
+    <p>Select a month to copy its data to the current month (${monthNames[currentMonth]} ${currentYear})</p>
     <table id="popup-table">
         <thead>
             <tr>
@@ -764,9 +771,6 @@ function getSeedData() {
         currentData = monthData;
         const totalIncome = countProjectProfitTotal(year, month);
         currentData = originalCurrentData;
-
-        const projectId = project.map(proj => proj.id);
-        console.log(projectId);
         return `<tr>
         <td>${year}</td>
                 <td>${monthNames[month]}</td>
@@ -779,14 +783,18 @@ function getSeedData() {
         </tbody>
     </table>
 `;
-
-    console.log(leftMonths);
     return periodKey;
 }
 
 
-console.log(getSeedData());
+// console.log(getSeedData());
 
+function seedDataFromMonth(sourceMonthKey) {
+    let periodKey = getPeriodKey();
+    let catalog = getData();
+    const sourceData = catalog.monthlyData[sourceMonthKey];
+    const targetData = catalog.monthlyData[periodKey];
+}
 
 const unassignmentPopup = document.querySelector('.unassignment-popup-overlay');
 unassignmentPopup.addEventListener('click', (e) => {
