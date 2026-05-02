@@ -1,4 +1,5 @@
 import './style.css';
+import './validation.js'
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
 if (!localStorage.getItem('catalogDt')) {
@@ -744,8 +745,6 @@ function getSeedData() {
     const allMonths = Object.keys(catalog.monthlyData);
     let leftMonths = allMonths.filter(key => key !== periodKey);
     let currentMonth = state.selectedMonth;
-    console.log(state.selectedMonth);
-
     let currentYear = state.selectedYear;
     const content = document.querySelector('.seed-popup-content');
     content.innerHTML = `
