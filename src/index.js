@@ -729,12 +729,63 @@ const seedDataPopup = document.getElementById('seed-data-popup-back');
 seedDataPopup.addEventListener('click', (e) => {
     if (e.target.classList.contains('close-popup-btn')) {
         document.getElementById('seed-data-popup-back').classList.add('hidden');
+        getSeedData();
     }
 })
 
 function getSeedData() {
+    let periodKey = getPeriodKey();
+    let catalog = getData();
+    const allMonths = Object.keys(catalog.monthlyData);
+    let leftMonths = allMonths.filter(key => key !== periodKey);
+    const content = document.querySelector('.seed-popup-content');
+    content.innerHTML = `
+    <p>Select a month to copy its data to the current month</p>
+    <table id="popup-table">
+        <thead>
+            <tr>
+                 <th>Year</th>
+                 <th>Month</th>
+                 <th>Projects</th>
+                 <th>Employees</th>
+                 <th>Total Est. Income</th>
+                 <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        ${leftMonths.map(key => {
+        const monthData = catalog.monthlyData[key];
+        const project = monthData.projects;
+        const employee = monthData.employees;
+        const year = key.split('-')[0];
+        const month = key.split('-')[1];
 
+        const originalCurrentData = currentData;
+        currentData = monthData;
+        const totalIncome = countProjectProfitTotal(year, month);
+        currentData = originalCurrentData;
+
+        const projectId = project.map(proj => proj.id);
+        console.log(projectId);
+        return `<tr>
+        <td>${year}</td>
+                <td>${monthNames[month]}</td>
+                <td>${project.length}</td>
+                <td>${employee.length}</td>
+                <td>$${totalIncome.toFixed(2)}</td>
+                <td><button class="btn btn-seed-data" data-month = "${key}">Seed</button></td>
+        </tr>`;
+    }).join('')}
+        </tbody>
+    </table>
+`;
+
+    console.log(leftMonths);
+    return periodKey;
 }
+
+
+console.log(getSeedData());
 
 
 const unassignmentPopup = document.querySelector('.unassignment-popup-overlay');
