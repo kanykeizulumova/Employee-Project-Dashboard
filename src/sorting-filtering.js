@@ -29,9 +29,49 @@ function filterData(key, query, source) {
     );
 }
 
+let activeFilters = { employees: {}, projects: {} }
+
 const projectsContainer = document.getElementById('projects-table-container');
 const employeeContainer = document.getElementById('employees-table-container');
 const filterPopup = document.querySelector('.filter-popup');
+const filtersChip = document.getElementById('employee-filters-container');
+
+let activeFilterTrigger = null;
+
+function repositionFilterPopup() {
+    if (!filterPopup || filterPopup.classList.contains('hidden') || !activeFilterTrigger) return;
+
+    const rect = activeFilterTrigger.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let top = rect.bottom + 5;
+    let left = rect.left;
+
+    const popupHeight = filterPopup.offsetHeight;
+    const popupWidth = filterPopup.offsetWidth;
+
+    if (top + popupHeight > viewportHeight) {
+        top = rect.top - popupHeight - 5;
+    }
+
+    if (left + popupWidth > viewportWidth) {
+        left = viewportWidth - popupWidth - 10;
+    }
+
+    top = Math.max(5, top);
+    left = Math.max(5, left);
+
+    filterPopup.style.top = `${top}px`;
+    filterPopup.style.left = `${left}px`;
+}
+
+window.addEventListener('resize', repositionFilterPopup);
+document.addEventListener('scroll', (e) => {
+    if (e.target.id === 'main-content' || e.target.closest('#main-content')) {
+        repositionFilterPopup();
+    }
+}, true);
 
 filterPopup.addEventListener('click', (e) => {
     if (e.target.classList.contains('accept-filter')) {
@@ -55,8 +95,7 @@ filterPopup.addEventListener('click', (e) => {
 
 employeeContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
-        const rect = e.target.getBoundingClientRect();
-        console.log(rect);
+        activeFilterTrigger = e.target;
         const filterDt = e.target.closest('th');
         const fullId = e.currentTarget.id;
         const source = fullId.split('-')[0];
@@ -64,15 +103,14 @@ employeeContainer.addEventListener('click', (e) => {
         filterPopup.setAttribute('data-key', columnKey);
         filterPopup.setAttribute('data-source', source);
         filterPopup.classList.remove('hidden');
-        filterPopup.style.top = `${rect.bottom}px`;
-        filterPopup.style.left = `${rect.left}px`;
-        createFilterContent(columnKey)
+        createFilterContent(columnKey);
+        repositionFilterPopup();
     }
 })
 
 projectsContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
-        const rect = e.target.getBoundingClientRect();
+        activeFilterTrigger = e.target;
         const filterDt = e.target.closest('th');
         const fullId = e.currentTarget.id;
         const source = fullId.split('-')[0];
@@ -80,9 +118,8 @@ projectsContainer.addEventListener('click', (e) => {
         filterPopup.setAttribute('data-key', columnKey);
         filterPopup.setAttribute('data-source', source);
         filterPopup.classList.remove('hidden');
-        filterPopup.style.top = `${rect.bottom}px`;
-        filterPopup.style.left = `${rect.left}px`;
-        createFilterContent(columnKey)
+        createFilterContent(columnKey);
+        repositionFilterPopup();
     }
 })
 

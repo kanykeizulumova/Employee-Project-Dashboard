@@ -587,12 +587,11 @@ input:invalid:not(:placeholder-shown) {
 
 #assignment-popup {
     position: fixed;
-    left: 150px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     z-index: 10020;
+}
+
+#assignment-popup.hidden {
+    display: none !important;
 }
 
 .assignment-popup-content {

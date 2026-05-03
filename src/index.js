@@ -133,6 +133,43 @@ const state = {
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
 let periodKey = getPeriodKey();
 let currentData = getData().monthlyData[periodKey];
+let activeAssignmentTrigger = null;
+
+function repositionAssignmentPopup() {
+    const popup = document.getElementById('assignment-popup');
+    if (!popup || popup.classList.contains('hidden') || !activeAssignmentTrigger) return;
+
+    const rect = activeAssignmentTrigger.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    let top = rect.bottom + 5;
+    let left = rect.left;
+
+    const popupHeight = popup.offsetHeight;
+    const popupWidth = popup.offsetWidth;
+
+    if (top + popupHeight > viewportHeight) {
+        top = rect.top - popupHeight - 5;
+    }
+
+    if (left + popupWidth > viewportWidth) {
+        left = viewportWidth - popupWidth - 20;
+    }
+
+    top = Math.max(10, top);
+    left = Math.max(10, left);
+
+    popup.style.top = `${top}px`;
+    popup.style.left = `${left}px`;
+}
+
+window.addEventListener('resize', repositionAssignmentPopup);
+document.addEventListener('scroll', (e) => {
+    if (e.target.id === 'main-content' || e.target.closest('#main-content')) {
+        repositionAssignmentPopup();
+    }
+}, true);
 
 function updateDashboard() {
     periodKey = getPeriodKey();
@@ -490,9 +527,9 @@ employeeContainer.addEventListener('click', (event) => {
 
     if (event.target.classList.contains('assignment-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
-        const rect = event.target.getBoundingClientRect();
-        document.getElementById('assignment-popup').style.top = `${rect.bottom - 15}px`;
+        activeAssignmentTrigger = event.target;
         openAssignmentPopup(employeeId);
+        setTimeout(repositionAssignmentPopup, 0);
     }
 })
 
@@ -1084,6 +1121,7 @@ applyAssignmentBtn.addEventListener('click', (e) => {
 const cancelAssignmentBtn = document.querySelector('.cancel-assignment');
 cancelAssignmentBtn.addEventListener('click', (e) => {
     document.getElementById('assignment-popup').classList.add('hidden');
+    activeAssignmentTrigger = null;
 })
 
 const addPorjForm = document.querySelector('.add-new-project-container .contact-form-in');
