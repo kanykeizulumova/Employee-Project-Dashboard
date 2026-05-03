@@ -29,12 +29,13 @@ function filterData(key, query, source) {
     );
 }
 
-let activeFilters = { employees: {}, projects: {} }
+const activeFilters = { employees: {}, projects: {} }
+const initialEmployees = getData().monthlyData[periodKey].employees;
+const initialProjects = getData().monthlyData[periodKey].projects;
 
 const projectsContainer = document.getElementById('projects-table-container');
 const employeeContainer = document.getElementById('employees-table-container');
 const filterPopup = document.querySelector('.filter-popup');
-const filtersChip = document.getElementById('employee-filters-container');
 
 let activeFilterTrigger = null;
 
@@ -79,19 +80,88 @@ filterPopup.addEventListener('click', (e) => {
         const value = inputElement.value;
         const key = filterPopup.getAttribute('data-key');
         const source = filterPopup.getAttribute('data-source');
+
+        activeFilters[source][key] = value;
+
         const newRenderData = filterData(key, value, source);
+
         if (source === "employees") {
             renderEmployeesTable(newRenderData)
         }
         if (source === 'projects') {
             renderProjectsTable(newRenderData)
         }
+
+        renderFilterChips(source);
+
         filterPopup.classList.add('hidden');
     }
     if (e.target.classList.contains('cancel-filter')) {
         filterPopup.classList.add('hidden');
     }
 })
+
+function renderFilterChips(source) {
+    const containerId = source === 'employees' ? 'employee-filters-container' : 'project-filters-container';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    const filters = activeFilters[source];
+
+    Object.entries(filters).forEach(([key, value]) => {
+        if (!value) return;
+
+        const chip = document.createElement('div');
+        chip.className = 'filter-chip';
+        const label = document.createElement('span');
+        label.className = 'chip-label';
+        label.textContent = `${key}: ${value}`;
+
+        const removeBtn = document.createElement('span');
+        removeBtn.className = 'chip-remove';
+        removeBtn.innerHTML = '&times;';
+        removeBtn.style.cursor = 'pointer';
+        removeBtn.style.marginLeft = '8px';
+
+        removeBtn.onclick = () => {
+            delete activeFilters[source][key];
+
+            const filtered = applyAllFilters(source);
+
+            if (source === 'employees') renderEmployeesTable(filtered);
+            else renderProjectsTable(filtered);
+
+            renderFilterChips(source);
+        }
+
+
+
+        chip.append(label, removeBtn);
+        container.appendChild(chip);
+    });
+
+
+}
+
+function applyAllFilters(source) {
+    const initialData = source === 'employees' ? initialEmployees : initialProjects;
+    let result = [...initialData];
+
+    Object.entries(activeFilters[source]).forEach(([key, value]) => {
+        if (value) {
+            result = result.filter(item => {
+                const itemValue = String(item[key] || "").toLowerCase();
+                const filterValue = String(value).toLowerCase();
+                return itemValue.includes(filterValue);
+            });
+        }
+    });
+
+    return result;
+}
+
 
 employeeContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
@@ -165,7 +235,14 @@ function createBtns() {
 
 
 
-
+document.addEventListener('click', (e) => {
+    if (filterPopup && !filterPopup.classList.contains('hidden')) {
+        if (!filterPopup.contains(e.target) && !e.target.classList.contains('filter-icon')) {
+            filterPopup.classList.add('hidden');
+            activeFilterTrigger = null;
+        }
+    }
+});
 
 
 
