@@ -591,69 +591,93 @@ function openAssignmentPopup(employeeId) {
     validationMessageEl.textContent = '';
     validationMessageEl.classList.remove('error', 'warning');
 
-    function updateCalculations() {
-        const allocatedCapacity = Number(capacityInput.value);
-        const projectFit = Number(fitInput.value);
-
-        const capDisplay = document.getElementById('capacity-value-display');
-        if (capDisplay) capDisplay.textContent = allocatedCapacity.toFixed(2);
-
-        const fitDisplay = document.getElementById('fit-value-display');
-        if (fitDisplay) fitDisplay.textContent = projectFit.toFixed(2);
-
-        const newTotalCapacity = currentCapacity + allocatedCapacity;
-
-        if (newTotalCapacity > 1.5) {
-            validationMessageEl.textContent = `Error: Total capacity would be ${newTotalCapacity.toFixed(2)}. Maximum allowed is 1.5.`;
-            validationMessageEl.classList.remove('warning');
-            validationMessageEl.classList.add('error');
-        } else if (newTotalCapacity > 1.0) {
-            validationMessageEl.textContent = `Warning: Employee is over-capacity (Total: ${newTotalCapacity.toFixed(2)}).`;
-            validationMessageEl.classList.remove('error');
-            validationMessageEl.classList.add('warning');
-        } else {
-            validationMessageEl.textContent = `Total expected capacity: ${newTotalCapacity.toFixed(2)}`;
-            validationMessageEl.classList.remove('error', 'warning');
-        }
-
-        const effectiveCapacity = allocatedCapacity * projectFit;
-        const selectedProjectId = Number(selectElement.value);
-
-        let currentProjectAssigned = 0;
-        let projectTotalRequired = 0;
-
-        if (selectedProjectId) {
-            const selectedProject = currentProjects.find(p => p.id === selectedProjectId);
-            projectTotalRequired = selectedProject ? selectedProject.EmployeeCapacity : 0;
-
-            currentProjectAssigned = allEmployees.reduce((totalSum, emp) => {
-                if (!emp.assignments) return totalSum;
-                const assignment = emp.assignments.find(a => Number(a.projectId) === selectedProjectId);
-                if (assignment) {
-                    return totalSum + (Number(assignment.AssignedCapacity) * Number(assignment.ProjectFit));
-                }
-                return totalSum;
-            }, 0);
-        }
-
-        const afterAssignmentValue = currentProjectAssigned + effectiveCapacity;
-
-        const effectiveCap = document.querySelector('.effective-capacity');
-        if (effectiveCap) effectiveCap.innerHTML = effectiveCapacity.toFixed(2);
-
-        const usedCapacityHTML = document.querySelector('.used-capacity');
-        if (usedCapacityHTML) usedCapacityHTML.innerHTML = currentProjectAssigned.toFixed(2);
-
-        const projectCapacityHTML = document.querySelector('.total-capacity');
-        if (projectCapacityHTML) projectCapacityHTML.innerHTML = projectTotalRequired;
-
-        const afterAssignmentHTML = document.querySelector('.target-capacity');
-        if (afterAssignmentHTML) afterAssignmentHTML.innerHTML = `${afterAssignmentValue.toFixed(2)} / ${projectTotalRequired}`;
-    }
     capacityInput.oninput = updateCalculations;
     fitInput.oninput = updateCalculations;
     selectElement.onchange = updateCalculations;
+
     updateCalculations();
+}
+
+function updateCalculations() {
+    const capacityInput = document.getElementById('capacity-range');
+    const fitInput = document.getElementById('projectfit-range');
+    const selectElement = document.getElementById('select-project');
+    const validationMessageEl = document.querySelector('.validation-message');
+    const saveBtn = document.querySelector('.save-assignment');
+    const applyBtn = document.querySelector('.apply-assignment');
+
+    if (!capacityInput || !fitInput) return;
+
+    const allocatedCapacity = Number(capacityInput.value);
+    const projectFit = Number(fitInput.value);
+
+    const capDisplay = document.getElementById('capacity-value-display');
+    if (capDisplay) capDisplay.textContent = allocatedCapacity.toFixed(2);
+
+    const fitDisplay = document.getElementById('fit-value-display');
+    if (fitDisplay) fitDisplay.textContent = projectFit.toFixed(2);
+
+    const isEditMode = !saveBtn.classList.contains('hidden');
+    const employeeId = Number(isEditMode ? saveBtn.getAttribute('data-employee-id') : applyBtn.getAttribute('data-employee-id'));
+    const projectId = Number(isEditMode ? saveBtn.getAttribute('data-project-id') : selectElement.value);
+
+    if (!employeeId) return;
+
+    let periodKey = getPeriodKey();
+    let catalog = getData();
+    let currentProjects = catalog.monthlyData[periodKey].projects;
+    let allEmployees = catalog.monthlyData[periodKey].employees;
+    const employee = allEmployees.find(e => e.id === employeeId);
+
+    // Calculate other assignments capacity
+    const otherAssignmentsCapacity = employee.assignments.reduce((sum, a) => {
+        if (isEditMode && Number(a.projectId) === projectId) return sum;
+        return sum + (Number(a.AssignedCapacity) || 0);
+    }, 0);
+
+    const newTotalCapacity = otherAssignmentsCapacity + allocatedCapacity;
+
+    if (newTotalCapacity > 1.5) {
+        validationMessageEl.textContent = `Error: Total capacity would be ${newTotalCapacity.toFixed(2)}. Maximum allowed is 1.5.`;
+        validationMessageEl.className = 'validation-message error';
+    } else if (newTotalCapacity > 1.0) {
+        validationMessageEl.textContent = `Warning: Employee is over-capacity (Total: ${newTotalCapacity.toFixed(2)}).`;
+        validationMessageEl.className = 'validation-message warning';
+    } else {
+        validationMessageEl.textContent = `Total expected capacity: ${newTotalCapacity.toFixed(2)}`;
+        validationMessageEl.className = 'validation-message';
+    }
+
+    if (!projectId) return;
+
+    const effectiveCapacity = allocatedCapacity * projectFit;
+    let currentProjectAssigned = 0;
+    const selectedProject = currentProjects.find(p => p.id === projectId);
+    const projectTotalRequired = selectedProject ? selectedProject.EmployeeCapacity : 0;
+
+    currentProjectAssigned = allEmployees.reduce((totalSum, emp) => {
+        if (!emp.assignments) return totalSum;
+        const assignment = emp.assignments.find(a => Number(a.projectId) === projectId);
+        if (assignment) {
+            if (isEditMode && emp.id === employeeId) return totalSum;
+            return totalSum + (Number(assignment.AssignedCapacity) * Number(assignment.ProjectFit));
+        }
+        return totalSum;
+    }, 0);
+
+    const afterAssignmentValue = currentProjectAssigned + effectiveCapacity;
+
+    const effectiveCap = document.querySelector('.effective-capacity');
+    if (effectiveCap) effectiveCap.innerHTML = effectiveCapacity.toFixed(2);
+
+    const usedCapacityHTML = document.querySelector('.used-capacity');
+    if (usedCapacityHTML) usedCapacityHTML.innerHTML = currentProjectAssigned.toFixed(2);
+
+    const projectCapacityHTML = document.querySelector('.total-capacity');
+    if (projectCapacityHTML) projectCapacityHTML.innerHTML = projectTotalRequired;
+
+    const afterAssignmentHTML = document.querySelector('.target-capacity');
+    if (afterAssignmentHTML) afterAssignmentHTML.innerHTML = `${afterAssignmentValue.toFixed(2)} / ${projectTotalRequired}`;
 }
 
 
@@ -672,10 +696,15 @@ function openEditAssignmentPopup(employeeId, projectId, source) {
     document.getElementById('fit-value-display').textContent = Number(fitInput.value).toFixed(2);
     document.getElementById('capacity-value-display').textContent = Number(capacityInput.value).toFixed(2);
 
+    fitInput.oninput = updateCalculations;
+    capacityInput.oninput = updateCalculations;
+
     const saveBtn = document.querySelector('.save-assignment');
     saveBtn.setAttribute('data-employee-id', employeeId);
     saveBtn.setAttribute('data-project-id', projectId);
     saveBtn.setAttribute('data-context', source || '');
+
+    updateCalculations();
 }
 
 function saveEditAssignment() {
@@ -727,6 +756,9 @@ popupContainer.addEventListener('click', (event) => {
         const employee = currentData.employees.find(e => e.id === employeeId);
         const projectName = currentData.projects.find(proj => proj.id === projectId);
         document.getElementById('assignment-popup').classList.remove('hidden');
+        activeAssignmentTrigger = event.target;
+        setTimeout(repositionAssignmentPopup, 0);
+
         document.querySelector('.capacity-status').classList.add('hidden');
         document.getElementById('select-project').classList.add('hidden');
         document.getElementById('select-label').classList.add('hidden');
@@ -1152,6 +1184,37 @@ addPorjForm.addEventListener('submit', (e) => {
 
 
 
+
+document.addEventListener('click', (e) => {
+    const assignPopup = document.getElementById('assignment-popup');
+    const detailsPopup = document.getElementById('popup-details');
+    const unassignPopup = document.querySelector('.unassignment-popup-overlay');
+
+    if (assignPopup && !assignPopup.classList.contains('hidden')) {
+        const isTrigger = e.target.classList.contains('assignment-btn') || e.target.classList.contains('edit-btn');
+        if (!assignPopup.contains(e.target) && !isTrigger) {
+            assignPopup.classList.add('hidden');
+            if (typeof activeAssignmentTrigger !== 'undefined') activeAssignmentTrigger = null;
+        }
+    }
+
+    if (detailsPopup && detailsPopup.style.display === 'flex') {
+        const isTrigger = e.target.classList.contains('show-btn') || e.target.classList.contains('show-assignments-btn');
+
+        const isInsideChildPopup = (assignPopup && assignPopup.contains(e.target)) ||
+            (unassignPopup && unassignPopup.contains(e.target));
+
+        if (!detailsPopup.contains(e.target) && !isTrigger && !isInsideChildPopup) {
+            detailsPopup.style.display = 'none';
+        }
+    }
+
+    if (unassignPopup && !unassignPopup.classList.contains('hidden')) {
+        if (e.target === unassignPopup) {
+            unassignPopup.classList.add('hidden');
+        }
+    }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!localStorage.getItem('catalogDt')) {
