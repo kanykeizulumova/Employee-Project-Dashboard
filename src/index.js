@@ -1,5 +1,6 @@
 import './style.css';
-import './validation.js'
+import './validation.js';
+import './sorting-filtering.js'
 import { createCalendar, countVacationWorkingDays, getVacationCoefficient } from './calendar.js';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
@@ -1118,3 +1119,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     updateDashboard();
 });
+
+export { getData };
