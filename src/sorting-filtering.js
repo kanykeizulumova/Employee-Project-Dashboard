@@ -30,8 +30,6 @@ function filterData(key, query, source) {
 }
 
 const activeFilters = { employees: {}, projects: {} }
-const initialEmployees = getData().monthlyData[periodKey].employees;
-const initialProjects = getData().monthlyData[periodKey].projects;
 
 const projectsContainer = document.getElementById('projects-table-container');
 const employeeContainer = document.getElementById('employees-table-container');
@@ -83,7 +81,7 @@ filterPopup.addEventListener('click', (e) => {
 
         activeFilters[source][key] = value;
 
-        const newRenderData = filterData(key, value, source);
+        const newRenderData = applyAllFilters(source);
 
         if (source === "employees") {
             renderEmployeesTable(newRenderData)
@@ -111,7 +109,7 @@ function renderFilterChips(source) {
     const filters = activeFilters[source];
 
     Object.entries(filters).forEach(([key, value]) => {
-        if (!value) return;
+        if (!value || value === 'Select position') return;
 
         const chip = document.createElement('div');
         chip.className = 'filter-chip';
@@ -127,30 +125,42 @@ function renderFilterChips(source) {
 
         removeBtn.onclick = () => {
             delete activeFilters[source][key];
-
             const filtered = applyAllFilters(source);
-
             if (source === 'employees') renderEmployeesTable(filtered);
             else renderProjectsTable(filtered);
-
             renderFilterChips(source);
         }
-
-
 
         chip.append(label, removeBtn);
         container.appendChild(chip);
     });
 
-
+    const activeKeys = Object.keys(filters).filter(k => filters[k] && filters[k] !== 'Select position');
+    if (activeKeys.length >= 2) {
+        const clearBtn = document.createElement('button');
+        clearBtn.className = 'btn clear-filters-btn';
+        clearBtn.textContent = 'Clear All';
+        clearBtn.style.marginLeft = '10px';
+        clearBtn.onclick = () => {
+            activeFilters[source] = {};
+            const filtered = applyAllFilters(source);
+            if (source === 'employees') renderEmployeesTable(filtered);
+            else renderProjectsTable(filtered);
+            renderFilterChips(source);
+        };
+        container.appendChild(clearBtn);
+    }
 }
 
 function applyAllFilters(source) {
-    const initialData = source === 'employees' ? initialEmployees : initialProjects;
-    let result = [...initialData];
+    const catalog = getData();
+    const currentPeriodKey = getPeriodKey();
+    const data = catalog.monthlyData[currentPeriodKey][source];
+
+    let result = [...data];
 
     Object.entries(activeFilters[source]).forEach(([key, value]) => {
-        if (value) {
+        if (value && value !== 'Select position') {
             result = result.filter(item => {
                 const itemValue = String(item[key] || "").toLowerCase();
                 const filterValue = String(value).toLowerCase();
@@ -167,9 +177,8 @@ employeeContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
         activeFilterTrigger = e.target;
         const filterDt = e.target.closest('th');
-        const fullId = e.currentTarget.id;
-        const source = fullId.split('-')[0];
         const columnKey = filterDt.getAttribute('data-filter');
+        const source = 'employees'; // Explicitly set
         filterPopup.setAttribute('data-key', columnKey);
         filterPopup.setAttribute('data-source', source);
         filterPopup.classList.remove('hidden');
@@ -182,9 +191,8 @@ projectsContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
         activeFilterTrigger = e.target;
         const filterDt = e.target.closest('th');
-        const fullId = e.currentTarget.id;
-        const source = fullId.split('-')[0];
         const columnKey = filterDt.getAttribute('data-filter');
+        const source = 'projects'; // Explicitly set
         filterPopup.setAttribute('data-key', columnKey);
         filterPopup.setAttribute('data-source', source);
         filterPopup.classList.remove('hidden');

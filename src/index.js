@@ -1223,4 +1223,4 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboard();
 });
 
-export { getData, updateDashboard, renderEmployeesTable, renderProjectsTable };
+export { getData, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey };
