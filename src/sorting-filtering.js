@@ -1,4 +1,4 @@
-import { getData, updateDashboard } from "./index.js";
+import { getData, updateDashboard, renderEmployeesTable, renderProjectsTable } from "./index.js";
 const state = {
     selectedYear: '2026',
     selectedMonth: '2', // March
@@ -39,7 +39,14 @@ filterPopup.addEventListener('click', (e) => {
         const value = inputElement.value;
         const key = filterPopup.getAttribute('data-key');
         const source = filterPopup.getAttribute('data-source');
-        filterData(key, value, source);
+        const newRenderData = filterData(key, value, source);
+        if (source === "employees") {
+            renderEmployeesTable(newRenderData)
+        }
+        if (source === 'projects') {
+            renderProjectsTable(newRenderData)
+        }
+        filterPopup.classList.add('hidden');
     }
     if (e.target.classList.contains('cancel-filter')) {
         filterPopup.classList.add('hidden');
@@ -48,6 +55,8 @@ filterPopup.addEventListener('click', (e) => {
 
 employeeContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
+        const rect = e.target.getBoundingClientRect();
+        console.log(rect);
         const filterDt = e.target.closest('th');
         const fullId = e.currentTarget.id;
         const source = fullId.split('-')[0];
@@ -55,12 +64,15 @@ employeeContainer.addEventListener('click', (e) => {
         filterPopup.setAttribute('data-key', columnKey);
         filterPopup.setAttribute('data-source', source);
         filterPopup.classList.remove('hidden');
+        filterPopup.style.top = `${rect.bottom}px`;
+        filterPopup.style.left = `${rect.left}px`;
         createFilterContent(columnKey)
     }
 })
 
 projectsContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
+        const rect = e.target.getBoundingClientRect();
         const filterDt = e.target.closest('th');
         const fullId = e.currentTarget.id;
         const source = fullId.split('-')[0];
@@ -68,6 +80,8 @@ projectsContainer.addEventListener('click', (e) => {
         filterPopup.setAttribute('data-key', columnKey);
         filterPopup.setAttribute('data-source', source);
         filterPopup.classList.remove('hidden');
+        filterPopup.style.top = `${rect.bottom}px`;
+        filterPopup.style.left = `${rect.left}px`;
         createFilterContent(columnKey)
     }
 })
@@ -103,10 +117,10 @@ function createBtns() {
     const filterContainer = document.createElement('div');
     filterContainer.className = 'filter-btns';
     const acceptBtn = document.createElement('button');
-    acceptBtn.className = 'accept-filter';
+    acceptBtn.className = 'accept-filter btn';
     acceptBtn.textContent = 'Apply';
     const cancelBtn = document.createElement('button');
-    cancelBtn.className = 'cancel-filter';
+    cancelBtn.className = 'cancel-filter btn';
     cancelBtn.textContent = 'Cancel';
     filterContainer.append(acceptBtn, cancelBtn);
     filterPopup.appendChild(filterContainer);
