@@ -891,3 +891,58 @@ input:invalid:not(:placeholder-shown) {
     width: 250px;
     max-width: 500px;
 }
+
+/* Filter Chips and Containers */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0;
+    min-height: 32px;
+    align-items: center;
+}
+
+.filter-chip {
+    background-color: var(--slate-100);
+    border: 1px solid var(--slate-200);
+    color: var(--slate-700);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filter-chip:hover {
+    background-color: var(--slate-200);
+}
+
+.chip-remove {
+    margin-left: 8px;
+    color: var(--slate-400);
+    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.chip-remove:hover {
+    color: var(--red-500);
+}
+
+.clear-filters-btn {
+    background: none;
+    border: none;
+    color: var(--indigo-600);
+    font-size: 0.85rem;
+    text-decoration: underline;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.clear-filters-btn:hover {
+    color: var(--indigo-700);
+    background: var(--indigo-50);
+}
