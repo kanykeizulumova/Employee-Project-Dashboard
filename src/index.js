@@ -1,6 +1,6 @@
 import './style.css';
 import './validation.js';
-import './sorting-filtering.js'
+import './sorting-filtering.js';
 import { createCalendar, countVacationWorkingDays, getVacationCoefficient } from './calendar.js';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
@@ -16,7 +16,7 @@ const toggleButton = document.getElementById('toggle-button');
 const sidePanel = document.getElementById('side-panel');
 
 const projectsContainer = document.getElementById('projects-table-container');
-const employeeContainer = document.getElementById('table-container');
+const employeeContainer = document.getElementById('employees-table-container');
 
 function getData() {
     return JSON.parse(localStorage.getItem('catalogDt'))
@@ -490,6 +490,8 @@ employeeContainer.addEventListener('click', (event) => {
 
     if (event.target.classList.contains('assignment-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
+        const rect = event.target.getBoundingClientRect();
+        document.getElementById('assignment-popup').style.top = `${rect.bottom - 15}px`;
         openAssignmentPopup(employeeId);
     }
 })
@@ -1120,4 +1122,4 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboard();
 });
 
-export { getData };
+export { getData, updateDashboard, renderEmployeesTable, renderProjectsTable };
