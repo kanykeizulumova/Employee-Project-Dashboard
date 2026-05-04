@@ -128,7 +128,7 @@ seedDataBtn.addEventListener('click', (e) => {
 
 const state = {
     selectedYear: '2026',
-    selectedMonth: '2', // March
+    selectedMonth: '3', // April
 };
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
 let periodKey = getPeriodKey();
@@ -355,8 +355,8 @@ function renderEmployeesTable(data) {
                         <td>${emp.name}</td>
                         <td>${emp.surname}</td>
                         <td>${calculateAge(emp.dateofbirth)}</td>
-                        <td>${emp.position}</td>
-                        <td>$ ${emp.salary.toLocaleString()}</td>
+                        <td class="edit-select" data-id = "${emp.id}" data-key= "position">${emp.position}</td>
+                        <td contenteditable="true" data-id = "${emp.id}" data-key= "salary">$ ${emp.salary.toLocaleString()}</td>
                         <td>$ ${estimatedPayment.toFixed(2)}</td>
                         <td>
                             <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects (${projectCount})</button>
@@ -499,12 +499,36 @@ function renderEmployeesAssignments(staffList, projectId) {
     popup.style.display = 'flex';
 }
 
+employeeContainer.addEventListener('blur', (event) => {
+    const cell = event.target.closest('[contenteditable="true"]');
+    if (!cell) return;
+    const id = cell.dataset.id;
+    const key = cell.dataset.key;
+    const catalog = getData();
+    const periodKey = getPeriodKey();
+    let employee = catalog.monthlyData[periodKey].employees.find(e => e.id == id);
+
+    if (employee) {
+        if (key === 'salary') {
+            const cleanValue = cell.innerText.replace(/\D/g, "");
+            employee[key] = Number(cleanValue);
+            cell.innerText = cleanValue;
+        } else {
+            employee[key] = cell.innerText.trim();
+        }
+        saveData(catalog);
+        updateDashboard();
+    }
+}, true)
+
 
 employeeContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('show-assignments-btn')) {
         const employeeId = event.target.getAttribute('data-employee-id');
         showEmployeeProjects(employeeId);
+        return;
     }
+
     if (event.target.classList.contains('vacation-btn')) {
         const employeeId = event.target.getAttribute('data-employee-id');
         const eId = Number(employeeId);
@@ -514,7 +538,9 @@ employeeContainer.addEventListener('click', (event) => {
         createCalendar(state.selectedYear, state.selectedMonth, employee.vacation, employeeFullName);
         calendarWrapper.classList.remove('hidden');
         calendarWrapper.style.display = 'flex';
+        return;
     };
+
     if (event.target.classList.contains('delete-emp-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
         let periodKey = getPeriodKey();
@@ -524,6 +550,7 @@ employeeContainer.addEventListener('click', (event) => {
         if (confirm(`Are you sure you want to delete ${employeeName}?`)) {
             deleteEmployee(employeeId);
         }
+        return;
     }
 
     if (event.target.classList.contains('assignment-btn')) {
@@ -531,6 +558,60 @@ employeeContainer.addEventListener('click', (event) => {
         activeAssignmentTrigger = event.target;
         openAssignmentPopup(employeeId);
         setTimeout(repositionAssignmentPopup, 0);
+        return;
+    }
+
+    const cell = event.target.closest('[contenteditable="true"]');
+    if (cell) {
+        const id = cell.dataset.id;
+        const key = cell.dataset.key;
+    }
+
+    if (event.target.classList.contains('edit-select')) {
+        const td = event.target;
+        if (td.querySelector('select')) return;
+
+        const id = td.dataset.id;
+        const key = td.dataset.key;
+        const currentPos = td.textContent.trim();
+        const positions = ['Junior', 'Middle', 'Senior', 'Lead', 'Architect', 'BO'];
+
+
+        const select = document.createElement('select');
+        select.className = 'inline-edit-select';
+
+        positions.forEach(opt => {
+            const option = document.createElement('option');
+            option.value = opt;
+            option.textContent = opt;
+            if (opt === currentPos) option.selected = true;
+            select.appendChild(option);
+        });
+
+        td.replaceChildren(select);
+        select.focus();
+
+        const finishEditing = () => {
+            updateDashboard(); // This will re-render and put back the text
+        };
+
+        select.addEventListener('change', () => {
+            const catalog = getData();
+            const periodKey = getPeriodKey();
+            const employee = catalog.monthlyData[periodKey].employees.find(e => e.id == id);
+
+            if (employee) {
+                employee[key] = select.value;
+                saveData(catalog);
+            }
+
+            select.addEventListener('blur', () => {
+                finishEditing();
+            });
+
+
+            select.addEventListener('click', (e) => e.stopPropagation());
+        })
     }
 })
 
