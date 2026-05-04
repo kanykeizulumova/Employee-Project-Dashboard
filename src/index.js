@@ -269,7 +269,7 @@ function renderProjectsTable(data) {
                             ${usedCap.toFixed(1)} / ${totalCap}
                         </td>
                         <td>
-                            <button class="show-btn btn" data-project-id="${proj.id}">Show Assigned Employees</button>
+                            <button class="show-btn btn" data-project-id="${proj.id}">Show Assigned Employees (${proj.assignedEmployees.length})</button>
                         </td>
                         <td>$ ${estimatedIncome.toFixed(2)}</td>
                         <td>
@@ -349,6 +349,7 @@ function renderEmployeesTable(data) {
             });
         }
 
+        const projectCount = emp.assignments.filter(a => a.projectId).length;
         return `
                     <tr>
                         <td>${emp.name}</td>
@@ -358,7 +359,7 @@ function renderEmployeesTable(data) {
                         <td>$ ${emp.salary.toLocaleString()}</td>
                         <td>$ ${estimatedPayment.toFixed(2)}</td>
                         <td>
-                            <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects</button>
+                            <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects (${projectCount})</button>
                         </td>
                         <td>$ ${projectedIncome.toFixed(2)}</td>
                         <td>
