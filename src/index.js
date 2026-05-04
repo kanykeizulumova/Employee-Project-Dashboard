@@ -4,11 +4,6 @@ import './sorting-filtering.js';
 import { createCalendar, countVacationWorkingDays, getVacationCoefficient } from './calendar.js';
 import catalogDt from './data.json';
 console.log('Данные загружены через import:', catalogDt);
-if (!localStorage.getItem('catalogDt')) {
-    localStorage.setItem('catalogDt', JSON.stringify(catalogDt));
-}
-
-
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const openButton = document.getElementById('open-button');
@@ -19,11 +14,31 @@ const projectsContainer = document.getElementById('projects-table-container');
 const employeeContainer = document.getElementById('employees-table-container');
 
 function getData() {
-    return JSON.parse(localStorage.getItem('catalogDt'))
+    try {
+        const data = localStorage.getItem('catalogDt');
+        if (data) {
+            const parsed = JSON.parse(data);
+            if (parsed && parsed.monthlyData) {
+                return parsed;
+            }
+        }
+    } catch (e) {
+        console.error('Error parsing data from localStorage:', e);
+    }
+
+    console.warn('Restoring data from data.json fallback');
+    localStorage.setItem('catalogDt', JSON.stringify(catalogDt));
+    return catalogDt;
 }
+
 function saveData(data) {
-    localStorage.setItem('catalogDt', JSON.stringify(data));
+    try {
+        localStorage.setItem('catalogDt', JSON.stringify(data));
+    } catch (e) {
+        console.error('Error saving to localStorage:', e);
+    }
 }
+
 
 function addProject(newProject) {
     let periodKey = getPeriodKey();
@@ -132,7 +147,10 @@ const state = {
 };
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
 let periodKey = getPeriodKey();
-let currentData = getData().monthlyData[periodKey];
+const initialData = getData();
+let currentData = (initialData.monthlyData && initialData.monthlyData[periodKey])
+    ? initialData.monthlyData[periodKey]
+    : { employees: [], projects: [] };
 let activeAssignmentTrigger = null;
 
 function repositionAssignmentPopup() {
@@ -592,7 +610,7 @@ employeeContainer.addEventListener('click', (event) => {
         select.focus();
 
         const finishEditing = () => {
-            updateDashboard(); // This will re-render and put back the text
+            updateDashboard();
         };
 
         select.addEventListener('change', () => {
@@ -1299,9 +1317,7 @@ document.addEventListener('click', (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    if (!localStorage.getItem('catalogDt')) {
-        localStorage.setItem('catalogDt', JSON.stringify(catalogDt));
-    }
+    getData();
     updateDashboard();
 });
 
