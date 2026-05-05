@@ -667,7 +667,7 @@ function openAssignmentPopup(employeeId) {
 
     applyBtn.setAttribute('data-employee-id', employeeId);
     const selectElement = document.getElementById('select-project');
-    selectElement.innerHTML = '<option value="">Select a project</option>';
+    selectElement.innerHTML = '<option value="" disabled selected>Select a project</option>';
     let periodKey = getPeriodKey();
     let catalog = getData();
     let currentProjects = catalog.monthlyData[periodKey].projects;
@@ -768,7 +768,11 @@ function updateCalculations() {
         validationMessageEl.className = 'validation-message';
     }
 
-    if (!projectId) return;
+    if (!projectId) {
+        validationMessageEl.textContent = 'Please select a project to proceed.';
+        validationMessageEl.className = 'validation-message error';
+        return;
+    }
 
     const effectiveCapacity = allocatedCapacity * projectFit;
     let currentProjectAssigned = 0;
@@ -1264,6 +1268,10 @@ applyAssignmentBtn.addEventListener('click', (e) => {
     const newTotalCapacity = currentCapacity + assignedCapacityCoef;
 
     if (newTotalCapacity > 1.5) {
+        return;
+    }
+    if (!projectId) {
+        alert('Please select a project first.');
         return;
     }
     assignEmployeeToProject(employeeId, projectId, assignedCapacityCoef, projectFitCoef);
