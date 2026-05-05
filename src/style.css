@@ -563,7 +563,8 @@ input:invalid:not(:placeholder-shown) {
 #popup-details,
 .assignment-popup-content,
 .calendar-popup-content,
-.unassignment-popup-content {
+.unassignment-popup-content,
+#seed-data-popup {
     background: var(--panel-bg);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
@@ -618,6 +619,9 @@ input:invalid:not(:placeholder-shown) {
 
 .seed-popup-content {
     padding: 24px;
+    overflow-y: auto;
+    flex-grow: 1;
+    min-height: 0;
 }
 
 /* Headers inside popups */
@@ -647,9 +651,12 @@ input:invalid:not(:placeholder-shown) {
 #popup-content {
     overflow-y: auto;
     padding: 24px;
+    flex-grow: 1;
+    min-height: 0;
 }
 
-#popup-content table th {
+#popup-content table th,
+.seed-popup-content table th {
     position: sticky;
     top: 0;
     background-color: white;
@@ -874,9 +881,10 @@ input:invalid:not(:placeholder-shown) {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: var(--bg-color);
     border: 1px solid var(--slate-200);
     border-radius: var(--radius-lg);
+    width: 700px;
+    max-width: 90%;
 }
 
 
