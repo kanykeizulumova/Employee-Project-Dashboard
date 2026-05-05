@@ -275,8 +275,7 @@ function renderProjectsTable(data) {
     const statusClass = totalProfit >= 0 ? 'positive-income' : 'negative-income';
 
     totalIncome.innerHTML = `
-  Total Estimated Income: <span class="${statusClass}">$${totalProfit.toLocaleString()}</span> 
-  (Bench Cost: $${totalBenchCost.toLocaleString()})
+  Total Estimated Income: <span class="${statusClass}">$${totalProfit.toLocaleString()}</span> <span class = "neutral">(Bench Cost: $${totalBenchCost.toLocaleString()}) </span>
 `;
 
 
