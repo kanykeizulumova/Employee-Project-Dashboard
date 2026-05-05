@@ -789,6 +789,10 @@ input:invalid:not(:placeholder-shown) {
     color: var(--slate-400);
 }
 
+.active-sort {
+    color: var(--slate-800);
+}
+
 .popup-actions {
     display: flex;
     justify-content: flex-end;

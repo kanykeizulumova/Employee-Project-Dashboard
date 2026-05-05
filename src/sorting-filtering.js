@@ -222,15 +222,35 @@ function applySort(source) {
 
     if (source === 'employees') {
         renderEmployeesTable(result);
+        updateSortIcons(source);
     } else {
         renderProjectsTable(result);
+        updateSortIcons(source);
     }
 
 }
 
 function updateSortIcons(source) {
+    const table = document.getElementById(`${source}-table`);
+    const allSortTh = table.querySelectorAll('th.sortable');
+    const { key, direction } = activeSort[source];
+    allSortTh.forEach(th => {
+        const span = th.querySelector('.sort-icon');
+        if (!span) return;
+        const columnKey = th.getAttribute('data-sort');
+
+        if (columnKey === key) {
+            span.innerText = direction === 'asc' ? '↑' : '↓';
+            th.classList.add('active-sort');
+        } else {
+            span.innerText = '⇅';
+            th.classList.remove('active-sort');
+        }
+    });
+
 
 }
+
 
 employeeContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {

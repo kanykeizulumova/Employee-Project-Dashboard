@@ -312,7 +312,7 @@ function renderProjectsTable(data) {
                             ${usedCap.toFixed(1)} / ${totalCap}
                         </td>
                         <td>
-                            <button class="show-btn btn" data-project-id="${proj.id}">Show Assigned Employees (${proj.assignedEmployees.length})</button>
+                            <button class="show-btn btn" data-project-id="${proj.id}">Show Employees (${proj.assignedEmployees.length})</button>
                         </td>
                         <td class="${estimatedIncome < 0 ? 'negative-income' : 'positive-income'}">$ ${estimatedIncome.toFixed(2)}
 </td>
