@@ -530,7 +530,7 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td class="${profit < 0 ? 'negative-income' : 'positive-income'}">$ ${profit}</td>
                                 <td>
                                 <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}" data-source="project">Edit assignments</button >
-                                <button class="unassign-btn btn" data-project-id="${projectId}" data-employee-id="${emp.id}">Unassign</button>
+                                <button class="unassign-btn btn" data-project-id="${projectId}" data-employee-id="${emp.id}" data-source="project">Unassign</button>
                                 </td>
                             </tr>
                         `;
@@ -866,7 +866,7 @@ function saveEditAssignment() {
     }
 }
 
-function unassignEmployee(employeeId, projectId) {
+function unassignEmployee(employeeId, projectId, source) {
     let periodKey = getPeriodKey();
     let catalog = getData();
     const employee = catalog.monthlyData[periodKey].employees.find(e => e.id === employeeId);
@@ -874,7 +874,13 @@ function unassignEmployee(employeeId, projectId) {
     employee.assignments = employee.assignments.filter(a => Number(a.projectId) !== Number(projectId));
     project.assignedEmployees = project.assignedEmployees.filter(eId => Number(eId) !== Number(employeeId));
     saveData(catalog);
-    showEmployeeProjects(employeeId, projectId);
+
+    if (source === 'employee') {
+        showEmployeeProjects(employeeId);
+    } else if (source === 'project') {
+        showProjectStaff(projectId);
+    }
+
     updateDashboard();
 }
 const popupContainer = document.getElementById('popup-details');
@@ -904,30 +910,51 @@ popupContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('unassign-btn')) {
         const employeeId = Number(event.target.getAttribute('data-employee-id'));
         const projectId = Number(event.target.getAttribute('data-project-id'));
+        const source = event.target.getAttribute('data-source');
         const employee = currentData.employees.find(e => e.id === employeeId);
         const projectName = currentData.projects.find(proj => proj.id === projectId);
-        const job = employee.assignments.find(a => a.projectId === projectId);
+        const job = employee.assignments.find(a => Number(a.projectId) === projectId);
         const assignedCap = job ? Number(job.AssignedCapacity) : 0;
-        const empCost = countEmployeeCost(state.selectedYear, state.selectedMonth, employee.id, projectId).toFixed(2);
+
+        const empCost = countEmployeeCost(state.selectedYear, state.selectedMonth, employee.id, projectId);
         const projectedIncome = getEmployeeProfit(state.selectedYear, state.selectedMonth, employee.id, projectId, employee.vacation);
         const usedCap = getUsedEffectiveCapacity(state.selectedYear, state.selectedMonth, projectId);
         const totalCap = projectName.EmployeeCapacity;
-        const afterCap = usedCap - assignedCap;
+        const effectiveCap = getEffectiveCapacity(state.selectedYear, state.selectedMonth, employee.id, projectId, employee.vacation);
+        const afterCap = usedCap - effectiveCap;
+
+        const budgetShare = countEmployeeRevenue(state.selectedYear, state.selectedMonth, employee.id, projectId, employee.vacation);
+        const incomeNow = countProjectProfit(state.selectedYear, state.selectedMonth, projectId);
+
+        const originalAssignments = employee.assignments;
+        employee.assignments = employee.assignments.filter(a => Number(a.projectId) !== projectId);
+        const incomeAfter = countProjectProfit(state.selectedYear, state.selectedMonth, projectId);
+        employee.assignments = originalAssignments;
+
+        const applyColor = (elId, value) => {
+            const el = document.getElementById(elId);
+            if (!el) return;
+            el.innerHTML = `$ ${value.toFixed(2)}`;
+            el.className = `info-value ${value < 0 ? 'negative-income' : 'positive-income'}`;
+        };
 
         document.querySelector('.unassignment-popup-overlay').classList.remove('hidden');
         document.querySelector('.unassign-message').innerHTML = `You want to unassign <strong>${employee.name} ${employee.surname}</strong> (${assignedCap.toFixed(2)} capacity) from <strong>${projectName.projectname}</strong>?`
+
         document.getElementById('unassign-capacity').innerHTML = `${assignedCap.toFixed(2)}`;
-        document.getElementById('unassign-salary-share').innerHTML = `$ ${empCost}`;
-        document.getElementById('unassign-income').innerHTML = `$ ${projectedIncome.toFixed(2)}`;
+        applyColor('unassign-salary-share', empCost);
+        applyColor('unassign-budget-share', budgetShare);
+        applyColor('unassign-income', projectedIncome);
+        applyColor('unassign-project-income-now', incomeNow);
+        applyColor('unassign-project-income-after', incomeAfter);
+
         document.getElementById('unassign-project-capacity').innerHTML = `${usedCap.toFixed(2)} / ${totalCap}`;
         document.getElementById('unassign-after-capacity').innerHTML = `${afterCap.toFixed(2)} / ${totalCap}`;
-
-
 
         const UnassignBtn = document.querySelector('.popup-confirm-unassign');
         UnassignBtn.setAttribute('data-employee-id', employeeId);
         UnassignBtn.setAttribute('data-project-id', projectId);
-
+        UnassignBtn.setAttribute('data-source', source);
     }
 });
 
@@ -1017,7 +1044,8 @@ unassignmentPopup.addEventListener('click', (e) => {
     if (e.target.classList.contains('popup-confirm-unassign')) {
         const employeeId = Number(e.target.getAttribute('data-employee-id'));
         const projectId = Number(e.target.getAttribute('data-project-id'));
-        unassignEmployee(employeeId, projectId);
+        const source = e.target.getAttribute('data-source');
+        unassignEmployee(employeeId, projectId, source);
         document.querySelector('.unassignment-popup-overlay').classList.add('hidden');
     }
 })
@@ -1091,7 +1119,7 @@ function renderProjectsInPopup(projects, employee) {
                                 <td class="${profit < 0 ? 'negative-income' : 'positive-income'}">$ ${profit}</td>
                                 <td>
                                     <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}" data-source="employee">Edit assignments</button >
-                                    <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
+                                    <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}" data-source="employee">Unassign</button>
                                 </td>
                             </tr>
                         `;
