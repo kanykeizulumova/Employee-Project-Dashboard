@@ -1,4 +1,4 @@
-import { getData, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey, state } from "./index.js";
+import { getData, calculateAge, getUsedEffectiveCapacity, countProjectProfit, getEmployeeProfit, countEmployeeCost, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey, state } from "./index.js";
 const monthSelect = document.getElementById('month-select');
 const yearSelect = document.getElementById('year-select');
 
@@ -175,32 +175,60 @@ function applyAllFilters(source) {
 
 
 function applySort(source) {
-    const catalog = getData();
-    const periodKey = getPeriodKey();
-    const data = catalog.monthlyData[periodKey][source];
+    const data = applyAllFilters(source);
+    let result = [...data];
 
     const { key, direction } = activeSort[source];
 
     if (!key) return;
 
-    data.sort((a, b) => {
-        let valA = a[key];
-        let valB = b[key];
+    result.sort((a, b) => {
+        let valA, valB;
 
-        if (typeof valA === 'string') valA = valA.toLowerCase();
-        if (typeof valB === 'string') valB = valB.toLowerCase();
-        if (valA < valB) return direction === 'asc' ? -1 : 1;
-        if (valA > valB) return direction === 'asc' ? 1 : -1;
-        return 0;
+        if (key === 'employeeCapacity') {
+            valA = getUsedEffectiveCapacity(state.selectedYear, state.selectedMonth, a.id)
+            valB = getUsedEffectiveCapacity(state.selectedYear, state.selectedMonth, b.id)
+        } else if (key === 'estimatedIncome' || key === 'profit') {
+            valA = countProjectProfit(state.selectedYear, state.selectedMonth, a.id);
+            valB = countProjectProfit(state.selectedYear, state.selectedMonth, b.id);
+        } else if (key === 'age') {
+            valA = calculateAge(a.dateofbirth);
+            valB = calculateAge(b.dateofbirth);
+        }
+        else if (key === 'estimatedPayment') {
+            valA = countEmployeeCost(state.selectedYear, state.selectedMonth, a.id);
+            valB = countEmployeeCost(state.selectedYear, state.selectedMonth, b.id)
+        }
+        else if (key === 'projectedIncome') {
+            valA = getEmployeeProfit(state.selectedYear, state.selectedMonth, a.id, a.vacation);
+            valB = getEmployeeProfit(state.selectedYear, state.selectedMonth, b.id, b.vacation);
+        } else {
+            valA = a[key] ?? "";
+            valB = b[key] ?? "";
+        }
+        let comparison = 0;
+        let numA = parseFloat(valA);
+        let numB = parseFloat(valB);
+
+        if (!isNaN(numA) && !isNaN(numB)) {
+            comparison = numA - numB;
+        } else {
+            comparison = String(valA).localeCompare(String(valB), undefined, { numeric: true });
+        }
+        return direction === 'asc' ? comparison : -comparison;
     });
 
 
 
     if (source === 'employees') {
-        renderEmployeesTable(data);
+        renderEmployeesTable(result);
     } else {
-        renderProjectsTable(data);
+        renderProjectsTable(result);
     }
+
+}
+
+function updateSortIcons(source) {
 
 }
 
@@ -255,7 +283,7 @@ projectsContainer.addEventListener('click', (e) => {
         const columnKey = sortDt.getAttribute('data-sort');
         const source = 'projects';
         if (activeSort.projects.key === columnKey) {
-            activeSort.projects.direction = activeSort.employees.direction === 'asc' ? 'desc' : 'asc';
+            activeSort.projects.direction = activeSort.projects.direction === 'asc' ? 'desc' : 'asc';
         }
         else {
             activeSort.projects.key = columnKey;

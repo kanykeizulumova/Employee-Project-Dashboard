@@ -252,7 +252,7 @@ function renderProjectsTableEmpty() {
                     <th class="sortable filterable" data-sort="projectName" data-filter="projectName">
                         Project Name <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span>
                     </th>
-                    <th class="sortable" data-sort="budget">Budget <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-sort="budjet">Budget <span class="sort-icon">⇅</span></th>
                     <th class="sortable" data-sort="employeeCapacity">Employee Capacity <span class="sort-icon">⇅</span></th>
                     <th>Employees</th>
                     <th class="sortable" data-sort="estimatedIncome">Estimated Income <span class="sort-icon">⇅</span></th>
@@ -289,7 +289,7 @@ function renderProjectsTable(data) {
                     <th class="sortable filterable" data-sort="projectName" data-filter="projectName">
                         Project Name <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span>
                     </th>
-                    <th class="sortable" data-sort="budget">Budget <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-sort="budjet">Budget <span class="sort-icon">⇅</span></th>
                     <th class="sortable" data-sort="employeeCapacity">Employee Capacity <span class="sort-icon">⇅</span></th>
                     <th>Employees</th>
                     <th class="sortable" data-sort="estimatedIncome">Estimated Income <span class="sort-icon">⇅</span></th>
@@ -337,7 +337,7 @@ function renderEmployeesTableEmpty() {
                     <th class="sortable filterable" data-sort="position" data-filter="position">Position <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span></th>
                     <th class="sortable" data-sort="salary">Salary <span class="sort-icon">⇅</span></th>
                     <th class="sortable" data-sort="estimatedPayment">Estimated Payment <span class="sort-icon">⇅</span></th>
-                    <th class="sortable filterable" data-sort="projectId" data-filter="projectId">Project <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span></th>
+                    <th>Project</th>
                     <th class="sortable" data-sort="projectedIncome">Projected Income <span class="sort-icon">⇅</span></th>
                     <th>Actions</th>
                 </tr>
@@ -373,7 +373,7 @@ function renderEmployeesTable(data) {
                     <th class="sortable filterable" data-sort="position" data-filter="position">Position <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span></th>
                     <th class="sortable" data-sort="salary">Salary <span class="sort-icon">⇅</span></th>
                     <th class="sortable" data-sort="estimatedPayment">Estimated Payment <span class="sort-icon">⇅</span></th>
-                    <th class="sortable filterable" data-sort="projectId" data-filter="projectId">Project <span class="sort-icon">⇅</span> <span class="filter-icon" title="Filter">⌕</span></th>
+                    <th>Project</th>
                     <th class="sortable" data-sort="projectedIncome">Projected Income <span class="sort-icon">⇅</span></th>
                     <th>Actions</th>
                 </tr>
@@ -1383,4 +1383,4 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboard();
 });
 
-export { getData, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey, state };
+export { getData, calculateAge, getUsedEffectiveCapacity, countProjectProfit, getEmployeeProfit, countEmployeeCost, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey, state };
