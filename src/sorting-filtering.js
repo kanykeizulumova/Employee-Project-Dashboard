@@ -20,13 +20,17 @@ function filterData(key, query, source) {
     const periodKey = getPeriodKey();
     const data = catalog.monthlyData[periodKey];
     if (!data) return [];
-    
+
     return data[source].filter(item =>
         String(item[key] || "").toLowerCase().includes(q)
     );
 }
 
-const activeFilters = { employees: {}, projects: {} }
+const activeFilters = { employees: {}, projects: {} };
+const activeSort = {
+    employees: { key: null, direction: 'asc' },
+    projects: { key: null, direction: 'asc' }
+};
 
 const projectsContainer = document.getElementById('projects-table-container');
 const employeeContainer = document.getElementById('employees-table-container');
@@ -170,6 +174,36 @@ function applyAllFilters(source) {
 }
 
 
+function applySort(source) {
+    const catalog = getData();
+    const periodKey = getPeriodKey();
+    const data = catalog.monthlyData[periodKey][source];
+
+    const { key, direction } = activeSort[source];
+
+    if (!key) return;
+
+    data.sort((a, b) => {
+        let valA = a[key];
+        let valB = b[key];
+
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+        if (valA < valB) return direction === 'asc' ? -1 : 1;
+        if (valA > valB) return direction === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+
+
+    if (source === 'employees') {
+        renderEmployeesTable(data);
+    } else {
+        renderProjectsTable(data);
+    }
+
+}
+
 employeeContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
         activeFilterTrigger = e.target;
@@ -182,7 +216,27 @@ employeeContainer.addEventListener('click', (e) => {
         createFilterContent(columnKey);
         repositionFilterPopup();
     }
+
+    if (e.target.closest('th') && e.target.classList.contains('sort-icon')) {
+        const sortDt = e.target.closest('th');
+        const columnKey = sortDt.getAttribute('data-sort');
+        const source = 'employees';
+        if (activeSort.employees.key === columnKey) {
+
+            activeSort.employees.direction = activeSort.employees.direction === 'asc' ? 'desc' : 'asc';
+
+        } else {
+
+            activeSort.employees.key = columnKey;
+
+            activeSort.employees.direction = "asc";
+
+        }
+
+        applySort(source);
+    }
 })
+
 
 projectsContainer.addEventListener('click', (e) => {
     if (e.target.closest('th') && e.target.classList.contains('filter-icon')) {
@@ -195,6 +249,20 @@ projectsContainer.addEventListener('click', (e) => {
         filterPopup.classList.remove('hidden');
         createFilterContent(columnKey);
         repositionFilterPopup();
+    }
+    if (e.target.closest('th') && e.target.classList.contains('sort-icon')) {
+        const sortDt = e.target.closest('th');
+        const columnKey = sortDt.getAttribute('data-sort');
+        const source = 'projects';
+        if (activeSort.projects.key === columnKey) {
+            activeSort.projects.direction = activeSort.employees.direction === 'asc' ? 'desc' : 'asc';
+        }
+        else {
+            activeSort.projects.key = columnKey;
+
+            activeSort.projects.direction = "asc";
+        }
+        applySort(source);
     }
 })
 
