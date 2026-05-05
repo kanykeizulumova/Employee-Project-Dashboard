@@ -1,11 +1,4 @@
-import { getData, updateDashboard, renderEmployeesTable, renderProjectsTable } from "./index.js";
-const state = {
-    selectedYear: '2026',
-    selectedMonth: '2', // March
-};
-const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
-let periodKey = getPeriodKey();
-let currentData = getData().monthlyData[periodKey];
+import { getData, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey, state } from "./index.js";
 const monthSelect = document.getElementById('month-select');
 const yearSelect = document.getElementById('year-select');
 
@@ -23,9 +16,13 @@ yearSelect.addEventListener('change', (e) => {
 
 function filterData(key, query, source) {
     const q = query.toLowerCase();
-    // currentData[source] выберет либо массив .employees, либо .projects
-    return currentData[source].filter(item =>
-        item[key].toLowerCase().includes(q)
+    const catalog = getData();
+    const periodKey = getPeriodKey();
+    const data = catalog.monthlyData[periodKey];
+    if (!data) return [];
+    
+    return data[source].filter(item =>
+        String(item[key] || "").toLowerCase().includes(q)
     );
 }
 
