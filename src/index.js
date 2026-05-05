@@ -239,7 +239,8 @@ yearSelect.addEventListener('change', (e) => {
 
 function renderProjectsTableEmpty() {
     const totalIncome = document.getElementById('total-income');
-    totalIncome.innerHTML = `Total Estimated Income: $0.00`;
+
+    totalIncome.innerHTML = `Total Estimated Income: <span class= .positive-income> $ 0.00`;
 
     const tableHtml = `
         <table id="projects-table">
@@ -271,8 +272,13 @@ function renderProjectsTable(data) {
     const total = data.reduce((sum, proj) => sum + (Number(proj.budjet) || 0), 0);
     const totalProfit = countProjectProfitTotal(state.selectedYear, state.selectedMonth);
     const totalBenchCost = countBenchCost(state.selectedYear, state.selectedMonth);
+    const statusClass = totalProfit >= 0 ? 'positive-income' : 'negative-income';
 
-    totalIncome.innerHTML = `Total Estimated Income: $${totalProfit.toLocaleString()} (Bench Cost: $${totalBenchCost.toLocaleString()})   `;
+    totalIncome.innerHTML = `
+  Total Estimated Income: <span class="${statusClass}">$${totalProfit.toLocaleString()}</span> 
+  (Bench Cost: $${totalBenchCost.toLocaleString()})
+`;
+
 
     const tableHtml = `
         <table id="projects-table">
@@ -309,7 +315,8 @@ function renderProjectsTable(data) {
                         <td>
                             <button class="show-btn btn" data-project-id="${proj.id}">Show Assigned Employees (${proj.assignedEmployees.length})</button>
                         </td>
-                        <td>$ ${estimatedIncome.toFixed(2)}</td>
+                        <td class="${estimatedIncome < 0 ? 'negative-income' : 'positive-income'}">$ ${estimatedIncome.toFixed(2)}
+</td>
                         <td>
                              <button class="delete-btn btn" data-id="${proj.id}">Delete</button>
                         </td>
@@ -399,7 +406,7 @@ function renderEmployeesTable(data) {
                         <td>
                             <button class="show-assignments-btn btn" data-employee-id="${emp.id}">Show Projects (${projectCount})</button>
                         </td>
-                        <td>$ ${projectedIncome.toFixed(2)}</td>
+                        <td class="${projectedIncome < 0 ? 'negative-income' : 'positive-income'}">$ ${projectedIncome.toFixed(2)}</td>
                         <td>
                             <button class="vacation-btn btn" data-employee-id="${emp.id}">Availability</button>
                             <button class="assignment-btn btn" data-employee-id="${emp.id}">Assign</button>
@@ -518,9 +525,9 @@ function renderEmployeesAssignments(staffList, projectId) {
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td>${emp ? emp.vacation.length : '0'} days </td>
                                 <td>${effective}</td>
-                                <td>${revenue} $</td>
-                                <td>${empCost} $</td>
-                                <td>${profit} $</td>
+                                <td class="${revenue < 0 ? 'negative-income' : 'positive-income'}">$ ${revenue}</td>
+                                <td class="${empCost < 0 ? 'negative-income' : 'positive-income'}">$ ${empCost}</td>
+                                <td class="${profit < 0 ? 'negative-income' : 'positive-income'}">$ ${profit}</td>
                                 <td>
                                 <button class="edit-btn btn" data-employee-id="${emp.id}" data-project-id="${projectId}" data-source="project">Edit assignments</button >
                                 <button class="unassign-btn btn" data-project-id="${projectId}" data-employee-id="${emp.id}">Unassign</button>
@@ -974,7 +981,7 @@ function getSeedData() {
                 <td>${monthNames[month]}</td>
                 <td>${project.length}</td>
                 <td>${employee.length}</td>
-                <td>$${totalIncome.toFixed(2)}</td>
+                <td class="${totalIncome < 0 ? 'negative-income' : 'positive-income'}">$${totalIncome.toFixed(2)}</td>
                 <td><button class="btn btn-seed-data" data-copy-month = "${key}" data-current-month = "${periodKey}">Seed</button></td>
         </tr>`;
     }).join('')}
@@ -1079,9 +1086,9 @@ function renderProjectsInPopup(projects, employee) {
                                 <td>${job ? job.ProjectFit : '0'}</td>
                                 <td> ${employee ? employee.vacation.length : '0'} days </td>
                                 <td> ${effective}</td>
-                                <td> ${revenue} $</td>
-                                <td>${empCost} $</td>
-                                <td>${profit} $</td>
+                                <td class="${revenue < 0 ? 'negative-income' : 'positive-income'}">$ ${revenue}</td>
+                                <td class="${empCost < 0 ? 'negative-income' : 'positive-income'}">$ ${empCost}</td>
+                                <td class="${profit < 0 ? 'negative-income' : 'positive-income'}">$ ${profit}</td>
                                 <td>
                                     <button class="edit-btn btn" data-employee-id="${employee.id}" data-project-id="${proj.id}" data-source="employee">Edit assignments</button >
                                     <button class="unassign-btn btn" data-project-id="${proj.id}" data-employee-id="${employee.id}">Unassign</button>
