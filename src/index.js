@@ -146,11 +146,8 @@ const state = {
     selectedMonth: '3', // April
 };
 const getPeriodKey = () => `${state.selectedYear}-${state.selectedMonth}`;
-let periodKey = getPeriodKey();
-const initialData = getData();
-let currentData = (initialData.monthlyData && initialData.monthlyData[periodKey])
-    ? initialData.monthlyData[periodKey]
-    : { employees: [], projects: [] };
+let periodKey = "";
+let currentData = { employees: [], projects: [] };
 let activeAssignmentTrigger = null;
 
 function repositionAssignmentPopup() {
@@ -190,8 +187,15 @@ document.addEventListener('scroll', (e) => {
 }, true);
 
 function updateDashboard() {
+    const data = getData();
     periodKey = getPeriodKey();
-    currentData = getData().monthlyData[periodKey];
+
+    if (!data || !data.monthlyData) {
+        console.error('Data or monthlyData is missing');
+        return;
+    }
+
+    currentData = data.monthlyData[periodKey];
 
     if (currentData) {
         renderEmployeesTable(currentData.employees);
@@ -916,7 +920,7 @@ function getSeedData() {
     let periodKey = getPeriodKey();
     let catalog = getData();
     const allMonths = Object.keys(catalog.monthlyData);
-    let leftMonths = allMonths.filter(key => key !== periodKey);
+    let leftMonths = allMonths.filter(key => key !== periodKey && catalog.monthlyData[key].projects.length > 0);
     let currentMonth = state.selectedMonth;
     let currentYear = state.selectedYear;
     const content = document.querySelector('.seed-popup-content');
@@ -946,7 +950,7 @@ function getSeedData() {
         const totalIncome = countProjectProfitTotal(year, month);
         currentData = originalCurrentData;
         return `<tr>
-        <td>${year}</td>
+                <td>${year}</td>
                 <td>${monthNames[month]}</td>
                 <td>${project.length}</td>
                 <td>${employee.length}</td>
@@ -1321,4 +1325,4 @@ document.addEventListener('DOMContentLoaded', () => {
     updateDashboard();
 });
 
-export { getData, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey };
+export { getData, updateDashboard, renderEmployeesTable, renderProjectsTable, getPeriodKey, state };
